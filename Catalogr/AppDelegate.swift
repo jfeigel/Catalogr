@@ -9,24 +9,11 @@
 import UIKit
 import CoreData
 
-import GoogleSignIn
-
 @UIApplicationMain
-class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate {
-
-
-
+class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
-        GIDSignIn.sharedInstance().clientID = "507422900356-rnjif0h44s0ge90crjanb8njosld04cq.apps.googleusercontent.com"
-        GIDSignIn.sharedInstance().scopes = ["https://www.googleapis.com/auth/books"]
-        GIDSignIn.sharedInstance().delegate = self
         return true
-    }
-    
-    @available(iOS 9.0, *)
-    func application(_ app: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey : Any]) -> Bool {
-        return GIDSignIn.sharedInstance().handle(url)
     }
 
     // MARK: UISceneSession Lifecycle
@@ -86,25 +73,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate {
                 fatalError("Unresolved error \(nserror), \(nserror.userInfo)")
             }
         }
-    }
-    
-    // MARK: - GID Sign In Delegate
-    
-    func sign(_ signIn: GIDSignIn!, didSignInFor user: GIDGoogleUser!, withError error: Error!) {
-        if let error = error {
-            if (error as NSError).code == GIDSignInErrorCode.hasNoAuthInKeychain.rawValue {
-                print("The user has not signed in before or they have since signed out.")
-            } else {
-                print("\(error.localizedDescription)")
-            }
-            return
-        }
-        
-        print(user.authentication.idToken)
-    }
-    
-    func sign(_ signIn: GIDSignIn!, didDisconnectWith user: GIDGoogleUser!, withError error: Error!) {
-        print("User has diconnected from the app.")
     }
 
 }
