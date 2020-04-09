@@ -12,19 +12,21 @@ import UIKit
 import BarcodeScanner
 
 class MainViewController: UIViewController {
-  private let viewController = BarcodeScannerViewController()
+  private let bsViewController: BarcodeScannerViewController = BarcodeScannerViewController()
   private let key = "AIzaSyBbagy9yBWnF0oPjDsmU46rsCuGoK3h-Zk"
   
   @IBAction func handleScannerPresent(_ sender: UIBarButtonItem) {
-    present(viewController, animated: true, completion: nil)
+    present(bsViewController, animated: true, completion: nil)
   }
   
   override func viewDidLoad() {
     super.viewDidLoad()
     
-    viewController.codeDelegate = self
-    viewController.errorDelegate = self
-    viewController.dismissalDelegate = self
+    bsViewController.codeDelegate = self
+    bsViewController.errorDelegate = self
+    bsViewController.dismissalDelegate = self
+    bsViewController.headerViewController.titleLabel.textColor = UIColor.label
+    bsViewController.headerViewController.closeButton.tintColor = UIColor.systemBlue
   }
   
   override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -39,6 +41,7 @@ class MainViewController: UIViewController {
 extension MainViewController: BarcodeScannerCodeDelegate {
   func scanner(_ controller: BarcodeScannerViewController, didCaptureCode code: String, type: String) {
     getBook(controller: controller, code: code) { (bookData) in
+      controller.reset(animated: false)
       controller.dismiss(animated: true, completion: {
         self.performSegue(withIdentifier: "addBook", sender: bookData)
       })

@@ -15,6 +15,11 @@
 		176AC5B0242C6C60008DBCAA /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 176AC5AF242C6C60008DBCAA /* Assets.xcassets */; };
 		176AC5BE242C6C61008DBCAA /* CatalogrTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 176AC5BD242C6C61008DBCAA /* CatalogrTests.swift */; };
 		176AC5C9242C6C61008DBCAA /* CatalogrUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 176AC5C8242C6C61008DBCAA /* CatalogrUITests.swift */; };
+		17B2EA99243D636E00EBDE97 /* ImageDropShadowExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17B2EA98243D636E00EBDE97 /* ImageDropShadowExtension.swift */; };
+		17B2EA9B243D6CF400EBDE97 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17B2EA9A243D6CF400EBDE97 /* SettingsViewController.swift */; };
+		17B2EA9D243D6DF100EBDE97 /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17B2EA9C243D6DF100EBDE97 /* Settings.swift */; };
+		17B2EAA0243D74FE00EBDE97 /* SettingsToggleTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17B2EA9F243D74FE00EBDE97 /* SettingsToggleTableViewCell.swift */; };
+		17B2EAA2243D759D00EBDE97 /* SettingsPickerTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17B2EAA1243D759D00EBDE97 /* SettingsPickerTableViewCell.swift */; };
 		17C1BCAD24343A940019589C /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 17C1BCAC24343A940019589C /* Launch Screen.storyboard */; };
 		17C1BCAF243443450019589C /* AddBookViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17C1BCAE243443450019589C /* AddBookViewController.swift */; };
 		17C1BCB2243443D20019589C /* RemoteImageExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17C1BCB1243443D20019589C /* RemoteImageExtension.swift */; };
@@ -56,6 +61,11 @@
 		176AC5C4242C6C61008DBCAA /* CatalogrUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CatalogrUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		176AC5C8242C6C61008DBCAA /* CatalogrUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CatalogrUITests.swift; sourceTree = "<group>"; };
 		176AC5CA242C6C61008DBCAA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		17B2EA98243D636E00EBDE97 /* ImageDropShadowExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageDropShadowExtension.swift; sourceTree = "<group>"; };
+		17B2EA9A243D6CF400EBDE97 /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
+		17B2EA9C243D6DF100EBDE97 /* Settings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Settings.swift; sourceTree = "<group>"; };
+		17B2EA9F243D74FE00EBDE97 /* SettingsToggleTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsToggleTableViewCell.swift; sourceTree = "<group>"; };
+		17B2EAA1243D759D00EBDE97 /* SettingsPickerTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsPickerTableViewCell.swift; sourceTree = "<group>"; };
 		17C1BCAC24343A940019589C /* Launch Screen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = "Launch Screen.storyboard"; sourceTree = "<group>"; };
 		17C1BCAE243443450019589C /* AddBookViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddBookViewController.swift; sourceTree = "<group>"; };
 		17C1BCB1243443D20019589C /* RemoteImageExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteImageExtension.swift; sourceTree = "<group>"; };
@@ -118,8 +128,9 @@
 		176AC5A0242C6C5F008DBCAA /* Catalogr */ = {
 			isa = PBXGroup;
 			children = (
+				17B2EA9E243D738400EBDE97 /* Components */,
 				17C1BCB4243447130019589C /* Views */,
-				17C1BCB32434470B0019589C /* Classes */,
+				17C1BCB32434470B0019589C /* Models */,
 				17C1BCB0243443B80019589C /* Extensions */,
 				176AC5A1242C6C5F008DBCAA /* AppDelegate.swift */,
 				176AC5A3242C6C5F008DBCAA /* SceneDelegate.swift */,
@@ -150,21 +161,32 @@
 			path = CatalogrUITests;
 			sourceTree = "<group>";
 		};
+		17B2EA9E243D738400EBDE97 /* Components */ = {
+			isa = PBXGroup;
+			children = (
+				17B2EA9F243D74FE00EBDE97 /* SettingsToggleTableViewCell.swift */,
+				17B2EAA1243D759D00EBDE97 /* SettingsPickerTableViewCell.swift */,
+			);
+			path = Components;
+			sourceTree = "<group>";
+		};
 		17C1BCB0243443B80019589C /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
 				17C1BCB1243443D20019589C /* RemoteImageExtension.swift */,
+				17B2EA98243D636E00EBDE97 /* ImageDropShadowExtension.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
 		};
-		17C1BCB32434470B0019589C /* Classes */ = {
+		17C1BCB32434470B0019589C /* Models */ = {
 			isa = PBXGroup;
 			children = (
 				17C1BCB52434472E0019589C /* Book.swift */,
 				17C1BCB724344AF20019589C /* BooksResponse.swift */,
+				17B2EA9C243D6DF100EBDE97 /* Settings.swift */,
 			);
-			path = Classes;
+			path = Models;
 			sourceTree = "<group>";
 		};
 		17C1BCB4243447130019589C /* Views */ = {
@@ -172,6 +194,7 @@
 			children = (
 				176AC5A5242C6C5F008DBCAA /* MainViewController.swift */,
 				17C1BCAE243443450019589C /* AddBookViewController.swift */,
+				17B2EA9A243D6CF400EBDE97 /* SettingsViewController.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -389,11 +412,16 @@
 				176AC5AE242C6C5F008DBCAA /* Catalogr.xcdatamodeld in Sources */,
 				17C1BCAF243443450019589C /* AddBookViewController.swift in Sources */,
 				17C1BCB62434472E0019589C /* Book.swift in Sources */,
+				17B2EA9B243D6CF400EBDE97 /* SettingsViewController.swift in Sources */,
 				17C1BCB824344AF20019589C /* BooksResponse.swift in Sources */,
+				17B2EA99243D636E00EBDE97 /* ImageDropShadowExtension.swift in Sources */,
+				17B2EAA0243D74FE00EBDE97 /* SettingsToggleTableViewCell.swift in Sources */,
 				176AC5A6242C6C5F008DBCAA /* MainViewController.swift in Sources */,
 				17C1BCB2243443D20019589C /* RemoteImageExtension.swift in Sources */,
 				176AC5A2242C6C5F008DBCAA /* AppDelegate.swift in Sources */,
+				17B2EA9D243D6DF100EBDE97 /* Settings.swift in Sources */,
 				176AC5A4242C6C5F008DBCAA /* SceneDelegate.swift in Sources */,
+				17B2EAA2243D759D00EBDE97 /* SettingsPickerTableViewCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

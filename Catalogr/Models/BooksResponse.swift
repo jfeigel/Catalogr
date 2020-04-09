@@ -6,7 +6,7 @@
 //  Copyright © 2020 jfeigel. All rights reserved.
 //
 
-import UIKit
+import Foundation
 
 struct BooksResponse: Codable {
   var kind: String
