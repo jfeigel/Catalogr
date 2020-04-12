@@ -7,8 +7,11 @@
 //
 
 import UIKit
+import os.log
 
-final class Settings {
+class Settings: NSObject, NSCoding {
+  
+  // MARK: - Properties
   
   static var userInterfaceStyleDict: [String] = ["System", "Light", "Dark"]
 
@@ -16,25 +19,74 @@ final class Settings {
   
   var userInterfaceStyle: Int {
     didSet {
-      setUserInterfaceStyle(index: userInterfaceStyle)
+      setAndArchiveSettings()
     }
-  }
-  
-  init() {
-    userInterfaceStyle = (SceneDelegate.shared?.window!.overrideUserInterfaceStyle.rawValue)!
-    setUserInterfaceStyle(index: userInterfaceStyle)
-
-    let userInterfaceStyleRow = Row<SettingsPickerTableViewCell>(name: "User Interface Style", type: SettingsPickerTableViewCell(), description: "SettingsPickerTableViewCell")
-    rows.append(userInterfaceStyleRow)
-  }
-  
-  func setUserInterfaceStyle(index: Int) {
-    SceneDelegate.shared?.window!.overrideUserInterfaceStyle = UIUserInterfaceStyle(rawValue: userInterfaceStyle)!
   }
   
   struct Row<T> {
     var name: String = ""
     var type: T
     var description: String = ""
+  }
+  
+  // MARK: - Types
+  
+  struct PropertyKey {
+    static let userInterfaceStyle = "userInterfaceStyle"
+  }
+  
+  // MARK: - Archiving Path
+  
+  static let DocumentsDirectory = FileManager().urls(for: .documentDirectory, in: .userDomainMask).first!
+  static let ArchiveURL = DocumentsDirectory.appendingPathComponent("settings")
+  
+  // MARK: - Init
+  
+  override init() {
+    self.userInterfaceStyle = -1
+  }
+
+  convenience init?(decodedUserInterfaceStyle: Int = -1) {
+    self.init()
+
+    if decodedUserInterfaceStyle >= 0 {
+      userInterfaceStyle = decodedUserInterfaceStyle
+    } else {
+      do {
+        let data = try Data(contentsOf: Settings.ArchiveURL)
+        userInterfaceStyle = try NSKeyedUnarchiver.unarchiveTopLevelObjectWithData(data) as? Int ?? -1
+      } catch {
+        os_log("Failed to load Settings", log: OSLog.default, type: .error)
+        userInterfaceStyle = (SceneDelegate.shared?.window!.overrideUserInterfaceStyle.rawValue)!
+      }
+    }
+    
+    setAndArchiveSettings()
+
+    let userInterfaceStyleRow = Row<SettingsPickerTableViewCell>(name: "User Interface Style", type: SettingsPickerTableViewCell(), description: "SettingsPickerTableViewCell")
+    rows.append(userInterfaceStyleRow)
+  }
+  
+  // MARK: - Methods
+  
+  func setAndArchiveSettings() {
+    SceneDelegate.shared?.window!.overrideUserInterfaceStyle = UIUserInterfaceStyle(rawValue: userInterfaceStyle)!
+    do {
+      let data = try NSKeyedArchiver.archivedData(withRootObject: userInterfaceStyle, requiringSecureCoding: false)
+      try data.write(to: Settings.ArchiveURL)
+    } catch {
+      os_log("Failed to save Settings", log: OSLog.default, type: .error)
+    }
+  }
+  
+  // MARK: - NSCoding
+  
+  func encode(with coder: NSCoder) {
+    coder.encode(userInterfaceStyle, forKey: PropertyKey.userInterfaceStyle)
+  }
+  
+  required convenience init?(coder decoder: NSCoder) {
+    let decodedUserInterfaceStyle = decoder.decodeInteger(forKey: PropertyKey.userInterfaceStyle)
+    self.init(decodedUserInterfaceStyle: decodedUserInterfaceStyle)
   }
 }
