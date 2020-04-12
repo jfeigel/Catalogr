@@ -1,5 +1,5 @@
 //
-//  MainViewController.swift
+//  BookshelfViewController.swift
 //  Catalogr
 //
 //  Created by jfeigel on 3/25/20.
@@ -11,9 +11,8 @@ import UIKit
 
 import BarcodeScanner
 
-class MainViewController: UIViewController {
+class BookshelfViewController: UIViewController {
   private let bsViewController: BarcodeScannerViewController = BarcodeScannerViewController()
-  private let key = "AIzaSyBbagy9yBWnF0oPjDsmU46rsCuGoK3h-Zk"
   
   @IBAction func handleScannerPresent(_ sender: UIBarButtonItem) {
     present(bsViewController, animated: true, completion: nil)
@@ -38,7 +37,7 @@ class MainViewController: UIViewController {
 
 // MARK: - BarcodeScannerCodeDelegate
 
-extension MainViewController: BarcodeScannerCodeDelegate {
+extension BookshelfViewController: BarcodeScannerCodeDelegate {
   func scanner(_ controller: BarcodeScannerViewController, didCaptureCode code: String, type: String) {
     getBook(controller: controller, code: code) { (bookData) in
       controller.reset(animated: false)
@@ -49,7 +48,7 @@ extension MainViewController: BarcodeScannerCodeDelegate {
   }
   
   func getBook(controller: BarcodeScannerViewController, code: String, completion: @escaping (Book) -> ()) {
-    let urlString = "https://www.googleapis.com/books/v1/volumes?q=isbn:\(code)&key=\(key)&prettyPrint=false"
+    let urlString = GAPI.getByIsbnURL(code)
     if let url = URL(string: urlString) {
       URLSession.shared.dataTask(with: url) { data, res, err in
         guard err == nil else {
@@ -94,7 +93,7 @@ extension MainViewController: BarcodeScannerCodeDelegate {
 
 // MARK: - BarcodeScannerErrorDelegate
 
-extension MainViewController: BarcodeScannerErrorDelegate {
+extension BookshelfViewController: BarcodeScannerErrorDelegate {
   func scanner(_ controller: BarcodeScannerViewController, didReceiveError error: Error) {
     print(error)
   }
@@ -102,7 +101,7 @@ extension MainViewController: BarcodeScannerErrorDelegate {
 
 // MARK: - BarcodeScannerDismissalDelegate
 
-extension MainViewController: BarcodeScannerDismissalDelegate {
+extension BookshelfViewController: BarcodeScannerDismissalDelegate {
   func scannerDidDismiss(_ controller: BarcodeScannerViewController) {
     controller.reset(animated: false)
     controller.dismiss(animated: true, completion: nil)

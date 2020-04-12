@@ -9,26 +9,32 @@
 import UIKit
 
 final class Settings {
+  
+  static var userInterfaceStyleDict: [String] = ["System", "Light", "Dark"]
+
+  var rows = [Any]()
+  
   var userInterfaceStyle: Int {
     didSet {
-      UIApplication.shared.windows[0].overrideUserInterfaceStyle = UIUserInterfaceStyle(rawValue: userInterfaceStyle)!
+      setUserInterfaceStyle(index: userInterfaceStyle)
     }
   }
   
-  var rows = [Any]()
-  
-  static var userInterfaceStyleDict: [String] = ["System", "Light", "Dark"]
-  
   init() {
-    userInterfaceStyle = UIApplication.shared.windows[0].overrideUserInterfaceStyle.rawValue
-    let userInterfaceStyleRow = Row<SettingsPickerTableViewCell>(name: "User Interface Style", type: SettingsPickerTableViewCell(), description: "SettingsPickerTableViewCell", value: userInterfaceStyle)
+    userInterfaceStyle = (SceneDelegate.shared?.window!.overrideUserInterfaceStyle.rawValue)!
+    setUserInterfaceStyle(index: userInterfaceStyle)
+
+    let userInterfaceStyleRow = Row<SettingsPickerTableViewCell>(name: "User Interface Style", type: SettingsPickerTableViewCell(), description: "SettingsPickerTableViewCell")
     rows.append(userInterfaceStyleRow)
+  }
+  
+  func setUserInterfaceStyle(index: Int) {
+    SceneDelegate.shared?.window!.overrideUserInterfaceStyle = UIUserInterfaceStyle(rawValue: userInterfaceStyle)!
   }
   
   struct Row<T> {
     var name: String = ""
     var type: T
     var description: String = ""
-    var value: Int
   }
 }

@@ -9,11 +9,6 @@
 import UIKit
 
 class SettingsViewController: UITableViewController {
-  var settings = Settings()
-  
-  @IBAction func dismissPopover(_ sender: UIBarButtonItem) {
-    self.dismiss(animated: true, completion: nil)
-  }
 
   override func numberOfSections(in tableView: UITableView) -> Int {
     return 1
@@ -24,7 +19,7 @@ class SettingsViewController: UITableViewController {
   }
   
   override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-    let row = settings.rows[indexPath.row] as! Settings.Row<SettingsPickerTableViewCell>
+    let row = SceneDelegate.shared?.settings.rows[indexPath.row] as! Settings.Row<SettingsPickerTableViewCell>
     guard let cell = tableView.dequeueReusableCell(withIdentifier: row.description, for: indexPath) as? SettingsPickerTableViewCell else {
       fatalError("The dequeued cell is not an instance of SettingsPickerTableViewCell")
     }
@@ -35,13 +30,14 @@ class SettingsViewController: UITableViewController {
       cell.segmentedControl.setTitle(style, forSegmentAt: i)
     }
     
+    cell.segmentedControl.selectedSegmentIndex = SceneDelegate.shared!.settings.userInterfaceStyle
     cell.segmentedControl.addTarget(self, action: #selector(changeSegmenetedControl(_:)), for: .valueChanged)
     
     return cell
   }
   
   @objc func changeSegmenetedControl(_ sender: UISegmentedControl) {
-    settings.userInterfaceStyle = sender.selectedSegmentIndex
+    SceneDelegate.shared?.settings.userInterfaceStyle = sender.selectedSegmentIndex
   }
   
 }
