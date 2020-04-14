@@ -14,6 +14,8 @@ import BarcodeScanner
 class BookshelfViewController: UIViewController {
   private let bsViewController: BarcodeScannerViewController = BarcodeScannerViewController()
   
+  @IBOutlet var downArrow: UIImageView!
+
   @IBAction func handleScannerPresent(_ sender: UIBarButtonItem) {
     present(bsViewController, animated: true, completion: nil)
   }
@@ -26,6 +28,11 @@ class BookshelfViewController: UIViewController {
     bsViewController.dismissalDelegate = self
     bsViewController.headerViewController.titleLabel.textColor = UIColor.label
     bsViewController.headerViewController.closeButton.tintColor = UIColor.systemBlue
+    
+    var downArrowFrame = self.downArrow.frame
+    downArrowFrame.origin = CGPoint(x: downArrowFrame.origin.x, y: downArrowFrame.origin.y + 10.0)
+    UIView.animate(withDuration: 0.5, delay: 0.5, options: [.repeat, .autoreverse], animations: { self.downArrow.frame = downArrowFrame }, completion: nil)
+
   }
   
   override func prepare(for segue: UIStoryboardSegue, sender: Any?) {

@@ -20,11 +20,13 @@ class TabBarController: UITabBarController {
     let tabBarHeight = tabBar.frame.size.height
     let diameter: CGFloat = tabBarHeight * 1.5
     let radius: CGFloat = diameter / 2
+    
+    let smallConfiguration = UIImage.SymbolConfiguration(scale: .large)
 
     centerTabBarItem.frame = CGRect(x: (tabBarWidth / 2) - radius, y: (tabBarHeight - diameter) * 0.75, width: diameter, height: diameter)
     centerTabBarItem.layer.cornerRadius = radius
     centerTabBarItem.clipsToBounds = true
-    centerTabBarItem.setImage(UIImage(systemName: "barcode.viewfinder"), for: .normal)
+    centerTabBarItem.setImage(UIImage(systemName: "barcode.viewfinder", withConfiguration: smallConfiguration), for: .normal)
     centerTabBarItem.layer.backgroundColor = UIColor(hex: "#90dff4")!.cgColor
     centerTabBarItem.tintColor = .white
     centerTabBarItem.layer.borderColor = UIColor.systemBackground.cgColor

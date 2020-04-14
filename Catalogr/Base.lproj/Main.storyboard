@@ -23,17 +23,23 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Start by scanning a book's barcode" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jTF-9q-pCr">
-                                <rect key="frame" x="72" y="437.5" width="270" height="21"/>
+                                <rect key="frame" x="72" y="732" width="270" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="arrow.down" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="CQM-er-Q31">
+                                <rect key="frame" x="198.5" y="769" width="17" height="18"/>
+                                <color key="tintColor" systemColor="labelColor" cocoaTouchSystemColor="darkTextColor"/>
+                            </imageView>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
-                            <constraint firstItem="jTF-9q-pCr" firstAttribute="centerX" secondItem="tsR-hK-woN" secondAttribute="centerX" id="Dsf-Rm-bSs"/>
+                            <constraint firstItem="PQr-Ze-W5v" firstAttribute="bottom" secondItem="CQM-er-Q31" secondAttribute="bottom" constant="25" id="c2l-HP-dfn"/>
+                            <constraint firstItem="jTF-9q-pCr" firstAttribute="centerX" secondItem="PQr-Ze-W5v" secondAttribute="centerX" id="cFK-VD-s02"/>
                             <constraint firstItem="qHe-z4-Z9a" firstAttribute="top" secondItem="PQr-Ze-W5v" secondAttribute="top" constant="100" id="cXG-dO-hkr"/>
-                            <constraint firstItem="jTF-9q-pCr" firstAttribute="centerY" secondItem="tsR-hK-woN" secondAttribute="centerY" id="ioq-ab-ysy"/>
+                            <constraint firstItem="PQr-Ze-W5v" firstAttribute="bottom" secondItem="jTF-9q-pCr" secondAttribute="bottom" constant="60" id="gU8-KH-Slb"/>
+                            <constraint firstItem="CQM-er-Q31" firstAttribute="centerX" secondItem="PQr-Ze-W5v" secondAttribute="centerX" id="vvU-wE-0X6"/>
                             <constraint firstItem="qHe-z4-Z9a" firstAttribute="centerX" secondItem="tsR-hK-woN" secondAttribute="centerX" id="xXn-sQ-98t"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="PQr-Ze-W5v"/>
@@ -46,6 +52,7 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="downArrow" destination="CQM-er-Q31" id="rf4-el-qHM"/>
                         <segue destination="3Jv-xV-Ypd" kind="popoverPresentation" identifier="addBook" popoverAnchorView="tsR-hK-woN" id="qLd-iN-hQM">
                             <popoverArrowDirection key="popoverArrowDirection" up="YES" down="YES" left="YES" right="YES"/>
                         </segue>
@@ -53,7 +60,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="W5J-7L-Pyd" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1632" y="-368"/>
+            <point key="canvasLocation" x="1631.8840579710147" y="-368.30357142857139"/>
         </scene>
         <!--Search-->
         <scene sceneID="S2x-gy-Ke2">
@@ -98,20 +105,19 @@
         <scene sceneID="RKk-dM-k4Y">
             <objects>
                 <tableViewController storyboardIdentifier="SettingsViewController" id="nmy-V2-TDt" customClass="SettingsViewController" customModule="Catalogr" customModuleProvider="target" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="K1c-n6-b8I">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="insetGrouped" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" id="K1c-n6-b8I">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="SettingsToggleTableViewCell" rowHeight="66" id="sGE-mK-NTQ" customClass="SettingsToggleTableViewCell" customModule="Catalogr" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="28" width="414" height="66"/>
+                                <rect key="frame" x="20" y="55.5" width="374" height="66"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="sGE-mK-NTQ" id="T85-S2-Ein">
-                                    <rect key="frame" x="0.0" y="0.0" width="414" height="66"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="374" height="66"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <stackView opaque="NO" contentMode="center" distribution="equalSpacing" alignment="center" spacingType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="Sbb-fu-VNZ">
-                                            <rect key="frame" x="20" y="11" width="374" height="44"/>
+                                            <rect key="frame" x="20" y="11" width="334" height="44"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8DF-Dw-Cp7">
                                                     <rect key="frame" x="0.0" y="12" width="42" height="20.5"/>
@@ -120,7 +126,7 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="top" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ocp-fQ-ijU">
-                                                    <rect key="frame" x="325" y="6.5" width="51" height="31"/>
+                                                    <rect key="frame" x="285" y="6.5" width="51" height="31"/>
                                                     <connections>
                                                         <action selector="toggleAction:" destination="sGE-mK-NTQ" eventType="valueChanged" id="WS0-to-lkK"/>
                                                     </connections>
@@ -141,23 +147,23 @@
                                 </connections>
                             </tableViewCell>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="SettingsPickerTableViewCell" rowHeight="88" id="m26-FO-1Hp" customClass="SettingsPickerTableViewCell" customModule="Catalogr" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="94" width="414" height="88"/>
+                                <rect key="frame" x="20" y="121.5" width="374" height="88"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="m26-FO-1Hp" id="h2n-NW-uKz">
-                                    <rect key="frame" x="0.0" y="0.0" width="414" height="88"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="374" height="88"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="12" translatesAutoresizingMaskIntoConstraints="NO" id="fuT-2j-WcR">
-                                            <rect key="frame" x="20" y="11" width="374" height="66"/>
+                                            <rect key="frame" x="20" y="11" width="334" height="66"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bLH-YD-gU0">
-                                                    <rect key="frame" x="0.0" y="0.0" width="374" height="20.5"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="334" height="20.5"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="e9A-hq-wrs">
-                                                    <rect key="frame" x="0.0" y="32.5" width="374" height="34.5"/>
+                                                    <rect key="frame" x="0.0" y="32.5" width="334" height="34.5"/>
                                                     <segments>
                                                         <segment title=""/>
                                                         <segment title=""/>
@@ -282,7 +288,7 @@
         <scene sceneID="T6A-w1-yXi">
             <objects>
                 <navigationController storyboardIdentifier="BookshelfNavigationController" title="BookshelfNavigationController" automaticallyAdjustsScrollViewInsets="NO" id="uze-pd-0pp" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="" image="book" catalog="system" selectedImage="book.fill" id="99M-T8-2tz">
+                    <tabBarItem key="tabBarItem" title="" image="book" catalog="system" id="99M-T8-2tz">
                         <inset key="imageInsets" minX="0.0" minY="6" maxX="0.0" maxY="-6"/>
                     </tabBarItem>
                     <toolbarItems/>
@@ -359,7 +365,7 @@
         <scene sceneID="zI6-T5-CE3">
             <objects>
                 <navigationController storyboardIdentifier="FavoritesNavigationController" id="nx0-Z9-77a" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="" image="heart" catalog="system" selectedImage="heart.fill" id="ZF2-z7-5bP"/>
+                    <tabBarItem key="tabBarItem" title="" image="heart" catalog="system" id="ZF2-z7-5bP"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" largeTitles="YES" id="gti-IL-0KF">
                         <rect key="frame" x="0.0" y="44" width="414" height="96"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -396,12 +402,11 @@
         </scene>
     </scenes>
     <resources>
+        <image name="arrow.down" catalog="system" width="120" height="128"/>
         <image name="barcode.viewfinder" catalog="system" width="128" height="114"/>
         <image name="book" catalog="system" width="128" height="101"/>
-        <image name="book.fill" catalog="system" width="128" height="100"/>
         <image name="gear" catalog="system" width="128" height="119"/>
         <image name="heart" catalog="system" width="128" height="109"/>
-        <image name="heart.fill" catalog="system" width="128" height="109"/>
         <image name="magnifyingglass" catalog="system" width="128" height="115"/>
     </resources>
 </document>
