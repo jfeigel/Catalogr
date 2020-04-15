@@ -45,7 +45,7 @@ class TabBarController: UITabBarController {
   @objc func centerTabBarItemAction(_ sender: UIButton) {
     self.selectedViewController = self.viewControllers![0]
     self.selectedIndex = 0
-    ((self.viewControllers![0] as! UINavigationController).visibleViewController! as! BookshelfViewController).handleScannerPresent(UIBarButtonItem())
+    ((self.viewControllers![0] as! UINavigationController).visibleViewController! as! BookshelfContainerViewController).handleScannerPresent(UIBarButtonItem())
   }
   
 }

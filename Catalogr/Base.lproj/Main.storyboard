@@ -5,54 +5,75 @@
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16086"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="Stack View standard spacing" minToolsVersion="9.0"/>
+        <capability name="collection view cell content view" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
         <!--Bookshelf-->
         <scene sceneID="hNz-n2-bh7">
             <objects>
-                <viewController storyboardIdentifier="BookshelfViewController" id="9pv-A4-QxB" customClass="BookshelfViewController" customModule="Catalogr" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="BookshelfViewController" id="9pv-A4-QxB" customClass="BookshelfContainerViewController" customModule="Catalogr" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="tsR-hK-woN">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Welcome to Catalogr!" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qHe-z4-Z9a">
-                                <rect key="frame" x="50" y="240" width="314" height="41"/>
-                                <fontDescription key="fontDescription" style="UICTFontTextStyleTitle0"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Start by scanning a book's barcode" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jTF-9q-pCr">
-                                <rect key="frame" x="72" y="732" width="270" height="21"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="arrow.down" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="CQM-er-Q31">
-                                <rect key="frame" x="198.5" y="769" width="17" height="18"/>
-                                <color key="tintColor" systemColor="labelColor" cocoaTouchSystemColor="darkTextColor"/>
-                            </imageView>
+                            <view alpha="0.0" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="91m-c6-ckH">
+                                <rect key="frame" x="0.0" y="140" width="414" height="673"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Welcome to Catalogr!" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qHe-z4-Z9a">
+                                        <rect key="frame" x="50" y="100" width="314" height="41"/>
+                                        <fontDescription key="fontDescription" style="UICTFontTextStyleTitle0"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Start by scanning a book's barcode" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jTF-9q-pCr">
+                                        <rect key="frame" x="72" y="592" width="270" height="21"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="arrow.down" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="CQM-er-Q31">
+                                        <rect key="frame" x="198.5" y="629" width="17" height="18"/>
+                                        <color key="tintColor" systemColor="labelColor" cocoaTouchSystemColor="darkTextColor"/>
+                                    </imageView>
+                                </subviews>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                <constraints>
+                                    <constraint firstItem="qHe-z4-Z9a" firstAttribute="centerX" secondItem="91m-c6-ckH" secondAttribute="centerX" id="3Ea-7q-eCu"/>
+                                    <constraint firstAttribute="bottom" secondItem="CQM-er-Q31" secondAttribute="bottom" constant="25" id="3mh-XF-y8f"/>
+                                    <constraint firstAttribute="bottom" secondItem="jTF-9q-pCr" secondAttribute="bottom" constant="60" id="Ng0-O5-MB4"/>
+                                    <constraint firstItem="qHe-z4-Z9a" firstAttribute="top" secondItem="91m-c6-ckH" secondAttribute="top" constant="100" id="Ujw-Wn-FAZ"/>
+                                    <constraint firstItem="CQM-er-Q31" firstAttribute="centerX" secondItem="91m-c6-ckH" secondAttribute="centerX" id="Ve6-7L-Wth"/>
+                                    <constraint firstItem="jTF-9q-pCr" firstAttribute="centerX" secondItem="91m-c6-ckH" secondAttribute="centerX" id="kaD-6e-50e"/>
+                                </constraints>
+                            </view>
+                            <containerView opaque="NO" contentMode="scaleAspectFit" translatesAutoresizingMaskIntoConstraints="NO" id="JYW-k5-i0E">
+                                <rect key="frame" x="0.0" y="160" width="414" height="223"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="223" id="mmE-D3-P2h"/>
+                                </constraints>
+                                <connections>
+                                    <segue destination="qB8-Ge-nfx" kind="embed" identifier="bookshelf" id="uSr-IG-gJ1"/>
+                                </connections>
+                            </containerView>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
-                            <constraint firstItem="PQr-Ze-W5v" firstAttribute="bottom" secondItem="CQM-er-Q31" secondAttribute="bottom" constant="25" id="c2l-HP-dfn"/>
-                            <constraint firstItem="jTF-9q-pCr" firstAttribute="centerX" secondItem="PQr-Ze-W5v" secondAttribute="centerX" id="cFK-VD-s02"/>
-                            <constraint firstItem="qHe-z4-Z9a" firstAttribute="top" secondItem="PQr-Ze-W5v" secondAttribute="top" constant="100" id="cXG-dO-hkr"/>
-                            <constraint firstItem="PQr-Ze-W5v" firstAttribute="bottom" secondItem="jTF-9q-pCr" secondAttribute="bottom" constant="60" id="gU8-KH-Slb"/>
-                            <constraint firstItem="CQM-er-Q31" firstAttribute="centerX" secondItem="PQr-Ze-W5v" secondAttribute="centerX" id="vvU-wE-0X6"/>
-                            <constraint firstItem="qHe-z4-Z9a" firstAttribute="centerX" secondItem="tsR-hK-woN" secondAttribute="centerX" id="xXn-sQ-98t"/>
+                            <constraint firstItem="91m-c6-ckH" firstAttribute="leading" secondItem="PQr-Ze-W5v" secondAttribute="leading" id="4QH-Fs-o2Y"/>
+                            <constraint firstItem="91m-c6-ckH" firstAttribute="trailing" secondItem="PQr-Ze-W5v" secondAttribute="trailing" id="AfE-OK-t6O"/>
+                            <constraint firstItem="JYW-k5-i0E" firstAttribute="top" secondItem="PQr-Ze-W5v" secondAttribute="top" constant="20" id="FEE-a1-975"/>
+                            <constraint firstItem="JYW-k5-i0E" firstAttribute="leading" secondItem="PQr-Ze-W5v" secondAttribute="leading" id="ISF-mf-U0u"/>
+                            <constraint firstItem="91m-c6-ckH" firstAttribute="top" secondItem="PQr-Ze-W5v" secondAttribute="top" id="OAO-Cq-3Tu"/>
+                            <constraint firstItem="JYW-k5-i0E" firstAttribute="trailing" secondItem="PQr-Ze-W5v" secondAttribute="trailing" id="jhe-XM-OPZ"/>
+                            <constraint firstItem="91m-c6-ckH" firstAttribute="bottom" secondItem="PQr-Ze-W5v" secondAttribute="bottom" id="uBT-tm-ioW"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="PQr-Ze-W5v"/>
                     </view>
-                    <navigationItem key="navigationItem" title="Bookshelf" id="tI6-Z4-ubY">
-                        <barButtonItem key="rightBarButtonItem" title="Scan Barcode" image="barcode.viewfinder" catalog="system" id="h8x-VD-JoF">
-                            <connections>
-                                <action selector="handleScannerPresent:" destination="9pv-A4-QxB" id="h2I-cu-puT"/>
-                            </connections>
-                        </barButtonItem>
-                    </navigationItem>
+                    <navigationItem key="navigationItem" title="Bookshelf" id="tI6-Z4-ubY"/>
                     <connections>
                         <outlet property="downArrow" destination="CQM-er-Q31" id="rf4-el-qHM"/>
+                        <outlet property="emptyView" destination="91m-c6-ckH" id="okL-rF-3f0"/>
+                        <outlet property="nonEmptyView" destination="JYW-k5-i0E" id="VfJ-Nm-9tw"/>
                         <segue destination="3Jv-xV-Ypd" kind="popoverPresentation" identifier="addBook" popoverAnchorView="tsR-hK-woN" id="qLd-iN-hQM">
                             <popoverArrowDirection key="popoverArrowDirection" up="YES" down="YES" left="YES" right="YES"/>
                         </segue>
@@ -246,11 +267,18 @@
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="249" text="" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YcA-aU-2Qw">
-                                                <rect key="frame" x="187" y="75" width="0.0" height="309"/>
+                                                <rect key="frame" x="187" y="75" width="0.0" height="259"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ghS-XQ-NZr">
+                                                <rect key="frame" x="153.5" y="354" width="67" height="30"/>
+                                                <state key="normal" title="Add Book"/>
+                                                <connections>
+                                                    <action selector="addBook:" destination="3Jv-xV-Ypd" eventType="touchUpInside" id="X4T-uL-sdP"/>
+                                                </connections>
+                                            </button>
                                         </subviews>
                                     </stackView>
                                 </subviews>
@@ -263,7 +291,7 @@
                                 </constraints>
                             </stackView>
                         </subviews>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <color key="backgroundColor" systemColor="secondarySystemBackgroundColor" red="0.94901960780000005" green="0.94901960780000005" blue="0.96862745100000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="cbE-r5-T6d" firstAttribute="trailing" secondItem="gFW-xq-S2D" secondAttribute="trailingMargin" id="SyH-XG-uiD"/>
                             <constraint firstItem="cbE-r5-T6d" firstAttribute="top" secondItem="D4C-Ob-jZw" secondAttribute="top" constant="20" id="jvd-XE-GFg"/>
@@ -278,11 +306,80 @@
                         <outlet property="bookSubtitle" destination="aEQ-zv-tZA" id="0ES-Fk-Tus"/>
                         <outlet property="bookTitle" destination="4Dp-ln-NGQ" id="SvQ-An-eAM"/>
                         <outlet property="imageActivityIndicator" destination="Jd2-TA-fYm" id="eiY-TJ-Ems"/>
+                        <segue destination="ryM-Jf-ICs" kind="unwind" identifier="addBookReturn" unwindAction="unwindToViewControllerWithSegue:" id="7Mu-kn-xMk"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="SEb-62-AS2" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+                <exit id="ryM-Jf-ICs" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="1631.8840579710147" y="344.86607142857139"/>
+            <point key="canvasLocation" x="1632" y="376"/>
+        </scene>
+        <!--Bookshelf View Controller-->
+        <scene sceneID="JwF-mv-nzI">
+            <objects>
+                <collectionViewController id="qB8-Ge-nfx" customClass="BookshelfViewController" customModule="Catalogr" customModuleProvider="target" sceneMemberID="viewController">
+                    <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsVerticalScrollIndicator="NO" dataMode="prototypes" id="doK-nK-QtO">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="223"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="10" minimumInteritemSpacing="10" id="ayh-OZ-7zq">
+                            <size key="itemSize" width="183" height="183"/>
+                            <size key="estimatedItemSize" width="183" height="183"/>
+                            <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                            <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                            <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                        </collectionViewFlowLayout>
+                        <cells>
+                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleAspectFit" reuseIdentifier="BookshelfCell" id="VSh-36-gWJ" customClass="BookshelfCollectionViewCell" customModule="Catalogr" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="20" width="183" height="183"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="jf4-AT-bfe">
+                                    <rect key="frame" x="0.0" y="0.0" width="183" height="183"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="ldO-Q5-aie">
+                                            <rect key="frame" x="0.0" y="0.0" width="183" height="183"/>
+                                            <constraints>
+                                                <constraint firstAttribute="height" constant="183" id="8bd-HD-sgn"/>
+                                                <constraint firstAttribute="width" constant="183" id="oTB-Fb-Gh6"/>
+                                            </constraints>
+                                        </imageView>
+                                        <view hidden="YES" alpha="0.20000000000000001" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="sJH-Xf-pe4">
+                                            <rect key="frame" x="0.0" y="0.0" width="183" height="183"/>
+                                            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        </view>
+                                        <imageView hidden="YES" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="circle" catalog="system" highlightedImage="checkmark.circle.fill" id="9wa-Ts-tGc">
+                                            <rect key="frame" x="144" y="144" width="24" height="24"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        </imageView>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstAttribute="bottom" secondItem="sJH-Xf-pe4" secondAttribute="bottom" id="FgK-1g-CBh"/>
+                                        <constraint firstAttribute="trailing" secondItem="sJH-Xf-pe4" secondAttribute="trailing" id="FxD-0V-2vr"/>
+                                        <constraint firstItem="ldO-Q5-aie" firstAttribute="centerX" secondItem="jf4-AT-bfe" secondAttribute="centerX" id="IN4-ho-swG"/>
+                                        <constraint firstItem="sJH-Xf-pe4" firstAttribute="top" secondItem="jf4-AT-bfe" secondAttribute="top" id="QEF-2i-xf5"/>
+                                        <constraint firstItem="ldO-Q5-aie" firstAttribute="centerY" secondItem="jf4-AT-bfe" secondAttribute="centerY" id="iif-bp-gqi"/>
+                                        <constraint firstItem="sJH-Xf-pe4" firstAttribute="leading" secondItem="jf4-AT-bfe" secondAttribute="leading" id="wbZ-vc-mf2"/>
+                                    </constraints>
+                                </collectionViewCellContentView>
+                                <size key="customSize" width="183" height="183"/>
+                                <connections>
+                                    <outlet property="bookCheckmark" destination="9wa-Ts-tGc" id="dBf-dP-UHI"/>
+                                    <outlet property="bookImage" destination="ldO-Q5-aie" id="LPA-ZY-S18"/>
+                                    <outlet property="bookOverlay" destination="sJH-Xf-pe4" id="zKP-7S-njU"/>
+                                </connections>
+                            </collectionViewCell>
+                        </cells>
+                        <connections>
+                            <outlet property="dataSource" destination="qB8-Ge-nfx" id="4KB-op-0GH"/>
+                            <outlet property="delegate" destination="qB8-Ge-nfx" id="Jan-2Y-pK2"/>
+                        </connections>
+                    </collectionView>
+                </collectionViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="S12-O8-Bru" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="900.00000000000011" y="143.63839285714286"/>
         </scene>
         <!--BookshelfNavigationController-->
         <scene sceneID="T6A-w1-yXi">
@@ -403,8 +500,9 @@
     </scenes>
     <resources>
         <image name="arrow.down" catalog="system" width="120" height="128"/>
-        <image name="barcode.viewfinder" catalog="system" width="128" height="114"/>
         <image name="book" catalog="system" width="128" height="101"/>
+        <image name="checkmark.circle.fill" catalog="system" width="128" height="121"/>
+        <image name="circle" catalog="system" width="128" height="121"/>
         <image name="gear" catalog="system" width="128" height="119"/>
         <image name="heart" catalog="system" width="128" height="109"/>
         <image name="magnifyingglass" catalog="system" width="128" height="115"/>

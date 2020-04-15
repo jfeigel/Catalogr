@@ -7,9 +7,10 @@
 //
 
 import UIKit
+import os.log
 
 class AddBookViewController: UIViewController {
-  var book: Book?
+  var book: Book!
   
   @IBOutlet var backgroundView: UIView!
   @IBOutlet weak var bookImage: UIImageView!
@@ -17,6 +18,10 @@ class AddBookViewController: UIViewController {
   @IBOutlet var bookSubtitle: UILabel!
   @IBOutlet var imageActivityIndicator: UIActivityIndicatorView!
 
+  @IBAction func addBook(_ sender: UIButton) {
+    self.performSegue(withIdentifier: "addBookReturn", sender: self)
+  }
+  
   override func viewDidLoad() {
     super.viewDidLoad()
     
