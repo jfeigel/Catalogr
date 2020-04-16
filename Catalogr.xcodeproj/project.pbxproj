@@ -7,7 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		17262BF22446513F008B2DF5 /* BookshelfViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17262BF12446513F008B2DF5 /* BookshelfViewController.swift */; };
+		17262BF22446513F008B2DF5 /* BookshelfCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17262BF12446513F008B2DF5 /* BookshelfCollectionViewController.swift */; };
+		172DB3F72447B02100B6425E /* Loopable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 172DB3F62447B02100B6425E /* Loopable.swift */; };
 		176AC5A2242C6C5F008DBCAA /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 176AC5A1242C6C5F008DBCAA /* AppDelegate.swift */; };
 		176AC5A4242C6C5F008DBCAA /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 176AC5A3242C6C5F008DBCAA /* SceneDelegate.swift */; };
 		176AC5A6242C6C5F008DBCAA /* BookshelfContainerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 176AC5A5242C6C5F008DBCAA /* BookshelfContainerViewController.swift */; };
@@ -55,7 +56,8 @@
 
 /* Begin PBXFileReference section */
 		080B6845D1C4B35251BC594C /* Pods_Catalogr.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Catalogr.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		17262BF12446513F008B2DF5 /* BookshelfViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookshelfViewController.swift; sourceTree = "<group>"; };
+		17262BF12446513F008B2DF5 /* BookshelfCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookshelfCollectionViewController.swift; sourceTree = "<group>"; };
+		172DB3F62447B02100B6425E /* Loopable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Loopable.swift; sourceTree = "<group>"; };
 		176AC59E242C6C5F008DBCAA /* Catalogr.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Catalogr.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		176AC5A1242C6C5F008DBCAA /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		176AC5A3242C6C5F008DBCAA /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -117,6 +119,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		172DB3F52447B01300B6425E /* Protocols */ = {
+			isa = PBXGroup;
+			children = (
+				172DB3F62447B02100B6425E /* Loopable.swift */,
+			);
+			path = Protocols;
+			sourceTree = "<group>";
+		};
 		176AC595242C6C5F008DBCAA = {
 			isa = PBXGroup;
 			children = (
@@ -144,6 +154,7 @@
 		176AC5A0242C6C5F008DBCAA /* Catalogr */ = {
 			isa = PBXGroup;
 			children = (
+				172DB3F52447B01300B6425E /* Protocols */,
 				17BB024524415C11001D1013 /* Controllers */,
 				17B2EA9E243D738400EBDE97 /* Components */,
 				17C1BCB4243447130019589C /* Views */,
@@ -191,7 +202,7 @@
 		17BB024524415C11001D1013 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				17262BF12446513F008B2DF5 /* BookshelfViewController.swift */,
+				17262BF12446513F008B2DF5 /* BookshelfCollectionViewController.swift */,
 				17E654DD24417C87007DEFF6 /* TabBarController.swift */,
 			);
 			path = Controllers;
@@ -444,6 +455,7 @@
 				1791774524429D4C00E7E3E2 /* CGFloatExtension.swift in Sources */,
 				176AC5AE242C6C5F008DBCAA /* Catalogr.xcdatamodeld in Sources */,
 				176CEFFA244658490054E12C /* BookshelfCollectionViewCell.swift in Sources */,
+				172DB3F72447B02100B6425E /* Loopable.swift in Sources */,
 				17BB0242243EEC4E001D1013 /* GAPI.swift in Sources */,
 				17C1BCAF243443450019589C /* AddBookViewController.swift in Sources */,
 				17E654DE24417C87007DEFF6 /* TabBarController.swift in Sources */,
@@ -458,7 +470,7 @@
 				17BB0244243F9919001D1013 /* UIViewExtension.swift in Sources */,
 				179177432442290100E7E3E2 /* UIColorExtension.swift in Sources */,
 				176AC5A2242C6C5F008DBCAA /* AppDelegate.swift in Sources */,
-				17262BF22446513F008B2DF5 /* BookshelfViewController.swift in Sources */,
+				17262BF22446513F008B2DF5 /* BookshelfCollectionViewController.swift in Sources */,
 				17B2EA9D243D6DF100EBDE97 /* Settings.swift in Sources */,
 				176AC5A4242C6C5F008DBCAA /* SceneDelegate.swift in Sources */,
 				17B2EAA2243D759D00EBDE97 /* SettingsPickerTableViewCell.swift in Sources */,

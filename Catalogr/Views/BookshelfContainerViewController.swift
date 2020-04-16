@@ -16,7 +16,7 @@ class BookshelfContainerViewController: UIViewController {
   private let bsViewController = BarcodeScannerViewController()
   
   var bookshelf: [SavedBook]!
-  var bookshelfViewController: BookshelfViewController!
+  var bookshelfViewController: BookshelfCollectionViewController!
   var scanBarcodeButton: UIBarButtonItem!
   
   var downArrowX: CGFloat!
@@ -96,7 +96,7 @@ class BookshelfContainerViewController: UIViewController {
         destVC.book = sender as? Book
       }
     case "bookshelf":
-      if let destVC = segue.destination as? BookshelfViewController {
+      if let destVC = segue.destination as? BookshelfCollectionViewController {
         bookshelfViewController = destVC
         destVC.bookshelf = self.bookshelf
         destVC.bookshelfContainerViewController = self
