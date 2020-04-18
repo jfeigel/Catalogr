@@ -13,17 +13,24 @@ class BookshelfCollectionViewCell: UICollectionViewCell {
   var sublayerInserted = false
   
   let cellBackground: CAGradientLayer = {
-    let gl = CAGradientLayer()
-    gl.locations = [0.7, 1.0]
-    gl.anchorPoint = .zero
-    return gl
+    let layer = CAGradientLayer()
+    layer.locations = [0.0, 0.7, 0.7, 1.0]
+    layer.anchorPoint = .zero
+    return layer
   }()
   
   let bookImage: UIImageView = {
     let imageView = UIImageView(image: UIImage(named: "no_cover_thumb"))
     imageView.translatesAutoresizingMaskIntoConstraints = false
     imageView.contentMode = .scaleAspectFit
+//    imageView.dropShadow(type: "book")
     return imageView
+  }()
+  
+  let activityIndicator: UIActivityIndicatorView = {
+    let view = UIActivityIndicatorView(style: .large)
+    view.translatesAutoresizingMaskIntoConstraints = false
+    return view
   }()
   
   let bookOverlay: UIView = {
@@ -40,7 +47,6 @@ class BookshelfCollectionViewCell: UICollectionViewCell {
       image: UIImage(systemName: "circle")
     )
     imageView.translatesAutoresizingMaskIntoConstraints = false
-    imageView.contentMode = .scaleAspectFill
     imageView.tintColor = .white
     imageView.layer.cornerRadius = imageView.frame.size.width / 2
     return imageView
@@ -51,7 +57,6 @@ class BookshelfCollectionViewCell: UICollectionViewCell {
       image: UIImage(systemName: "checkmark.circle.fill")
     )
     imageView.translatesAutoresizingMaskIntoConstraints = false
-    imageView.contentMode = .scaleAspectFill
     imageView.layer.cornerRadius = imageView.frame.size.width / 2
     return imageView
   }()
@@ -61,7 +66,6 @@ class BookshelfCollectionViewCell: UICollectionViewCell {
       image: UIImage(systemName: "checkmark.circle")
     )
     imageView.translatesAutoresizingMaskIntoConstraints = false
-    imageView.contentMode = .scaleAspectFill
     imageView.tintColor = .white
     imageView.layer.cornerRadius = imageView.frame.size.width / 2
     return imageView
@@ -99,20 +103,19 @@ class BookshelfCollectionViewCell: UICollectionViewCell {
     
     contentMode = .scaleAspectFit
     contentView.contentMode = .center
-    contentView.layer.borderWidth = 1.0
-    contentView.layer.borderColor = UIColor.label.cgColor
     
     contentView.addSubview(bookImage)
+    contentView.addSubview(activityIndicator)
     contentView.addSubview(bookOverlay)
     contentView.addSubview(bookCheckmarkBackground)
     contentView.addSubview(bookCheckmark)
     contentView.addSubview(bookCheckmarkBorder)
     
     bookImageConstraints = Constraints(
-      topAnchor: bookImage.topAnchor.constraint(equalTo: bookImage.superview!.topAnchor, constant: 10),
-      leadingAnchor: bookImage.leadingAnchor.constraint(equalTo: bookImage.superview!.leadingAnchor, constant: 10),
-      trailingAnchor: bookImage.trailingAnchor.constraint(equalTo: bookImage.superview!.trailingAnchor, constant: -10),
-      bottomAnchor: bookImage.bottomAnchor.constraint(equalTo: bookImage.superview!.bottomAnchor, constant: -10),
+      topAnchor: bookImage.topAnchor.constraint(equalTo: bookImage.superview!.topAnchor, constant: 20),
+      leadingAnchor: bookImage.leadingAnchor.constraint(equalTo: bookImage.superview!.leadingAnchor, constant: 20),
+      trailingAnchor: bookImage.trailingAnchor.constraint(equalTo: bookImage.superview!.trailingAnchor, constant: -20),
+      bottomAnchor: bookImage.bottomAnchor.constraint(equalTo: bookImage.superview!.bottomAnchor, constant: -20),
       centerXAnchor: bookImage.centerXAnchor.constraint(equalTo: bookImage.superview!.centerXAnchor),
       centerYAnchor: bookImage.centerYAnchor.constraint(equalTo: bookImage.superview!.centerYAnchor)
     )
@@ -122,6 +125,9 @@ class BookshelfCollectionViewCell: UICollectionViewCell {
         validConstraint.isActive = true
       }
     }
+    
+    activityIndicator.centerXAnchor.constraint(equalTo: activityIndicator.superview!.centerXAnchor).isActive = true
+    activityIndicator.centerYAnchor.constraint(equalTo: activityIndicator.superview!.centerYAnchor).isActive = true
     
     bookOverlayConstraints = Constraints(
       topAnchor: bookOverlay.topAnchor.constraint(equalTo: bookOverlay.superview!.topAnchor),
@@ -168,6 +174,8 @@ class BookshelfCollectionViewCell: UICollectionViewCell {
         validConstraint.isActive = true
       }
     }
+    
+    bookImage.dropShadow(type: "book")
   }
   
   required init?(coder: NSCoder) {
@@ -177,10 +185,21 @@ class BookshelfCollectionViewCell: UICollectionViewCell {
   override func layoutSubviews() {
     super.layoutSubviews()
 
-    cellBackground.colors = [
-      UIColor.clear.cgColor,
-      UIColor.systemGray5.cgColor
-    ]
+    if traitCollection.userInterfaceStyle == .light {
+      cellBackground.colors = [
+        UIColor.systemGray2.cgColor,
+        UIColor.systemGray3.cgColor,
+        UIColor.systemGray.cgColor,
+        UIColor.systemGray3.cgColor
+      ]
+    } else {
+      cellBackground.colors = [
+        UIColor.systemGray5.cgColor,
+        UIColor.systemGray4.cgColor,
+        UIColor.systemGray6.cgColor,
+        UIColor.systemGray4.cgColor
+      ]
+    }
 
     if !sublayerInserted {
       sublayerInserted = true

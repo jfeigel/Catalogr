@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import os.log
 
 extension UIImageView {
   func load(url: URL, completion: ((UIImage) -> ())? = nil) {
@@ -19,7 +20,11 @@ extension UIImageView {
               completion!(image)
             }
           }
+        } else {
+          print("ERROR: Data in response is not an imaage")
         }
+      } else {
+        print("Error while trying to retrieve data from \(url)")
       }
     }
   }
@@ -39,6 +44,13 @@ extension UIImageView {
       let ovalRect = CGRect(x: -shadowSize, y: size.height - (shadowSize * 0.4), width: size.width + shadowSize * 2, height: shadowSize)
       self.layer.shadowPath = UIBezierPath(ovalIn: ovalRect).cgPath
       self.layer.shadowRadius = 5
+      break
+    case "book":
+      let shadowSize: CGFloat = 20
+      let ovalRect = CGRect(x: 0, y: (size.height * 2) - (shadowSize * 2.25), width: (size.width * 2) + (shadowSize * 1.5), height: shadowSize)
+      self.layer.shadowPath = UIBezierPath(ovalIn: ovalRect).cgPath
+      self.layer.shadowRadius = 5
+      self.layer.shadowOpacity = 1.0 / 3.0
       break
     default:
       self.layer.shadowOffset = .zero

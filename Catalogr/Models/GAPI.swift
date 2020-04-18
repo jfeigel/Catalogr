@@ -9,8 +9,8 @@
 import Foundation
 
 final class GAPI {
-  private static var key: String = "AIzaSyBbagy9yBWnF0oPjDsmU46rsCuGoK3h-Zk"
-  private static var volumeQS: String = "https://www.googleapis.com/books/v1/volumes?q=%%type%%:%%query%%&key=\(key)&prettyPrint=false"
+  private static let key: String = "AIzaSyBbagy9yBWnF0oPjDsmU46rsCuGoK3h-Zk"
+  private static let volumeQS: String = "https://www.googleapis.com/books/v1/volumes?q=%%type%%:%%query%%&key=\(key)&prettyPrint=false"
   
   static func getByIsbnURL(_ query: String) -> String {
     return self.getURL(type: "isbn", query: query)

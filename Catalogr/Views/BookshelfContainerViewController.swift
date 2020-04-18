@@ -95,6 +95,10 @@ class BookshelfContainerViewController: UIViewController {
       if let destVC = segue.destination as? AddBookViewController {
         destVC.book = sender as? Book
       }
+    case "bookDetail":
+      if let destVC = segue.destination as? BookDetailViewController {
+        destVC.book = sender as? SavedBook
+      }
     case "bookshelf":
       if let destVC = segue.destination as? BookshelfCollectionViewController {
         bookshelfViewController = destVC

@@ -26,9 +26,9 @@ class AddBookViewController: UIViewController {
     super.viewDidLoad()
     
     if let book = book {
-      if let imageLinks = book.volumeInfo.imageLinks {
+      if let imageLinks = book.volumeInfo.imageLinks, let thumbnail = imageLinks.thumbnail {
         imageActivityIndicator.startAnimating()
-        bookImage.load(url: URL(string: imageLinks.thumbnail)!) { (image) in
+        bookImage.load(url: URL(string: thumbnail)!) { (image) in
           self.imageActivityIndicator.stopAnimating()
         }
       } else {
