@@ -21,10 +21,10 @@ extension UIImageView {
             }
           }
         } else {
-          print("ERROR: Data in response is not an imaage")
+          os_log("ERROR: Data in response is not an image", type: .error)
         }
       } else {
-        print("Error while trying to retrieve data from \(url)")
+        os_log("Error while trying to retrieve data from %s", type: .error, url as CVarArg)
       }
     }
   }

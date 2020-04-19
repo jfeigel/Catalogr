@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import os.log
 
 class AddBookViewController: UIViewController {
   var book: Book!
@@ -19,7 +18,7 @@ class AddBookViewController: UIViewController {
   @IBOutlet var imageActivityIndicator: UIActivityIndicatorView!
 
   @IBAction func addBook(_ sender: UIButton) {
-    self.performSegue(withIdentifier: "addBookReturn", sender: self)
+    self.performSegue(withIdentifier: "addBookUnwind", sender: self)
   }
   
   override func viewDidLoad() {

@@ -8,6 +8,7 @@
 
 import Foundation
 import UIKit
+import AVFoundation
 import os.log
 
 import BarcodeScanner
@@ -28,15 +29,23 @@ class BookshelfContainerViewController: UIViewController {
   @IBOutlet var nonEmptyView: UIView!
   @IBOutlet var downArrow: UIImageView!
  
-  @IBAction func unwindToViewController(segue: UIStoryboardSegue) {
-    if segue.identifier == "addBookReturn", let source = segue.source as? AddBookViewController {
-      if let bookData = source.book {
+  @IBAction func unwindToViewController(segue: UIStoryboardSegue, sender: Any?) {
+    switch segue.identifier {
+    case "addBookUnwind":
+      if let source = segue.source as? AddBookViewController, let bookData = source.book {
         let newBook = SavedBook(book: bookData)
         bookshelf.append(newBook)
         bookshelfViewController.addBook(newBook)
         saveBookshelf()
         setVisibleViews()
       }
+    case "scannerViewUnwind":
+      if let source = segue.source as? ISBNScannerViewController {
+        getBook(controller: nil, code: source.foundNumber) { bookData in
+          self.performSegue(withIdentifier: "addBook", sender: bookData)
+        }
+      }
+    default: break
     }
   }
   
@@ -105,6 +114,7 @@ class BookshelfContainerViewController: UIViewController {
         destVC.bookshelf = self.bookshelf
         destVC.bookshelfContainerViewController = self
       }
+    case "scanISBN": break
     default:
       os_log("Unknown Segue Identifier found", log: OSLog.default, type: .error)
     }
@@ -169,30 +179,38 @@ class BookshelfContainerViewController: UIViewController {
 
 extension BookshelfContainerViewController: BarcodeScannerCodeDelegate {
   func scanner(_ controller: BarcodeScannerViewController, didCaptureCode code: String, type: String) {
-    getBook(controller: controller, code: code) { (bookData) in
+    if type == AVMetadataObject.ObjectType.upca.rawValue {
       controller.reset(animated: false)
       controller.dismiss(animated: true, completion: {
-        self.performSegue(withIdentifier: "addBook", sender: bookData)
+        self.performSegue(withIdentifier: "scanISBN", sender: nil)
       })
+    } else {
+      getBook(controller: controller, code: code) { (bookData) in
+        controller.reset(animated: false)
+        controller.dismiss(animated: true, completion: {
+          self.performSegue(withIdentifier: "addBook", sender: bookData)
+        })
+      }
     }
   }
   
-  func getBook(controller: BarcodeScannerViewController, code: String, completion: @escaping (Book) -> ()) {
+  func getBook(controller: BarcodeScannerViewController?, code: String, completion: @escaping (Book) -> ()) {
     let urlString = GAPI.getByIsbnURL(code)
     if let url = URL(string: urlString) {
       URLSession.shared.dataTask(with: url) { data, res, err in
         guard err == nil else {
-          DispatchQueue.main.async {
-            controller.resetWithError(message: "Error getting book data")
-          }
-          print(err!)
+//          DispatchQueue.main.async {
+//            controller.resetWithError(message: "Error getting book data")
+//          }
+          os_log("%s", type: .error, err! as CVarArg)
           return
         }
         
         guard let resData = data else {
-          DispatchQueue.main.async {
-            controller.resetWithError(message: "Error: did not receive data")
-          }
+//          DispatchQueue.main.async {
+//            controller.resetWithError(message: "Error: did not receive data")
+//          }
+          os_log("Error: did not receive data", type: .error)
           return
         }
         
@@ -205,15 +223,17 @@ extension BookshelfContainerViewController: BarcodeScannerCodeDelegate {
               completion(books.items![0])
             }
           } else {
-            DispatchQueue.main.async {
-              controller.resetWithError(message: "Error: No books found")
-            }
+//            DispatchQueue.main.async {
+//              controller.resetWithError(message: "Error: No books found")
+//            }
+            os_log("Error: No books found", type: .error)
             return
           }
         } else {
-          DispatchQueue.main.async {
-            controller.resetWithError(message: "Error: Cannot convert data to JSON")
-          }
+//          DispatchQueue.main.async {
+//            controller.resetWithError(message: "Error: Cannot convert data to JSON")
+//          }
+          os_log("Error: Cannot convert data to JSON")
           return
         }
       }.resume()
@@ -225,7 +245,7 @@ extension BookshelfContainerViewController: BarcodeScannerCodeDelegate {
 
 extension BookshelfContainerViewController: BarcodeScannerErrorDelegate {
   func scanner(_ controller: BarcodeScannerViewController, didReceiveError error: Error) {
-    print(error)
+    os_log("%s", type: .error, error as CVarArg)
   }
 }
 

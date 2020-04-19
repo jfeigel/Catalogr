@@ -75,6 +75,9 @@
                             <popoverArrowDirection key="popoverArrowDirection" up="YES" down="YES" left="YES" right="YES"/>
                         </segue>
                         <segue destination="wkc-FG-dxh" kind="show" identifier="bookDetail" id="vS4-uG-OdX"/>
+                        <segue destination="s0A-Et-QWh" kind="popoverPresentation" identifier="scanISBN" popoverAnchorView="tsR-hK-woN" id="1dQ-Sa-lp2">
+                            <popoverArrowDirection key="popoverArrowDirection" up="YES" down="YES" left="YES" right="YES"/>
+                        </segue>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="W5J-7L-Pyd" sceneMemberID="firstResponder"/>
@@ -216,6 +219,72 @@
             </objects>
             <point key="canvasLocation" x="5206" y="-317"/>
         </scene>
+        <!--Scanner View Controller-->
+        <scene sceneID="8Gb-5v-E09">
+            <objects>
+                <viewController id="s0A-Et-QWh" customClass="ISBNScannerViewController" customModule="Catalogr" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="cT2-W5-v8i">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="BTe-Fn-1I8" customClass="PreviewView" customModule="Catalogr" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                            </view>
+                            <view opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fDJ-fk-YpX">
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <gestureRecognizers/>
+                                <connections>
+                                    <outletCollection property="gestureRecognizers" destination="3L7-3N-dHd" appends="YES" id="PLI-59-6uH"/>
+                                </connections>
+                            </view>
+                            <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VzP-tR-Ujq">
+                                <rect key="frame" x="116.5" y="403.5" width="181" height="35"/>
+                                <attributedString key="attributedText">
+                                    <fragment content="0001112222">
+                                        <attributes>
+                                            <color key="NSColor" name="textColor" catalog="System" colorSpace="catalog"/>
+                                            <font key="NSFont" size="30" name="Menlo-Regular"/>
+                                            <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0" allowsDefaultTighteningForTruncation="NO"/>
+                                        </attributes>
+                                    </fragment>
+                                </attributedString>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstItem="BTe-Fn-1I8" firstAttribute="centerY" secondItem="cT2-W5-v8i" secondAttribute="centerY" id="192-yA-Ndf"/>
+                            <constraint firstItem="VzP-tR-Ujq" firstAttribute="centerY" secondItem="cT2-W5-v8i" secondAttribute="centerY" id="9RQ-yh-WrW"/>
+                            <constraint firstItem="BTe-Fn-1I8" firstAttribute="trailing" secondItem="tgw-Gh-sV9" secondAttribute="trailing" id="A2G-UB-qlG"/>
+                            <constraint firstAttribute="bottom" secondItem="fDJ-fk-YpX" secondAttribute="bottom" id="K3i-5c-a5u"/>
+                            <constraint firstItem="fDJ-fk-YpX" firstAttribute="centerX" secondItem="cT2-W5-v8i" secondAttribute="centerX" id="TdX-pd-lDS"/>
+                            <constraint firstItem="fDJ-fk-YpX" firstAttribute="centerY" secondItem="cT2-W5-v8i" secondAttribute="centerY" id="Tmm-u6-5xm"/>
+                            <constraint firstItem="BTe-Fn-1I8" firstAttribute="centerX" secondItem="cT2-W5-v8i" secondAttribute="centerX" id="Ujh-xj-HNg"/>
+                            <constraint firstItem="VzP-tR-Ujq" firstAttribute="centerX" secondItem="cT2-W5-v8i" secondAttribute="centerX" id="eTO-Rl-kEh"/>
+                            <constraint firstAttribute="bottom" secondItem="BTe-Fn-1I8" secondAttribute="bottom" id="rmD-35-N1O"/>
+                            <constraint firstItem="fDJ-fk-YpX" firstAttribute="trailing" secondItem="tgw-Gh-sV9" secondAttribute="trailing" id="seg-3H-Lbr"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="tgw-Gh-sV9"/>
+                    </view>
+                    <connections>
+                        <outlet property="cutoutView" destination="fDJ-fk-YpX" id="Wf8-qB-SEB"/>
+                        <outlet property="numberView" destination="VzP-tR-Ujq" id="rfr-Ln-yTc"/>
+                        <outlet property="previewView" destination="BTe-Fn-1I8" id="r0Y-gX-qe0"/>
+                        <segue destination="G1r-xD-e7w" kind="unwind" identifier="scannerViewUnwind" unwindAction="unwindToViewControllerWithSegue:sender:" id="jGL-md-mKy"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="ZXQ-Nd-aKG" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+                <exit id="G1r-xD-e7w" userLabel="Exit" sceneMemberID="exit"/>
+                <tapGestureRecognizer id="3L7-3N-dHd">
+                    <connections>
+                        <action selector="handleTap:" destination="s0A-Et-QWh" id="6qw-YK-ZZt"/>
+                    </connections>
+                </tapGestureRecognizer>
+            </objects>
+            <point key="canvasLocation" x="93" y="455"/>
+        </scene>
         <!--Add Book-->
         <scene sceneID="dU1-YK-JuV">
             <objects>
@@ -304,13 +373,13 @@
                         <outlet property="bookSubtitle" destination="aEQ-zv-tZA" id="0ES-Fk-Tus"/>
                         <outlet property="bookTitle" destination="4Dp-ln-NGQ" id="SvQ-An-eAM"/>
                         <outlet property="imageActivityIndicator" destination="Jd2-TA-fYm" id="eiY-TJ-Ems"/>
-                        <segue destination="ryM-Jf-ICs" kind="unwind" identifier="addBookReturn" unwindAction="unwindToViewControllerWithSegue:" id="7Mu-kn-xMk"/>
+                        <segue destination="ryM-Jf-ICs" kind="unwind" identifier="addBookUnwind" unwindAction="unwindToViewControllerWithSegue:sender:" id="eam-B4-lOi"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="SEb-62-AS2" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
                 <exit id="ryM-Jf-ICs" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="475" y="455"/>
+            <point key="canvasLocation" x="906" y="455"/>
         </scene>
         <!--Bookshelf Collection View Controller-->
         <scene sceneID="dlu-Xg-Heh">
@@ -325,7 +394,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="NLi-on-Fkb" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1294" y="373"/>
+            <point key="canvasLocation" x="1730" y="373"/>
         </scene>
         <!--Book Detail View Controller-->
         <scene sceneID="T11-is-AVb">
