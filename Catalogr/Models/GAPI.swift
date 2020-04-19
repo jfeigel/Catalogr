@@ -9,8 +9,14 @@
 import Foundation
 
 final class GAPI {
-  private static let key: String = "AIzaSyBbagy9yBWnF0oPjDsmU46rsCuGoK3h-Zk"
-  private static let volumeQS: String = "https://www.googleapis.com/books/v1/volumes?q=%%type%%:%%query%%&key=\(key)&prettyPrint=false"
+  private static let volumeQS: String = {
+    let path = Bundle.main.path(forResource: "Keys", ofType: "plist")!
+    let keys = NSDictionary(contentsOfFile: path)!
+    let googleAPIKey = keys["googleAPIKey"] as! String
+    let url = "https://www.googleapis.com/books/v1/volumes?q=%%type%%:%%query%%&key=\(googleAPIKey)&prettyPrint=false"
+    print(url)
+    return url
+  }()
   
   static func getByIsbnURL(_ query: String) -> String {
     return self.getURL(type: "isbn", query: query)

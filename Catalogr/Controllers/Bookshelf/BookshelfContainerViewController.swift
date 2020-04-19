@@ -197,7 +197,9 @@ extension BookshelfContainerViewController: BarcodeScannerCodeDelegate {
   func getBook(controller: BarcodeScannerViewController?, code: String, completion: @escaping (Book) -> ()) {
     let urlString = GAPI.getByIsbnURL(code)
     if let url = URL(string: urlString) {
-      URLSession.shared.dataTask(with: url) { data, res, err in
+      var request = URLRequest(url: url)
+      request.setValue(Bundle.main.bundleIdentifier!, forHTTPHeaderField: "X-Ios-Bundle-Identifier")
+      URLSession.shared.dataTask(with: request) { data, res, err in
         guard err == nil else {
 //          DispatchQueue.main.async {
 //            controller.resetWithError(message: "Error getting book data")

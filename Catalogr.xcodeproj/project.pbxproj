@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		17262BF22446513F008B2DF5 /* BookshelfCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17262BF12446513F008B2DF5 /* BookshelfCollectionViewController.swift */; };
 		172DB3F72447B02100B6425E /* Loopable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 172DB3F62447B02100B6425E /* Loopable.swift */; };
+		1766623C244BF78300FC758D /* Keys.plist in Resources */ = {isa = PBXBuildFile; fileRef = 1766623B244BF78300FC758D /* Keys.plist */; };
 		176AC5A2242C6C5F008DBCAA /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 176AC5A1242C6C5F008DBCAA /* AppDelegate.swift */; };
 		176AC5A4242C6C5F008DBCAA /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 176AC5A3242C6C5F008DBCAA /* SceneDelegate.swift */; };
 		176AC5A6242C6C5F008DBCAA /* BookshelfContainerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 176AC5A5242C6C5F008DBCAA /* BookshelfContainerViewController.swift */; };
@@ -64,6 +65,7 @@
 		080B6845D1C4B35251BC594C /* Pods_Catalogr.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Catalogr.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		17262BF12446513F008B2DF5 /* BookshelfCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookshelfCollectionViewController.swift; sourceTree = "<group>"; };
 		172DB3F62447B02100B6425E /* Loopable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Loopable.swift; sourceTree = "<group>"; };
+		1766623B244BF78300FC758D /* Keys.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Keys.plist; sourceTree = "<group>"; };
 		176AC59E242C6C5F008DBCAA /* Catalogr.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Catalogr.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		176AC5A1242C6C5F008DBCAA /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		176AC5A3242C6C5F008DBCAA /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -139,6 +141,14 @@
 			path = Protocols;
 			sourceTree = "<group>";
 		};
+		1766623A244BF75B00FC758D /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				1766623B244BF78300FC758D /* Keys.plist */,
+			);
+			path = "Supporting Files";
+			sourceTree = "<group>";
+		};
 		176AC595242C6C5F008DBCAA = {
 			isa = PBXGroup;
 			children = (
@@ -166,6 +176,7 @@
 		176AC5A0242C6C5F008DBCAA /* Catalogr */ = {
 			isa = PBXGroup;
 			children = (
+				1766623A244BF75B00FC758D /* Supporting Files */,
 				172DB3F52447B01300B6425E /* Protocols */,
 				17BB024524415C11001D1013 /* Controllers */,
 				17B2EA9E243D738400EBDE97 /* Components */,
@@ -415,6 +426,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1766623C244BF78300FC758D /* Keys.plist in Resources */,
 				17C1BCAD24343A940019589C /* Launch Screen.storyboard in Resources */,
 				176AC5B0242C6C60008DBCAA /* Assets.xcassets in Resources */,
 				176AC5AB242C6C5F008DBCAA /* Main.storyboard in Resources */,

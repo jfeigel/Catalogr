@@ -90,3 +90,4 @@ fastlane/test_output
 iOSInjectionProject/
 
 .DS_Store
+Catalogr/Supporting Files/Keys.plist
