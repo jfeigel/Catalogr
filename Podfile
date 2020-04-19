@@ -7,5 +7,4 @@ target 'Catalogr' do
 
   # Pods for Catalogr
   pod 'BarcodeScanner', :path => '~/Projects/iOS/BarcodeScanner'
-  pod 'GoogleSignIn'
 end
