@@ -168,7 +168,9 @@ extension BookshelfCollectionViewController: UICollectionViewDataSource {
     let index = (indexPath.section * 6) + indexPath.row
     
     if index < bookshelf.count {
-      if let imageLinks = bookshelf[index].book.volumeInfo.imageLinks, let thumbnail = imageLinks.thumbnail {
+      let book = bookshelf[index].book
+      
+      if let imageLinks = book.volumeInfo.imageLinks, let thumbnail = imageLinks.thumbnail {
         cell.activityIndicator.startAnimating()
         cell.bookImage.load(url: URL(string: thumbnail)!) { image in
           cell.activityIndicator.stopAnimating()
@@ -179,10 +181,12 @@ extension BookshelfCollectionViewController: UICollectionViewDataSource {
         cell.bookImage.isHidden = false
       }
       
+      cell.isRead.isHighlighted = bookshelf[index].read
+      cell.isBorrowed.isHighlighted = bookshelf[index].borrowed
+      
       cell.isInEditingMode = isEditing
     } else {
-      cell.isInEditingMode = false
-      cell.bookImage.isHidden = true
+      cell.isEmpty = true
     }
         
     return cell

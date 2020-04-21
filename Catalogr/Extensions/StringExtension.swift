@@ -31,7 +31,7 @@ extension String {
         -                       # Seperator
         (\w{5})                 # Capture Publication Element
         -                       # Seperator
-        (\w{1})                 # Capture Check Digit
+        ([\wX]{1})              # Capture Check Digit (Number or 'X')
         """#
     
     guard let range = self.range(of: pattern, options: .regularExpression, range: nil, locale: nil) else {
@@ -64,7 +64,7 @@ extension String {
     
     // Substitute commonly misrecognized characters, for example: 'S' -> '5' or 'l' -> '1'
     var result = ""
-    let allowedChars = "0123456789"
+    let allowedChars = "0123456789X"
     for var char in isbn {
       char = char.getSimilarCharacterIfNotIn(allowedChars: allowedChars)
       guard allowedChars.contains(char) else {

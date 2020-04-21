@@ -27,7 +27,6 @@ class StringTracker {
       }
       seenStrings[string]?.lastSeen = frameIndex
       seenStrings[string]?.count += 1
-      os_log("Seen %s %d times", type: .debug, string as CVarArg, (seenStrings[string]?.count ?? 0) as CVarArg)
     }
     
     var obsoleteStrings = [String]()

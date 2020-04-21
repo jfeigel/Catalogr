@@ -35,7 +35,7 @@ class BookDetailViewController: UIViewController {
   override func viewWillLayoutSubviews() {
     super.viewWillLayoutSubviews()
     
-    backgroundView.roundCorners(corners: [.topLeft, .topRight, .bottomRight, .bottomLeft], radius: 44)
+    backgroundView.roundCorners(corners: [.topLeft, .topRight, .bottomRight, .bottomLeft], radius: nil)
   }
   
 }

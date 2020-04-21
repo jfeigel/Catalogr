@@ -32,9 +32,9 @@ struct Book: Codable {
   var etag: String
   var selfLink: String
   var volumeInfo: VolumeInfo
-  var saleInfo: SaleInfo
-  var accessInfo: AccessInfo
-  var searchInfo: SearchInfo
+  var saleInfo: SaleInfo?
+  var accessInfo: AccessInfo?
+  var searchInfo: SearchInfo?
   
   struct VolumeInfo: Codable {
     var title: String

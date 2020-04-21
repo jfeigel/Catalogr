@@ -13,9 +13,6 @@ class SettingsToggleTableViewCell: UITableViewCell {
   @IBOutlet weak var label: UILabel!
   @IBOutlet weak var toggle: UISwitch!
   
-  @IBAction func toggleAction(_ sender: UISwitch) {
-  }
-  
   override func awakeFromNib() {
     super.awakeFromNib()
     // Initialization code

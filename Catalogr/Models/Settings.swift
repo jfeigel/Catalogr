@@ -15,7 +15,7 @@ class Settings: NSObject, NSCoding {
   
   static var userInterfaceStyleDict: [String] = ["System", "Light", "Dark"]
 
-  var rows = [Any]()
+  var rows = [[Row]]()
   
   var userInterfaceStyle: Int {
     didSet {
@@ -23,10 +23,12 @@ class Settings: NSObject, NSCoding {
     }
   }
   
-  struct Row<T> {
-    var name: String = ""
-    var type: T
-    var description: String = ""
+  var performHapticFeedback: Bool = true
+  
+  struct Row {
+    var cellLabel: String = ""
+    var cellType: String = ""
+    var cellIdentifier: String = ""
   }
   
   // MARK: - Types
@@ -63,13 +65,17 @@ class Settings: NSObject, NSCoding {
     
     setAndArchiveSettings()
 
-    let userInterfaceStyleRow = Row<SettingsPickerTableViewCell>(name: "User Interface Style", type: SettingsPickerTableViewCell(), description: "SettingsPickerTableViewCell")
-    rows.append(userInterfaceStyleRow)
+    rows = [
+      [
+        Row(cellLabel: "User Interface Style", cellType: "SettingsPickerTableViewCell", cellIdentifier: "SettingsPickerTableViewCell"),
+        Row(cellLabel: "Haptic Feedback", cellType: "SettingsToggleTableViewCell", cellIdentifier: "SettingsToggleTableViewCell")
+      ]
+    ]
   }
   
   // MARK: - Methods
   
-  func setAndArchiveSettings() {
+  private func setAndArchiveSettings() {
     SceneDelegate.shared?.window!.overrideUserInterfaceStyle = UIUserInterfaceStyle(rawValue: userInterfaceStyle)!
     do {
       let data = try NSKeyedArchiver.archivedData(withRootObject: userInterfaceStyle, requiringSecureCoding: false)

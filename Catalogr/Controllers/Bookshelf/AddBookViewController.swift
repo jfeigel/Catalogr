@@ -18,7 +18,11 @@ class AddBookViewController: UIViewController {
   @IBOutlet var imageActivityIndicator: UIActivityIndicatorView!
 
   @IBAction func addBook(_ sender: UIButton) {
-    self.performSegue(withIdentifier: "addBookUnwind", sender: self)
+    self.performSegue(withIdentifier: "addBookUnwind", sender: nil)
+  }
+  
+  @IBAction func dismiss(_ sender: UIButton) {
+    self.performSegue(withIdentifier: "cancelAddBookUnwind", sender: nil)
   }
   
   override func viewDidLoad() {
@@ -42,8 +46,7 @@ class AddBookViewController: UIViewController {
   override func viewWillLayoutSubviews() {
     super.viewWillLayoutSubviews()
     
-    let radius: CGFloat = 44.0
-    backgroundView.roundCorners(corners: [.topLeft, .topRight], radius: radius)
-    view.layer.cornerRadius = radius
+    backgroundView.roundCorners(corners: [.topLeft, .topRight], radius: nil)
+    view.roundCorners(corners: [.topLeft, .topRight], radius: nil)
   }
 }

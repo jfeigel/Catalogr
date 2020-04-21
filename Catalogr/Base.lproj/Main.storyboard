@@ -93,9 +93,13 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <searchBar contentMode="redraw" fixedFrame="YES" placeholder="Title or Author" translatesAutoresizingMaskIntoConstraints="NO" id="p3N-rY-nYF">
-                                <rect key="frame" x="0.0" y="140" width="414" height="44"/>
+                                <rect key="frame" x="0.0" y="128" width="414" height="56"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
-                                <textInputTraits key="textInputTraits"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="words" textContentType="name"/>
+                                <scopeButtonTitles>
+                                    <string>Title</string>
+                                    <string>Title</string>
+                                </scopeButtonTitles>
                             </searchBar>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
@@ -127,7 +131,7 @@
         <scene sceneID="RKk-dM-k4Y">
             <objects>
                 <tableViewController storyboardIdentifier="SettingsViewController" id="nmy-V2-TDt" customClass="SettingsViewController" customModule="Catalogr" customModuleProvider="target" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="insetGrouped" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" id="K1c-n6-b8I">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="insetGrouped" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" id="K1c-n6-b8I">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <prototypes>
@@ -149,9 +153,6 @@
                                                 </label>
                                                 <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="top" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ocp-fQ-ijU">
                                                     <rect key="frame" x="285" y="6.5" width="51" height="31"/>
-                                                    <connections>
-                                                        <action selector="toggleAction:" destination="sGE-mK-NTQ" eventType="valueChanged" id="WS0-to-lkK"/>
-                                                    </connections>
                                                 </switch>
                                             </subviews>
                                         </stackView>
@@ -299,7 +300,7 @@
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="vgl-5L-Uhn">
                                         <rect key="frame" x="0.0" y="0.0" width="374" height="384"/>
                                         <subviews>
-                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="agJ-BB-jwn">
+                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="agJ-BB-jwn">
                                                 <rect key="frame" x="123" y="100.5" width="128" height="183"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" constant="128" id="m4T-bF-U7c"/>
@@ -339,14 +340,33 @@
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ghS-XQ-NZr">
-                                                <rect key="frame" x="153.5" y="354" width="67" height="30"/>
-                                                <state key="normal" title="Add Book"/>
-                                                <connections>
-                                                    <action selector="addBook:" destination="3Jv-xV-Ypd" eventType="touchUpInside" id="X4T-uL-sdP"/>
-                                                </connections>
-                                            </button>
+                                            <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="40" translatesAutoresizingMaskIntoConstraints="NO" id="y6b-zK-QVE">
+                                                <rect key="frame" x="20" y="354" width="334" height="30"/>
+                                                <subviews>
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tPk-Ju-x6m">
+                                                        <rect key="frame" x="0.0" y="0.0" width="147" height="30"/>
+                                                        <state key="normal" title="Cancel">
+                                                            <color key="titleColor" systemColor="systemRedColor" red="1" green="0.23137254900000001" blue="0.18823529410000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                        </state>
+                                                        <connections>
+                                                            <action selector="dismiss:" destination="3Jv-xV-Ypd" eventType="touchUpInside" id="OsG-Pe-fdz"/>
+                                                        </connections>
+                                                    </button>
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ghS-XQ-NZr">
+                                                        <rect key="frame" x="187" y="0.0" width="147" height="30"/>
+                                                        <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="15"/>
+                                                        <state key="normal" title="Add Book"/>
+                                                        <connections>
+                                                            <action selector="addBook:" destination="3Jv-xV-Ypd" eventType="touchUpInside" id="X4T-uL-sdP"/>
+                                                        </connections>
+                                                    </button>
+                                                </subviews>
+                                            </stackView>
                                         </subviews>
+                                        <constraints>
+                                            <constraint firstItem="y6b-zK-QVE" firstAttribute="leading" secondItem="l3W-62-OSx" secondAttribute="leading" constant="20" id="2Uw-Sh-fBL"/>
+                                            <constraint firstAttribute="trailing" secondItem="y6b-zK-QVE" secondAttribute="trailing" constant="20" id="reT-Nh-lRi"/>
+                                        </constraints>
                                     </stackView>
                                 </subviews>
                                 <constraints>
@@ -374,12 +394,13 @@
                         <outlet property="bookTitle" destination="4Dp-ln-NGQ" id="SvQ-An-eAM"/>
                         <outlet property="imageActivityIndicator" destination="Jd2-TA-fYm" id="eiY-TJ-Ems"/>
                         <segue destination="ryM-Jf-ICs" kind="unwind" identifier="addBookUnwind" unwindAction="unwindToViewControllerWithSegue:sender:" id="eam-B4-lOi"/>
+                        <segue destination="ryM-Jf-ICs" kind="unwind" identifier="cancelAddBookUnwind" unwindAction="unwindToViewControllerWithSegue:sender:" id="nm5-V1-X8y"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="SEb-62-AS2" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
                 <exit id="ryM-Jf-ICs" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="906" y="455"/>
+            <point key="canvasLocation" x="905.79710144927549" y="454.6875"/>
         </scene>
         <!--Bookshelf Collection View Controller-->
         <scene sceneID="dlu-Xg-Heh">
@@ -410,7 +431,7 @@
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="nVc-9w-hNT">
                                         <rect key="frame" x="0.0" y="0.0" width="374" height="316.5"/>
                                         <subviews>
-                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="apx-72-fPN">
+                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="apx-72-fPN">
                                                 <rect key="frame" x="123" y="67" width="128" height="183"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" constant="128" id="9gg-7K-qfQ"/>

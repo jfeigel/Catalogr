@@ -15,6 +15,7 @@ import BarcodeScanner
 
 class BookshelfContainerViewController: UIViewController {
   private let bsViewController = BarcodeScannerViewController()
+  private var feedbackGenerator: UINotificationFeedbackGenerator? = nil
   
   var bookshelf: [SavedBook]!
   var bookshelfViewController: BookshelfCollectionViewController!
@@ -102,6 +103,7 @@ class BookshelfContainerViewController: UIViewController {
     switch segue.identifier {
     case "addBook":
       if let destVC = segue.destination as? AddBookViewController {
+        destVC.isModalInPresentation = true
         destVC.book = sender as? Book
       }
     case "bookDetail":
@@ -179,6 +181,10 @@ class BookshelfContainerViewController: UIViewController {
 
 extension BookshelfContainerViewController: BarcodeScannerCodeDelegate {
   func scanner(_ controller: BarcodeScannerViewController, didCaptureCode code: String, type: String) {
+    feedbackGenerator = UINotificationFeedbackGenerator()
+    feedbackGenerator?.prepare()
+    feedbackGenerator?.notificationOccurred(.success)
+    feedbackGenerator = nil
     if type == AVMetadataObject.ObjectType.upca.rawValue {
       controller.reset(animated: false)
       controller.dismiss(animated: true, completion: {
@@ -201,17 +207,21 @@ extension BookshelfContainerViewController: BarcodeScannerCodeDelegate {
       request.setValue(Bundle.main.bundleIdentifier!, forHTTPHeaderField: "X-Ios-Bundle-Identifier")
       URLSession.shared.dataTask(with: request) { data, res, err in
         guard err == nil else {
-//          DispatchQueue.main.async {
-//            controller.resetWithError(message: "Error getting book data")
-//          }
+          if controller != nil {
+            DispatchQueue.main.async {
+              controller!.resetWithError(message: "Error getting book data")
+            }
+          }
           os_log("%s", type: .error, err! as CVarArg)
           return
         }
         
         guard let resData = data else {
-//          DispatchQueue.main.async {
-//            controller.resetWithError(message: "Error: did not receive data")
-//          }
+          if controller != nil {
+            DispatchQueue.main.async {
+              controller!.resetWithError(message: "Error: did not receive data")
+            }
+          }
           os_log("Error: did not receive data", type: .error)
           return
         }
@@ -225,16 +235,20 @@ extension BookshelfContainerViewController: BarcodeScannerCodeDelegate {
               completion(books.items![0])
             }
           } else {
-//            DispatchQueue.main.async {
-//              controller.resetWithError(message: "Error: No books found")
-//            }
+            if controller != nil {
+              DispatchQueue.main.async {
+                controller!.resetWithError(message: "Error: No books found")
+              }
+            }
             os_log("Error: No books found", type: .error)
             return
           }
         } else {
-//          DispatchQueue.main.async {
-//            controller.resetWithError(message: "Error: Cannot convert data to JSON")
-//          }
+          if controller != nil {
+            DispatchQueue.main.async {
+              controller!.resetWithError(message: "Error: Cannot convert data to JSON")
+            }
+          }
           os_log("Error: Cannot convert data to JSON")
           return
         }

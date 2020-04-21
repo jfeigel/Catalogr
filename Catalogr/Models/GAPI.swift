@@ -13,9 +13,7 @@ final class GAPI {
     let path = Bundle.main.path(forResource: "Keys", ofType: "plist")!
     let keys = NSDictionary(contentsOfFile: path)!
     let googleAPIKey = keys["googleAPIKey"] as! String
-    let url = "https://www.googleapis.com/books/v1/volumes?q=%%type%%:%%query%%&key=\(googleAPIKey)&prettyPrint=false"
-    print(url)
-    return url
+    return "https://www.googleapis.com/books/v1/volumes?q=%%type%%:%%query%%&key=\(googleAPIKey)&prettyPrint=false"
   }()
   
   static func getByIsbnURL(_ query: String) -> String {

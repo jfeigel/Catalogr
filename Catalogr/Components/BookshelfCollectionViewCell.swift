@@ -11,6 +11,16 @@ import UIKit
 class BookshelfCollectionViewCell: UICollectionViewCell {
   
   var sublayerInserted = false
+  var isEmpty: Bool = false {
+    didSet {
+      if isEmpty {
+        self.isInEditingMode = false
+        self.bookImage.isHidden = true
+        self.isRead.isHidden = true
+        self.isBorrowed.isHidden = true
+      }
+    }
+  }
   
   let cellBackground: CAGradientLayer = {
     let layer = CAGradientLayer()
@@ -23,7 +33,6 @@ class BookshelfCollectionViewCell: UICollectionViewCell {
     let imageView = UIImageView(image: UIImage(named: "no_cover_thumb"))
     imageView.translatesAutoresizingMaskIntoConstraints = false
     imageView.contentMode = .scaleAspectFit
-//    imageView.dropShadow(type: "book")
     return imageView
   }()
   
@@ -41,6 +50,40 @@ class BookshelfCollectionViewCell: UICollectionViewCell {
     view.alpha = 0.2
     return view
   }()
+  
+  let actionContainer: UIStackView = {
+    let stackView = UIStackView()
+    stackView.translatesAutoresizingMaskIntoConstraints = false
+    stackView.axis = .vertical
+    stackView.alignment = .center
+    stackView.distribution = .fillEqually
+    stackView.spacing = 12.5
+    return stackView
+  }()
+  
+  let isBorrowed: UIImageView = {
+    let imageView = UIImageView(
+      image: UIImage(systemName: "tray.and.arrow.up"),
+      highlightedImage: UIImage(systemName: "tray.and.arrow.up.fill")
+    )
+    imageView.translatesAutoresizingMaskIntoConstraints = false
+    imageView.contentMode = .scaleAspectFit
+    imageView.tintColor = .white
+    return imageView
+  }()
+  
+  let isRead: UIImageView = {
+    let imageView = UIImageView(
+      image: UIImage(systemName: "book"),
+      highlightedImage: UIImage(systemName: "book.fill")
+    )
+    imageView.translatesAutoresizingMaskIntoConstraints = false
+    imageView.contentMode = .scaleAspectFit
+    imageView.tintColor = .white
+    return imageView
+  }()
+  
+  let bookCheckmarkContainer = UIView()
   
   let bookCheckmarkBorder: UIImageView = {
     let imageView = UIImageView(
@@ -70,10 +113,10 @@ class BookshelfCollectionViewCell: UICollectionViewCell {
     imageView.layer.cornerRadius = imageView.frame.size.width / 2
     return imageView
   }()
-  
 
   fileprivate var bookImageConstraints: Constraints!
   fileprivate var bookOverlayConstraints: Constraints!
+  fileprivate var actionContainerConstraints: Constraints!
   fileprivate var bookCheckmarkBorderConstraints: Constraints!
   fileprivate var bookCheckmarkConstraints: Constraints!
   fileprivate var bookCheckmarkBackgroundConstraints: Constraints!
@@ -81,6 +124,10 @@ class BookshelfCollectionViewCell: UICollectionViewCell {
   var isInEditingMode: Bool = false {
     didSet {
       isSelected = false
+      
+      isRead.alpha = isInEditingMode ? 0.5 : 1.0
+      isBorrowed.alpha = isInEditingMode ? 0.5 : 1.0
+      
       bookOverlay.isHidden = !isInEditingMode || !isSelected
       bookCheckmarkBorder.isHidden = !isInEditingMode
       bookCheckmark.isHidden = !isInEditingMode || !isSelected
@@ -103,13 +150,19 @@ class BookshelfCollectionViewCell: UICollectionViewCell {
     
     contentMode = .scaleAspectFit
     contentView.contentMode = .center
+
+    bookCheckmarkContainer.addSubview(bookCheckmarkBackground)
+    bookCheckmarkContainer.addSubview(bookCheckmark)
+    bookCheckmarkContainer.addSubview(bookCheckmarkBorder)
+    
+    actionContainer.addArrangedSubview(isRead)
+    actionContainer.addArrangedSubview(isBorrowed)
+    actionContainer.addArrangedSubview(bookCheckmarkContainer)
     
     contentView.addSubview(bookImage)
     contentView.addSubview(activityIndicator)
     contentView.addSubview(bookOverlay)
-    contentView.addSubview(bookCheckmarkBackground)
-    contentView.addSubview(bookCheckmark)
-    contentView.addSubview(bookCheckmarkBorder)
+    contentView.addSubview(actionContainer)
     
     bookImageConstraints = Constraints(
       topAnchor: bookImage.topAnchor.constraint(equalTo: bookImage.superview!.topAnchor, constant: 20),
@@ -129,6 +182,18 @@ class BookshelfCollectionViewCell: UICollectionViewCell {
     activityIndicator.centerXAnchor.constraint(equalTo: activityIndicator.superview!.centerXAnchor).isActive = true
     activityIndicator.centerYAnchor.constraint(equalTo: activityIndicator.superview!.centerYAnchor).isActive = true
     
+    actionContainerConstraints = Constraints(
+      topAnchor: actionContainer.topAnchor.constraint(equalTo: actionContainer.superview!.topAnchor, constant: 12.5),
+      trailingAnchor: actionContainer.trailingAnchor.constraint(equalTo: actionContainer.superview!.trailingAnchor, constant: -12.5),
+      bottomAnchor: actionContainer.bottomAnchor.constraint(equalTo: actionContainer.superview!.bottomAnchor, constant: -12.5)
+    )
+    
+    for constraint in actionContainerConstraints.keys() {
+      if let validConstraint = actionContainerConstraints[constraint] {
+        validConstraint.isActive = true
+      }
+    }
+    
     bookOverlayConstraints = Constraints(
       topAnchor: bookOverlay.topAnchor.constraint(equalTo: bookOverlay.superview!.topAnchor),
       leadingAnchor: bookOverlay.leadingAnchor.constraint(equalTo: bookOverlay.superview!.leadingAnchor),
@@ -143,8 +208,8 @@ class BookshelfCollectionViewCell: UICollectionViewCell {
     }
     
     bookCheckmarkBorderConstraints = Constraints(
-      trailingAnchor: bookCheckmarkBorder.trailingAnchor.constraint(equalTo: bookCheckmarkBorder.superview!.trailingAnchor, constant: -15),
-      bottomAnchor: bookCheckmarkBorder.bottomAnchor.constraint(equalTo: bookCheckmarkBorder.superview!.bottomAnchor, constant: -15)
+      centerXAnchor: bookCheckmarkBorder.centerXAnchor.constraint(equalTo: bookCheckmarkBorder.superview!.centerXAnchor),
+      centerYAnchor: bookCheckmarkBorder.centerYAnchor.constraint(equalTo: bookCheckmarkBorder.superview!.centerYAnchor)
     )
     
     for constraint in bookCheckmarkBorderConstraints.keys() {
@@ -154,8 +219,8 @@ class BookshelfCollectionViewCell: UICollectionViewCell {
     }
     
     bookCheckmarkConstraints = Constraints(
-      trailingAnchor: bookCheckmark.trailingAnchor.constraint(equalTo: bookCheckmark.superview!.trailingAnchor, constant: -15),
-      bottomAnchor: bookCheckmark.bottomAnchor.constraint(equalTo: bookCheckmark.superview!.bottomAnchor, constant: -15)
+        centerXAnchor: bookCheckmark.centerXAnchor.constraint(equalTo: bookCheckmark.superview!.centerXAnchor),
+        centerYAnchor: bookCheckmark.centerYAnchor.constraint(equalTo: bookCheckmark.superview!.centerYAnchor)
     )
     
     for constraint in bookCheckmarkConstraints.keys() {
@@ -165,8 +230,8 @@ class BookshelfCollectionViewCell: UICollectionViewCell {
     }
     
     bookCheckmarkBackgroundConstraints = Constraints(
-      trailingAnchor: bookCheckmarkBackground.trailingAnchor.constraint(equalTo: bookCheckmarkBackground.superview!.trailingAnchor, constant: -15),
-      bottomAnchor: bookCheckmarkBackground.bottomAnchor.constraint(equalTo: bookCheckmarkBackground.superview!.bottomAnchor, constant: -15)
+        centerXAnchor: bookCheckmarkBackground.centerXAnchor.constraint(equalTo: bookCheckmarkBackground.superview!.centerXAnchor),
+        centerYAnchor: bookCheckmarkBackground.centerYAnchor.constraint(equalTo: bookCheckmarkBackground.superview!.centerYAnchor)
     )
     
     for constraint in bookCheckmarkBackgroundConstraints.keys() {
