@@ -16,6 +16,7 @@ class BookDetailViewController: UIViewController {
   @IBOutlet weak var bookImage: UIImageView!
   @IBOutlet weak var bookTitle: UILabel!
   @IBOutlet weak var bookSubtitle: UILabel!
+  @IBOutlet var objectViewer: UITextView!
   
   override func viewDidLoad() {
     super.viewDidLoad()
@@ -23,13 +24,24 @@ class BookDetailViewController: UIViewController {
     let bookData = book.book
     
     if let imageLinks = bookData.volumeInfo.imageLinks, let thumbnail = imageLinks.thumbnail {
-      bookImage.load(url: URL(string: thumbnail)!, completion: nil)
+      bookImage.load(url: URL(string: thumbnail)!) { _ in
+        self.bookImage.dropShadow(type: .oval)
+      }
     } else {
       bookImage.image = UIImage(named: "no_cover_thumb")
+      bookImage.dropShadow(type: .oval)
     }
-    bookImage.dropShadow(type: "oval")
     bookTitle.text = bookData.volumeInfo.title
     bookSubtitle.text = bookData.volumeInfo.subtitle
+    
+    do {
+      let encoder = JSONEncoder()
+      encoder.outputFormatting = .prettyPrinted
+      let jsonData = try encoder.encode(book)
+      objectViewer.text = (String(data: jsonData, encoding: .utf8) ?? "{}")
+    } catch {
+      print("JSON Serialization error: \(error)")
+    }
   }
   
   override func viewWillLayoutSubviews() {

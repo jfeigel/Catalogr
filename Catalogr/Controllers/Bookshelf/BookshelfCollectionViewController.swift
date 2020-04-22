@@ -10,11 +10,15 @@ import UIKit
 
 class BookshelfCollectionViewController: UIViewController {
   
+  private var itemsPerPage: Int = 9
+  private var itemsPerRow: Int = 3
+  private var itemsPerCol: Int = 3
+  
   var bookshelfContainerViewController: BookshelfContainerViewController!
   var bookshelf = [SavedBook]() {
     didSet {
-      var numberOfPages = Int(bookshelf.count / 6)
-      if bookshelf.count % 6 > 0 {
+      var numberOfPages = Int(bookshelf.count / itemsPerPage)
+      if bookshelf.count % itemsPerPage > 0 {
         numberOfPages += 1
       }
       pageControl.numberOfPages = numberOfPages
@@ -70,13 +74,13 @@ class BookshelfCollectionViewController: UIViewController {
     let indexPaths = collectionView.indexPathsForVisibleItems
     for indexPath in indexPaths {
       let cell = collectionView.cellForItem(at: indexPath) as! BookshelfCollectionViewCell
-      cell.isInEditingMode = (indexPath.section * 6) + indexPath.row < bookshelf.count && editing
+      cell.isInEditingMode = (indexPath.section * itemsPerPage) + indexPath.row < bookshelf.count && editing
     }
   }
   
   @objc func deleteAction(_ sender: UIBarButtonItem) {
     if let selectedCells = collectionView.indexPathsForSelectedItems {
-      let items = selectedCells.map { ($0.section * 6) + $0.row }.sorted().reversed()
+      let items = selectedCells.map { ($0.section * itemsPerPage) + $0.row }.sorted().reversed()
       
       for item in items {
         bookshelf.remove(at: item)
@@ -90,10 +94,10 @@ class BookshelfCollectionViewController: UIViewController {
   
   func addBook(_ book: SavedBook) {
     let index = bookshelf.count
-    let section = Int(index / 6)
-    let row = Int(index % 6)
+    let section = Int(index / itemsPerPage)
+    let row = Int(index % itemsPerPage)
     bookshelf.append(book)
-    if index % 6 != 0 {
+    if index % itemsPerPage != 0 {
       collectionView.reloadItems(at: [IndexPath(row: row, section: section)])
     } else {
       let sectionIndex = IndexSet(integer: section)
@@ -113,12 +117,12 @@ extension BookshelfCollectionViewController: UICollectionViewDelegate {
   }
   
   func collectionView(_ collectionView: UICollectionView, shouldSelectItemAt indexPath: IndexPath) -> Bool {
-    return (indexPath.section * 6) + indexPath.row < bookshelf.count
+    return (indexPath.section * itemsPerPage) + indexPath.row < bookshelf.count
   }
   
   func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
     if !isEditing {
-      let index = (indexPath.section * 6) + indexPath.row
+      let index = (indexPath.section * itemsPerPage) + indexPath.row
       bookshelfContainerViewController.performSegue(withIdentifier: "bookDetail", sender: bookshelf[index])
     } else if let selectedItems = collectionView.indexPathsForSelectedItems, selectedItems.count > 0 {
       deleteButton.isEnabled = true
@@ -132,7 +136,7 @@ extension BookshelfCollectionViewController: UICollectionViewDelegate {
   }
   
   func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
-    (cell as! BookshelfCollectionViewCell).isInEditingMode = (indexPath.section * 6) + indexPath.row < bookshelf.count && isEditing
+    (cell as! BookshelfCollectionViewCell).isInEditingMode = (indexPath.section * itemsPerPage) + indexPath.row < bookshelf.count && isEditing
   }
 
 }
@@ -142,7 +146,14 @@ extension BookshelfCollectionViewController: UICollectionViewDelegate {
 extension BookshelfCollectionViewController: UICollectionViewDelegateFlowLayout {
   
   func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-    return CGSize(width: (collectionView.frame.width - 10) / 2, height: (collectionView.frame.height - 40) / 3)
+    let fItemsPerRow = CGFloat(itemsPerRow)
+    let fItemsPerCol = CGFloat(itemsPerCol)
+    let rowBordersWidth: CGFloat = (fItemsPerRow - 1) * 10
+    let colBordersWidth: CGFloat = ((fItemsPerCol - 1) * 10) + 20
+    return CGSize(
+      width: (collectionView.frame.width - rowBordersWidth) / fItemsPerRow,
+      height: (collectionView.frame.height - colBordersWidth) / fItemsPerCol
+    )
   }
   
 }
@@ -152,37 +163,39 @@ extension BookshelfCollectionViewController: UICollectionViewDelegateFlowLayout 
 extension BookshelfCollectionViewController: UICollectionViewDataSource {
 
   func numberOfSections(in collectionView: UICollectionView) -> Int {
-    var numOfSecs = Int(bookshelf.count / 6)
-    if bookshelf.count % 6 > 0 {
+    var numOfSecs = Int(bookshelf.count / itemsPerPage)
+    if bookshelf.count % itemsPerPage > 0 {
       numOfSecs += 1
     }
     return numOfSecs
   }
   
   func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-    return 6
+    return itemsPerPage
   }
   
   func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
     let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "BookshelfCell", for: indexPath) as! BookshelfCollectionViewCell
-    let index = (indexPath.section * 6) + indexPath.row
+    let index = (indexPath.section * itemsPerPage) + indexPath.row
     
     if index < bookshelf.count {
       let book = bookshelf[index].book
       
       if let imageLinks = book.volumeInfo.imageLinks, let thumbnail = imageLinks.thumbnail {
         cell.activityIndicator.startAnimating()
-        cell.bookImage.load(url: URL(string: thumbnail)!) { image in
+        cell.bookImage.load(url: URL(string: thumbnail)!) { _ in
           cell.activityIndicator.stopAnimating()
+          cell.bookImage.image = cell.bookImage.image!.resize(183)
+          cell.bookImage.dropShadow(type: .oval)
           cell.bookImage.isHidden = false
         }
       } else {
-        cell.bookImage.image = UIImage(named: "no_cover_thumb")
-        cell.bookImage.isHidden = false
+        cell.bookImage.image = UIImage(named: "no_cover_thumb")!.resize(183)
+        DispatchQueue.main.async {
+          cell.bookImage.dropShadow(type: .oval)
+          cell.bookImage.isHidden = false
+        }
       }
-      
-      cell.isRead.isHighlighted = bookshelf[index].read
-      cell.isBorrowed.isHighlighted = bookshelf[index].borrowed
       
       cell.isInEditingMode = isEditing
     } else {

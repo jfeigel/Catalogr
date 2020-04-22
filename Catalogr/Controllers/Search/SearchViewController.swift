@@ -8,5 +8,5 @@
 
 import UIKit
 
-class SearchViewController: UIViewController, UISearchBarDelegate {
+class SearchViewController: UIViewController {
 }

@@ -37,7 +37,7 @@ class AddBookViewController: UIViewController {
       } else {
         bookImage.image = UIImage(named: "no_cover_thumb")
       }
-      bookImage.dropShadow(type: "oval")
+      bookImage.dropShadow(type: .oval)
       bookTitle.text = book.volumeInfo.title
       bookSubtitle.text = book.volumeInfo.subtitle
     }
