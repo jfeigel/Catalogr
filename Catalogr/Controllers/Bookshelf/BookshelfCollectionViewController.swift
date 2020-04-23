@@ -14,7 +14,7 @@ class BookshelfCollectionViewController: UIViewController {
   private var itemsPerRow: Int = 3
   private var itemsPerCol: Int = 3
   
-  var bookshelfContainerViewController: BookshelfContainerViewController!
+  weak var bookshelfContainerViewController: BookshelfContainerViewController!
   var bookshelf = [SavedBook]() {
     didSet {
       var numberOfPages = Int(bookshelf.count / itemsPerPage)

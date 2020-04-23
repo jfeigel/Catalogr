@@ -12,7 +12,7 @@ class AddBookViewController: UIViewController {
   var book: Book!
   
   @IBOutlet var backgroundView: UIView!
-  @IBOutlet weak var bookImage: UIImageView!
+  @IBOutlet var bookImage: UIImageView!
   @IBOutlet var bookTitle: UILabel!
   @IBOutlet var bookSubtitle: UILabel!
   @IBOutlet var imageActivityIndicator: UIActivityIndicatorView!

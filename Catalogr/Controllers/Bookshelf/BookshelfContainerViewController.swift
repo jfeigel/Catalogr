@@ -42,11 +42,15 @@ class BookshelfContainerViewController: UIViewController {
       }
     case "scannerViewUnwind":
       if let source = segue.source as? ISBNScannerViewController {
-        getBook(controller: nil, code: source.foundNumber) { bookData in
-          self.performSegue(withIdentifier: "addBook", sender: bookData)
+        GAPI.getBooks(searchText: source.foundNumber, type: .isbn) { (books, message)  in
+          if books != nil {
+            self.performSegue(withIdentifier: "addBook", sender: books![0])
+          }
         }
       }
-    default: break
+    case "cancelAddBookUnwind": break
+    default:
+      fatalError("Error: Unknown Segue Identifier: \"\(segue.identifier ?? "")\"")
     }
   }
   
@@ -191,68 +195,16 @@ extension BookshelfContainerViewController: BarcodeScannerCodeDelegate {
         self.performSegue(withIdentifier: "scanISBN", sender: nil)
       })
     } else {
-      getBook(controller: controller, code: code) { (bookData) in
-        controller.reset(animated: false)
-        controller.dismiss(animated: true, completion: {
-          self.performSegue(withIdentifier: "addBook", sender: bookData)
-        })
-      }
-    }
-  }
-  
-  func getBook(controller: BarcodeScannerViewController?, code: String, completion: @escaping (Book) -> ()) {
-    let urlString = GAPI.getByIsbnURL(code)
-    if let url = URL(string: urlString) {
-      var request = URLRequest(url: url)
-      request.setValue(Bundle.main.bundleIdentifier!, forHTTPHeaderField: "X-Ios-Bundle-Identifier")
-      URLSession.shared.dataTask(with: request) { data, res, err in
-        guard err == nil else {
-          if controller != nil {
-            DispatchQueue.main.async {
-              controller!.resetWithError(message: "Error getting book data")
-            }
-          }
-          os_log("%s", type: .error, err! as CVarArg)
-          return
-        }
-        
-        guard let resData = data else {
-          if controller != nil {
-            DispatchQueue.main.async {
-              controller!.resetWithError(message: "Error: did not receive data")
-            }
-          }
-          os_log("Error: did not receive data", type: .error)
-          return
-        }
-        
-        if var books = try? JSONDecoder().decode(BooksResponse.self, from: resData) {
-          if books.totalItems > 0 {
-            if let thumbnail = books.items![0].volumeInfo.imageLinks?.thumbnail {
-              books.items![0].volumeInfo.imageLinks!.thumbnail = thumbnail.replacingOccurrences(of: #"^http\:"#, with: "https:", options: .regularExpression)
-            }
-            DispatchQueue.main.async {
-              completion(books.items![0])
-            }
-          } else {
-            if controller != nil {
-              DispatchQueue.main.async {
-                controller!.resetWithError(message: "Error: No books found")
-              }
-            }
-            os_log("Error: No books found", type: .error)
-            return
-          }
+      GAPI.getBooks(searchText: code, type: .isbn) { (books, message) in
+        if books == nil {
+          controller.resetWithError(message: message)
         } else {
-          if controller != nil {
-            DispatchQueue.main.async {
-              controller!.resetWithError(message: "Error: Cannot convert data to JSON")
-            }
-          }
-          os_log("Error: Cannot convert data to JSON")
-          return
+          controller.reset(animated: false)
+          controller.dismiss(animated: true, completion: {
+            self.performSegue(withIdentifier: "addBook", sender: books![0])
+          })
         }
-      }.resume()
+      }
     }
   }
 }

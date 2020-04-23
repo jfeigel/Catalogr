@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		17262BF22446513F008B2DF5 /* BookshelfCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17262BF12446513F008B2DF5 /* BookshelfCollectionViewController.swift */; };
 		172DB3F72447B02100B6425E /* Loopable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 172DB3F62447B02100B6425E /* Loopable.swift */; };
+		17404272245095B30034287C /* Constraints.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17404271245095B30034287C /* Constraints.swift */; };
+		174042742450D2CA0034287C /* SearchTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 174042732450D2CA0034287C /* SearchTableViewCell.swift */; };
 		1740C448244FEF3C00334CDD /* UIImageExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1740C447244FEF3C00334CDD /* UIImageExtension.swift */; };
 		1766623C244BF78300FC758D /* Keys.plist in Resources */ = {isa = PBXBuildFile; fileRef = 1766623B244BF78300FC758D /* Keys.plist */; };
 		176AC5A2242C6C5F008DBCAA /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 176AC5A1242C6C5F008DBCAA /* AppDelegate.swift */; };
@@ -66,6 +68,8 @@
 		080B6845D1C4B35251BC594C /* Pods_Catalogr.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Catalogr.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		17262BF12446513F008B2DF5 /* BookshelfCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookshelfCollectionViewController.swift; sourceTree = "<group>"; };
 		172DB3F62447B02100B6425E /* Loopable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Loopable.swift; sourceTree = "<group>"; };
+		17404271245095B30034287C /* Constraints.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constraints.swift; sourceTree = "<group>"; };
+		174042732450D2CA0034287C /* SearchTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchTableViewCell.swift; sourceTree = "<group>"; };
 		1740C447244FEF3C00334CDD /* UIImageExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIImageExtension.swift; sourceTree = "<group>"; };
 		1766623B244BF78300FC758D /* Keys.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Keys.plist; sourceTree = "<group>"; };
 		176AC59E242C6C5F008DBCAA /* Catalogr.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Catalogr.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -218,6 +222,7 @@
 			isa = PBXGroup;
 			children = (
 				176CEFF9244658490054E12C /* BookshelfCollectionViewCell.swift */,
+				174042732450D2CA0034287C /* SearchTableViewCell.swift */,
 				17B2EA9F243D74FE00EBDE97 /* SettingsToggleTableViewCell.swift */,
 				17B2EAA1243D759D00EBDE97 /* SettingsPickerTableViewCell.swift */,
 				17E654DD24417C87007DEFF6 /* TabBarController.swift */,
@@ -257,6 +262,7 @@
 				17B2EA9C243D6DF100EBDE97 /* Settings.swift */,
 				17BB0241243EEC4E001D1013 /* GAPI.swift */,
 				17D5B125244ABA6A00614FF4 /* StringTracker.swift */,
+				17404271245095B30034287C /* Constraints.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -521,12 +527,14 @@
 				1740C448244FEF3C00334CDD /* UIImageExtension.swift in Sources */,
 				17BB0244243F9919001D1013 /* UIViewExtension.swift in Sources */,
 				17D5B11C244AB93E00614FF4 /* ScannerViewController.swift in Sources */,
+				17404272245095B30034287C /* Constraints.swift in Sources */,
 				179177432442290100E7E3E2 /* UIColorExtension.swift in Sources */,
 				176AC5A2242C6C5F008DBCAA /* AppDelegate.swift in Sources */,
 				17262BF22446513F008B2DF5 /* BookshelfCollectionViewController.swift in Sources */,
 				17B2EA9D243D6DF100EBDE97 /* Settings.swift in Sources */,
 				176AC5A4242C6C5F008DBCAA /* SceneDelegate.swift in Sources */,
 				17D5B124244ABA1D00614FF4 /* StringExtension.swift in Sources */,
+				174042742450D2CA0034287C /* SearchTableViewCell.swift in Sources */,
 				17B2EAA2243D759D00EBDE97 /* SettingsPickerTableViewCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

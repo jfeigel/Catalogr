@@ -7,6 +7,137 @@
 //
 
 import UIKit
+import os.log
 
 class SearchViewController: UIViewController {
+  
+  @IBOutlet var searchBar: UISearchBar!
+  @IBOutlet var messageLabel: UILabel!
+  @IBOutlet var activityIndicator: UIActivityIndicatorView!
+  @IBOutlet var tableView: UITableView!
+  
+  private let defaultMessageLabel = "Enter text above to search for a book"
+  
+  var results: [Book] = [] {
+    didSet {
+      tableView.isHidden = results.count == 0
+      messageLabel.isHidden = results.count > 0
+    }
+  }
+  
+  override func viewDidLoad() {
+    super.viewDidLoad()
+    
+    tableView.dataSource = self
+    searchBar.delegate = self
+    searchBar.searchTextField.delegate = self
+    messageLabel.text = defaultMessageLabel
+    
+    let tap = UITapGestureRecognizer(target: self, action: #selector(endIfEditing(_:)))
+    tap.delegate = self
+    tap.cancelsTouchesInView = false
+    view.addGestureRecognizer(tap)
+  }
+  
+  @objc func endIfEditing(_ sender: UITapGestureRecognizer) {
+    if sender.state == .ended, searchBar.isFirstResponder {
+      searchBarCancelButtonClicked(searchBar)
+    }
+  }
+}
+
+extension SearchViewController: UITableViewDataSource {
+  func numberOfSections(in tableView: UITableView) -> Int {
+    return 1
+  }
+  
+  func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    return results.count
+  }
+  
+  func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+    let cell = tableView.dequeueReusableCell(withIdentifier: "SearchTableViewCell", for: indexPath) as! SearchTableViewCell
+    
+    if results.count > 0 {
+      let book = results[indexPath.row]
+      if let imageLinks = book.volumeInfo.imageLinks, let thumbnail = imageLinks.thumbnail {
+        cell.bookImage.load(url: URL(string: thumbnail)!, completion: nil)
+      } else {
+        cell.bookImage.image = UIImage(named: "no_cover_thumb")
+      }
+      cell.bookImage.dropShadow(type: .oval)
+      cell.title.text = book.volumeInfo.title
+    }
+    
+    return cell
+  }
+}
+
+extension SearchViewController: UISearchBarDelegate {
+  func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
+    searchBar.showsCancelButton = true
+    searchBar.showsScopeBar = true
+  }
+  
+  func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+    searchBar.showsCancelButton = false
+    searchBar.showsScopeBar = false
+    searchBar.text = nil
+    messageLabel.text = defaultMessageLabel
+    results = []
+    tableView.reloadData()
+    searchBar.resignFirstResponder()
+  }
+  
+  func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+    searchBar.resignFirstResponder()
+    searchBar.showsCancelButton = false
+    searchBar.showsScopeBar = false
+    var queryType: QueryType!
+    switch searchBar.scopeButtonTitles![searchBar.selectedScopeButtonIndex].lowercased() {
+    case "title": queryType = .title
+    case "author": queryType = .author
+    default: break
+    }
+    let searchText = searchBar.text!
+    if searchText.isEmpty {
+      messageLabel.text = defaultMessageLabel
+      results = []
+      tableView.reloadData()
+    } else {
+      messageLabel.isHidden = true
+      activityIndicator.startAnimating()
+      tableView.isUserInteractionEnabled = false
+      tableView.alpha = 0.3
+      GAPI.getBooks(searchText: searchText, type: queryType) { (books, message) in
+        self.results = books ?? []
+        self.messageLabel.text = message
+        self.messageLabel.isHidden = message != nil
+        self.messageLabel.textColor = message?.lowercased().contains("error") ?? false ? .systemRed : .label
+        self.activityIndicator.stopAnimating()
+        self.tableView.isUserInteractionEnabled = true
+        self.tableView.alpha = 1.0
+        self.tableView.reloadData()
+      }
+    }
+  }
+}
+ 
+extension SearchViewController: UISearchTextFieldDelegate {
+  func textFieldShouldClear(_ textField: UITextField) -> Bool {
+    messageLabel.text = defaultMessageLabel
+    results = []
+    tableView.reloadData()
+    return true
+  }
+}
+
+extension SearchViewController: UIGestureRecognizerDelegate {
+  func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldReceive touch: UITouch) -> Bool {
+    if touch.view?.isDescendant(of: searchBar) == true {
+      return false
+    }
+    
+    return true
+  }
 }

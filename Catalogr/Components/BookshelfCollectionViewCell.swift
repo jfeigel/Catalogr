@@ -83,13 +83,6 @@ class BookshelfCollectionViewCell: UICollectionViewCell {
     imageView.layer.cornerRadius = imageView.frame.size.width / 2
     return imageView
   }()
-
-  fileprivate var bookImageConstraints: Constraints!
-  fileprivate var bookOverlayConstraints: Constraints!
-  fileprivate var bookCheckmarkContainerConstraints: Constraints!
-  fileprivate var bookCheckmarkBorderConstraints: Constraints!
-  fileprivate var bookCheckmarkConstraints: Constraints!
-  fileprivate var bookCheckmarkBackgroundConstraints: Constraints!
   
   var isInEditingMode: Bool = false {
     didSet {
@@ -127,80 +120,32 @@ class BookshelfCollectionViewCell: UICollectionViewCell {
     contentView.addSubview(bookOverlay)
     contentView.addSubview(bookCheckmarkContainer)
     
-    bookImageConstraints = Constraints(
-      topAnchor: bookImage.topAnchor.constraint(equalTo: bookImage.superview!.topAnchor, constant: 20),
-      leadingAnchor: bookImage.leadingAnchor.constraint(equalTo: bookImage.superview!.leadingAnchor, constant: 20),
-      trailingAnchor: bookImage.trailingAnchor.constraint(equalTo: bookImage.superview!.trailingAnchor, constant: -20),
-      bottomAnchor: bookImage.bottomAnchor.constraint(equalTo: bookImage.superview!.bottomAnchor, constant: -20),
-      centerXAnchor: bookImage.centerXAnchor.constraint(equalTo: bookImage.superview!.centerXAnchor),
-      centerYAnchor: bookImage.centerYAnchor.constraint(equalTo: bookImage.superview!.centerYAnchor)
-    )
-    
-    for constraint in bookImageConstraints.keys() {
-      if let validConstraint = bookImageConstraints[constraint] {
-        validConstraint.isActive = true
-      }
-    }
+    bookImage.topAnchor.constraint(equalTo: bookImage.superview!.topAnchor, constant: 20).isActive = true
+    bookImage.leadingAnchor.constraint(equalTo: bookImage.superview!.leadingAnchor, constant: 20).isActive = true
+    bookImage.trailingAnchor.constraint(equalTo: bookImage.superview!.trailingAnchor, constant: -20).isActive = true
+    bookImage.bottomAnchor.constraint(equalTo: bookImage.superview!.bottomAnchor, constant: -20).isActive = true
+    bookImage.centerXAnchor.constraint(equalTo: bookImage.superview!.centerXAnchor).isActive = true
+    bookImage.centerYAnchor.constraint(equalTo: bookImage.superview!.centerYAnchor).isActive = true
     
     activityIndicator.centerXAnchor.constraint(equalTo: activityIndicator.superview!.centerXAnchor).isActive = true
     activityIndicator.centerYAnchor.constraint(equalTo: activityIndicator.superview!.centerYAnchor).isActive = true
     
-    bookCheckmarkContainerConstraints = Constraints(
-      trailingAnchor: bookCheckmarkContainer.trailingAnchor.constraint(equalTo: bookCheckmarkContainer.superview!.trailingAnchor, constant: -15),
-      bottomAnchor: bookCheckmarkContainer.bottomAnchor.constraint(equalTo: bookCheckmarkContainer.superview!.bottomAnchor, constant: -15)
-    )
-
-    for constraint in bookCheckmarkContainerConstraints.keys() {
-      if let validConstraint = bookCheckmarkContainerConstraints[constraint] {
-        validConstraint.isActive = true
-      }
-    }
+    bookCheckmarkContainer.trailingAnchor.constraint(equalTo: bookCheckmarkContainer.superview!.trailingAnchor, constant: -15).isActive = true
+    bookCheckmarkContainer.bottomAnchor.constraint(equalTo: bookCheckmarkContainer.superview!.bottomAnchor, constant: -15).isActive = true
+  
+    bookOverlay.topAnchor.constraint(equalTo: bookOverlay.superview!.topAnchor).isActive = true
+    bookOverlay.leadingAnchor.constraint(equalTo: bookOverlay.superview!.leadingAnchor).isActive = true
+    bookOverlay.trailingAnchor.constraint(equalTo: bookOverlay.superview!.trailingAnchor).isActive = true
+    bookOverlay.bottomAnchor.constraint(equalTo: bookOverlay.superview!.bottomAnchor).isActive = true
     
-    bookOverlayConstraints = Constraints(
-      topAnchor: bookOverlay.topAnchor.constraint(equalTo: bookOverlay.superview!.topAnchor),
-      leadingAnchor: bookOverlay.leadingAnchor.constraint(equalTo: bookOverlay.superview!.leadingAnchor),
-      trailingAnchor: bookOverlay.trailingAnchor.constraint(equalTo: bookOverlay.superview!.trailingAnchor),
-      bottomAnchor: bookOverlay.bottomAnchor.constraint(equalTo: bookOverlay.superview!.bottomAnchor)
-    )
+    bookCheckmarkBorder.centerXAnchor.constraint(equalTo: bookCheckmarkBorder.superview!.centerXAnchor).isActive = true
+    bookCheckmarkBorder.centerYAnchor.constraint(equalTo: bookCheckmarkBorder.superview!.centerYAnchor).isActive = true
     
-    for constraint in bookOverlayConstraints.keys() {
-      if let validConstraint = bookOverlayConstraints[constraint] {
-        validConstraint.isActive = true
-      }
-    }
+    bookCheckmark.centerXAnchor.constraint(equalTo: bookCheckmark.superview!.centerXAnchor).isActive = true
+    bookCheckmark.centerYAnchor.constraint(equalTo: bookCheckmark.superview!.centerYAnchor).isActive = true
     
-    bookCheckmarkBorderConstraints = Constraints(
-      centerXAnchor: bookCheckmarkBorder.centerXAnchor.constraint(equalTo: bookCheckmarkBorder.superview!.centerXAnchor),
-      centerYAnchor: bookCheckmarkBorder.centerYAnchor.constraint(equalTo: bookCheckmarkBorder.superview!.centerYAnchor)
-    )
-    
-    for constraint in bookCheckmarkBorderConstraints.keys() {
-      if let validConstraint = bookCheckmarkBorderConstraints[constraint] {
-        validConstraint.isActive = true
-      }
-    }
-    
-    bookCheckmarkConstraints = Constraints(
-        centerXAnchor: bookCheckmark.centerXAnchor.constraint(equalTo: bookCheckmark.superview!.centerXAnchor),
-        centerYAnchor: bookCheckmark.centerYAnchor.constraint(equalTo: bookCheckmark.superview!.centerYAnchor)
-    )
-    
-    for constraint in bookCheckmarkConstraints.keys() {
-      if let validConstraint = bookCheckmarkConstraints[constraint] {
-        validConstraint.isActive = true
-      }
-    }
-    
-    bookCheckmarkBackgroundConstraints = Constraints(
-        centerXAnchor: bookCheckmarkBackground.centerXAnchor.constraint(equalTo: bookCheckmarkBackground.superview!.centerXAnchor),
-        centerYAnchor: bookCheckmarkBackground.centerYAnchor.constraint(equalTo: bookCheckmarkBackground.superview!.centerYAnchor)
-    )
-    
-    for constraint in bookCheckmarkBackgroundConstraints.keys() {
-      if let validConstraint = bookCheckmarkBackgroundConstraints[constraint] {
-        validConstraint.isActive = true
-      }
-    }
+    bookCheckmarkBackground.centerXAnchor.constraint(equalTo: bookCheckmarkBackground.superview!.centerXAnchor).isActive = true
+    bookCheckmarkBackground.centerYAnchor.constraint(equalTo: bookCheckmarkBackground.superview!.centerYAnchor).isActive = true
   }
   
   required init?(coder: NSCoder) {
@@ -230,46 +175,6 @@ class BookshelfCollectionViewCell: UICollectionViewCell {
       sublayerInserted = true
       cellBackground.frame = contentView.frame
       contentView.layer.insertSublayer(cellBackground, at: 0)
-    }
-  }
-  
-  fileprivate struct Constraints: Loopable {
-    var topAnchor: NSLayoutConstraint?
-    var leadingAnchor: NSLayoutConstraint?
-    var trailingAnchor: NSLayoutConstraint?
-    var bottomAnchor: NSLayoutConstraint?
-    var centerXAnchor: NSLayoutConstraint?
-    var centerYAnchor: NSLayoutConstraint?
-    var width: NSLayoutConstraint?
-    var height: NSLayoutConstraint?
-    
-    subscript(key: String) -> NSLayoutConstraint? {
-      get {
-        switch key {
-        case "topAnchor": return self.topAnchor
-        case "leadingAnchor": return self.leadingAnchor
-        case "trailingAnchor": return self.trailingAnchor
-        case "bottomAnchor": return self.bottomAnchor
-        case "centerXAnchor": return self.centerXAnchor
-        case "centerYAnchor": return self.centerYAnchor
-        case "width": return self.width
-        case "height": return self.height
-        default: fatalError("Unknown key found for Constraints: \(key)")
-        }
-      }
-      set {
-        switch key {
-        case "topAnchor": self.topAnchor = newValue
-        case "leadingAnchor": self.leadingAnchor = newValue
-        case "trailingAnchor": self.trailingAnchor = newValue
-        case "bottomAnchor": self.bottomAnchor = newValue
-        case "centerXAnchor": self.centerXAnchor = newValue
-        case "centerYAnchor": self.centerYAnchor = newValue
-        case "width": self.width = newValue
-        case "height": self.height = newValue
-        default: fatalError("Unknown key found for Constraints: \(key)")
-        }
-      }
     }
   }
   

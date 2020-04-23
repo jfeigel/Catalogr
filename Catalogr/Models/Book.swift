@@ -43,7 +43,7 @@ struct Book: Codable {
     var publisher: String?
     var publishedDate: String?
     var description: String?
-    var industryIdentifiers: Array<IndustryIdentifier>
+    var industryIdentifiers: Array<IndustryIdentifier>?
     var readingModes: ReadingModes?
     var pageCount: Int?
     var dimensions: Dimensions?
