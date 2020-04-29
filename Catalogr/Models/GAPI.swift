@@ -9,7 +9,9 @@
 import Foundation
 import os.log
 
+/// Google Books API SDK
 final class GAPI {
+  /// Collection of URLQueryItems for all requests
   private static var baseQueryItems: [URLQueryItem] = {
     let path = Bundle.main.path(forResource: "Keys", ofType: "plist")!
     let keys = NSDictionary(contentsOfFile: path)!
@@ -22,6 +24,7 @@ final class GAPI {
     ]
   }()
   
+  /// Base URL for all requests
   private static var urlComponents: URLComponents = {
     var urlComponents = URLComponents()
     urlComponents.scheme = "https"
@@ -30,10 +33,31 @@ final class GAPI {
     return urlComponents
   }()
   
+  /**
+   Construct a URL for a request to the Google Books API
+   
+   - Parameters:
+      - type: The property by which to search
+      - query: The text by which to search
+      - startIndex: Index at which to start the results, in the case of paging. Defaults to `0`
+   
+   - Returns: An optional constructed URL
+   */
   static func getURL(type: QueryType, query: String, startIndex: Int = 0) -> URL? {
     return constructURL(type: type.rawValue, query: query, startIndex: startIndex, showPreorders: type != .isbn)
   }
   
+  /**
+   Actual construction of the URL
+   
+   - Parameters:
+      - type: The property by which to search
+      - query: The text by which to search
+      - startIndex: Index at which to start the results, in the case of paging. Defaults to `0`
+      - showPreorders: If the search results should include Preorders or not
+   
+   - Returns: An optional constructed URL
+   */
   private static func constructURL(type: String, query: String, startIndex: Int = 0, showPreorders: Bool = false) -> URL? {
     urlComponents.queryItems = baseQueryItems
     urlComponents.queryItems!.append(URLQueryItem(name: "q", value: "\(type):\(query)"))
@@ -42,6 +66,14 @@ final class GAPI {
     return urlComponents.url
   }
   
+  /**
+   Call the Google Books API to search for books
+   
+   - Parameters:
+      - searchText: The text by which to search
+      - type: The property by which to search
+      - completion: Optional completion function
+   */
   static func getBooks(searchText: String, type: QueryType, completion: @escaping ([Book]?, String?) -> ()) {
     if let url = GAPI.getURL(type: type, query: searchText) {
       var request = URLRequest(url: url)
@@ -100,6 +132,7 @@ final class GAPI {
   }
 }
 
+/// Valid types by which to query the Google Books API
 enum QueryType: String {
   case isbn = "isbn"
   case title = "intitle"

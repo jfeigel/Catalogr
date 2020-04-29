@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		170B54E324520E8A00CEA9BD /* Pods_Catalogr.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 080B6845D1C4B35251BC594C /* Pods_Catalogr.framework */; };
 		17262BF22446513F008B2DF5 /* BookshelfCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17262BF12446513F008B2DF5 /* BookshelfCollectionViewController.swift */; };
 		172DB3F72447B02100B6425E /* Loopable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 172DB3F62447B02100B6425E /* Loopable.swift */; };
 		17404272245095B30034287C /* Constraints.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17404271245095B30034287C /* Constraints.swift */; };
@@ -44,7 +45,6 @@
 		17D5B126244ABA6A00614FF4 /* StringTracker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17D5B125244ABA6A00614FF4 /* StringTracker.swift */; };
 		17D5B128244ABAAE00614FF4 /* PreviewView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17D5B127244ABAAE00614FF4 /* PreviewView.swift */; };
 		17E654DE24417C87007DEFF6 /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17E654DD24417C87007DEFF6 /* TabBarController.swift */; };
-		AB8AF82B30934A4A666C2FA2 /* Pods_Catalogr.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 080B6845D1C4B35251BC594C /* Pods_Catalogr.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -118,7 +118,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				AB8AF82B30934A4A666C2FA2 /* Pods_Catalogr.framework in Frameworks */,
+				170B54E324520E8A00CEA9BD /* Pods_Catalogr.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

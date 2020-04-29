@@ -8,11 +8,13 @@
 
 import Foundation
 
+/// Archival Path for the Bookshelf
 struct Bookshelf {
-  static let DocumentsDirectory = FileManager().urls(for: .documentDirectory, in: .userDomainMask).first!
+  static private let DocumentsDirectory = FileManager().urls(for: .documentDirectory, in: .userDomainMask).first!
   static let ArchiveURL = DocumentsDirectory.appendingPathComponent("bookshelf")
 }
 
+/// Individual book saved in the Bookshelf
 struct SavedBook: Codable {
   var book: Book
   var rating: Int = 0
@@ -20,12 +22,14 @@ struct SavedBook: Codable {
   var borrowed: Bool = false
 }
 
+/// Response from the Google Books API
 struct BooksResponse: Codable {
   var kind: String
   var totalItems: Int
   var items: Array<Book>?
 }
 
+/// Book object from the Google Books API
 struct Book: Codable {
   var kind: String
   var id: String

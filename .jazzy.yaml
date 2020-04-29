@@ -1,0 +1,13 @@
+clean: true
+sdk: iphoneos
+build_tool_arguments:
+  - "-workspace"
+  - "Catalogr.xcworkspace"
+  - "-scheme"
+  - "Catalogr"
+author: "James Feigel <james.feigel@gmail.com>"
+author_url: "https://github.com/jfeigel"
+module: Catalogr
+github_url: "https://github.com/jfeigel/Catalogr"
+skip_undocumented: true
+min_acl: private
