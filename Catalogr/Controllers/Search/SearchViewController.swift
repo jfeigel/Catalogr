@@ -29,6 +29,7 @@ class SearchViewController: UIViewController {
     super.viewDidLoad()
     
     tableView.dataSource = self
+    tableView.delegate = self
     searchBar.delegate = self
     searchBar.searchTextField.delegate = self
     messageLabel.text = defaultMessageLabel
@@ -46,6 +47,8 @@ class SearchViewController: UIViewController {
   }
 }
 
+// MARK: - UITableViewDataSource
+
 extension SearchViewController: UITableViewDataSource {
   func numberOfSections(in tableView: UITableView) -> Int {
     return 1
@@ -59,19 +62,29 @@ extension SearchViewController: UITableViewDataSource {
     let cell = tableView.dequeueReusableCell(withIdentifier: "SearchTableViewCell", for: indexPath) as! SearchTableViewCell
     
     if results.count > 0 {
-      let book = results[indexPath.row]
-      if let imageLinks = book.volumeInfo.imageLinks, let thumbnail = imageLinks.thumbnail {
-        cell.bookImage.load(url: URL(string: thumbnail)!, completion: nil)
-      } else {
-        cell.bookImage.image = UIImage(named: "no_cover_thumb")
-      }
-      cell.bookImage.dropShadow(type: .oval)
-      cell.title.text = book.volumeInfo.title
+      cell.book = results[indexPath.row]
     }
     
     return cell
   }
 }
+
+// MARK: - UITableViewDelegate
+
+extension SearchViewController: UITableViewDelegate {
+  func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+    let selectedBook = results[indexPath.row]
+    
+    if let viewController = storyboard?.instantiateViewController(identifier: "AddBookViewController") as? AddBookViewController {
+      viewController.book = selectedBook
+      viewController.selectedIndex = 1
+      viewController.isModalInPresentation = true
+      present(viewController, animated: true, completion: nil)
+    }
+  }
+}
+
+// MARK: - UISearchBarDelegate
 
 extension SearchViewController: UISearchBarDelegate {
   func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
@@ -122,6 +135,8 @@ extension SearchViewController: UISearchBarDelegate {
     }
   }
 }
+
+// MARK: - UISearchTextFieldDelegate
  
 extension SearchViewController: UISearchTextFieldDelegate {
   func textFieldShouldClear(_ textField: UITextField) -> Bool {
@@ -131,6 +146,8 @@ extension SearchViewController: UISearchTextFieldDelegate {
     return true
   }
 }
+
+// MARK: - UIGestureRecognizerDelegate
 
 extension SearchViewController: UIGestureRecognizerDelegate {
   func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldReceive touch: UITouch) -> Bool {

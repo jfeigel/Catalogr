@@ -1,5 +1,5 @@
 //
-//  FavoritesViewController.swift
+//  WishlistViewController.swift
 //  Catalogr
 //
 //  Created by jfeigel on 4/10/20.
@@ -8,7 +8,7 @@
 
 import UIKit
 
-class FavoritesViewController: UIViewController {
+class WishlistViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()

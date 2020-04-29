@@ -32,7 +32,7 @@
 		17BB0240243EEBF3001D1013 /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17BB023F243EEBF3001D1013 /* SearchViewController.swift */; };
 		17BB0242243EEC4E001D1013 /* GAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17BB0241243EEC4E001D1013 /* GAPI.swift */; };
 		17BB0244243F9919001D1013 /* UIViewExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17BB0243243F9919001D1013 /* UIViewExtension.swift */; };
-		17BB024924415C7C001D1013 /* FavoritesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17BB024824415C7C001D1013 /* FavoritesViewController.swift */; };
+		17BB024924415C7C001D1013 /* WishlistViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17BB024824415C7C001D1013 /* WishlistViewController.swift */; };
 		17C1BCAD24343A940019589C /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 17C1BCAC24343A940019589C /* Launch Screen.storyboard */; };
 		17C1BCAF243443450019589C /* AddBookViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17C1BCAE243443450019589C /* AddBookViewController.swift */; };
 		17C1BCB2243443D20019589C /* UIImageViewExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17C1BCB1243443D20019589C /* UIImageViewExtension.swift */; };
@@ -97,7 +97,7 @@
 		17BB023F243EEBF3001D1013 /* SearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
 		17BB0241243EEC4E001D1013 /* GAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GAPI.swift; sourceTree = "<group>"; };
 		17BB0243243F9919001D1013 /* UIViewExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewExtension.swift; sourceTree = "<group>"; };
-		17BB024824415C7C001D1013 /* FavoritesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoritesViewController.swift; sourceTree = "<group>"; };
+		17BB024824415C7C001D1013 /* WishlistViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WishlistViewController.swift; sourceTree = "<group>"; };
 		17C1BCAC24343A940019589C /* Launch Screen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = "Launch Screen.storyboard"; sourceTree = "<group>"; };
 		17C1BCAE243443450019589C /* AddBookViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddBookViewController.swift; sourceTree = "<group>"; };
 		17C1BCB1243443D20019589C /* UIImageViewExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIImageViewExtension.swift; sourceTree = "<group>"; };
@@ -236,7 +236,7 @@
 			isa = PBXGroup;
 			children = (
 				17CB2124244BDBF1001DD2EB /* Bookshelf */,
-				17CB2125244BDC02001DD2EB /* Favorites */,
+				17CB2125244BDC02001DD2EB /* Wishlist */,
 				17CB2126244BDC0A001DD2EB /* Settings */,
 				17CB2127244BDC13001DD2EB /* Search */,
 			);
@@ -291,12 +291,12 @@
 			path = Bookshelf;
 			sourceTree = "<group>";
 		};
-		17CB2125244BDC02001DD2EB /* Favorites */ = {
+		17CB2125244BDC02001DD2EB /* Wishlist */ = {
 			isa = PBXGroup;
 			children = (
-				17BB024824415C7C001D1013 /* FavoritesViewController.swift */,
+				17BB024824415C7C001D1013 /* WishlistViewController.swift */,
 			);
-			path = Favorites;
+			path = Wishlist;
 			sourceTree = "<group>";
 		};
 		17CB2126244BDC0A001DD2EB /* Settings */ = {
@@ -523,7 +523,7 @@
 				17B2EA9B243D6CF400EBDE97 /* SettingsViewController.swift in Sources */,
 				17B2EAA0243D74FE00EBDE97 /* SettingsToggleTableViewCell.swift in Sources */,
 				176AC5A6242C6C5F008DBCAA /* BookshelfContainerViewController.swift in Sources */,
-				17BB024924415C7C001D1013 /* FavoritesViewController.swift in Sources */,
+				17BB024924415C7C001D1013 /* WishlistViewController.swift in Sources */,
 				17D5B11A244A38D000614FF4 /* BookDetailViewController.swift in Sources */,
 				17BB0240243EEBF3001D1013 /* SearchViewController.swift in Sources */,
 				17D5B122244AB9FA00614FF4 /* CharacterExtension.swift in Sources */,

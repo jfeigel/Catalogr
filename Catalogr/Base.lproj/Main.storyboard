@@ -105,7 +105,7 @@
                                 <rect key="frame" x="0.0" y="196" width="414" height="617"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="SearchTableViewCell" id="Hhx-kf-O7l" customClass="SearchTableViewCell" customModule="Catalogr" customModuleProvider="target">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="SearchTableViewCell" id="Hhx-kf-O7l" customClass="SearchTableViewCell" customModule="Catalogr" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="28" width="414" height="100"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Hhx-kf-O7l" id="9Yd-9P-raK">
@@ -184,17 +184,17 @@
             </objects>
             <point key="canvasLocation" x="2526.0869565217395" y="-317.41071428571428"/>
         </scene>
-        <!--Favorites-->
+        <!--Wishlist-->
         <scene sceneID="lAC-ag-GmE">
             <objects>
-                <viewController storyboardIdentifier="FavoritesViewController" id="RjS-AI-FrI" customClass="FavoritesViewController" customModule="Catalogr" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="WishlistViewController" id="RjS-AI-FrI" customClass="WishlistViewController" customModule="Catalogr" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="ZFh-eG-v7O">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <viewLayoutGuide key="safeArea" id="TiY-OA-apl"/>
                     </view>
-                    <navigationItem key="navigationItem" title="Favorites" id="eUf-2a-TAN"/>
+                    <navigationItem key="navigationItem" title="Wishlist" id="eUf-2a-TAN"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="aD0-0o-mPN" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -215,7 +215,7 @@
                                     <rect key="frame" x="0.0" y="0.0" width="374" height="66"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <stackView opaque="NO" contentMode="center" distribution="equalSpacing" alignment="center" spacingType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="Sbb-fu-VNZ">
+                                        <stackView opaque="NO" contentMode="scaleToFill" distribution="equalSpacing" alignment="center" spacingType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="Sbb-fu-VNZ">
                                             <rect key="frame" x="20" y="11" width="334" height="44"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8DF-Dw-Cp7">
@@ -362,7 +362,7 @@
         <!--Add Book-->
         <scene sceneID="dU1-YK-JuV">
             <objects>
-                <viewController title="Add Book" id="3Jv-xV-Ypd" customClass="AddBookViewController" customModule="Catalogr" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="AddBookViewController" title="Add Book" useStoryboardIdentifierAsRestorationIdentifier="YES" id="3Jv-xV-Ypd" customClass="AddBookViewController" customModule="Catalogr" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="gFW-xq-S2D">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -474,7 +474,7 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="SEb-62-AS2" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
                 <exit id="ryM-Jf-ICs" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="-91" y="455"/>
+            <point key="canvasLocation" x="-75" y="455"/>
         </scene>
         <!--Bookshelf Collection View Controller-->
         <scene sceneID="dlu-Xg-Heh">
@@ -664,7 +664,7 @@
         <!--Navigation Controller-->
         <scene sceneID="zI6-T5-CE3">
             <objects>
-                <navigationController storyboardIdentifier="FavoritesNavigationController" id="nx0-Z9-77a" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="WishlistNavigationController" id="nx0-Z9-77a" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="" image="heart" catalog="system" id="ZF2-z7-5bP"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" largeTitles="YES" id="gti-IL-0KF">
                         <rect key="frame" x="0.0" y="44" width="414" height="96"/>

@@ -109,6 +109,10 @@ extension TabBarController: BarcodeScannerCodeDelegate {
 
 extension TabBarController: BarcodeScannerErrorDelegate {
   func scanner(_ controller: BarcodeScannerViewController, didReceiveError error: Error) {
+    feedbackGenerator = UINotificationFeedbackGenerator()
+    feedbackGenerator?.prepare()
+    feedbackGenerator?.notificationOccurred(.error)
+    feedbackGenerator = nil
     os_log("%s", type: .error, error as CVarArg)
   }
 }

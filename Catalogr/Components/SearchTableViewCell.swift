@@ -10,18 +10,19 @@ import UIKit
 
 class SearchTableViewCell: UITableViewCell {
   
+  var book: Book! {
+    didSet {
+      if let imageLinks = book.volumeInfo.imageLinks, let thumbnail = imageLinks.thumbnail {
+        bookImage.load(url: URL(string: thumbnail)!, completion: nil)
+      } else {
+        bookImage.image = UIImage(named: "no_cover_thumb")
+      }
+
+      title.text = book.volumeInfo.title
+    }
+  }
+  
   @IBOutlet var title: UILabel!
   @IBOutlet var bookImage: UIImageView!
-  
-  override func awakeFromNib() {
-    super.awakeFromNib()
-    // Initialization code
-  }
-  
-  override func setSelected(_ selected: Bool, animated: Bool) {
-    super.setSelected(selected, animated: animated)
-    
-    // Configure the view for the selected state
-  }
   
 }
