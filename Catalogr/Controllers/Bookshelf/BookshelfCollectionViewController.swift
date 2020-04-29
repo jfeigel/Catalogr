@@ -15,10 +15,10 @@ class BookshelfCollectionViewController: UIViewController {
   private var itemsPerCol: Int = 3
   
   weak var bookshelfContainerViewController: BookshelfContainerViewController!
-  var bookshelf = [SavedBook]() {
+  var books: [SavedBook]! {
     didSet {
-      var numberOfPages = Int(bookshelf.count / itemsPerPage)
-      if bookshelf.count % itemsPerPage > 0 {
+      var numberOfPages = Int(books.count / itemsPerPage)
+      if books.count % itemsPerPage > 0 {
         numberOfPages += 1
       }
       pageControl.numberOfPages = numberOfPages
@@ -49,6 +49,8 @@ class BookshelfCollectionViewController: UIViewController {
   override func viewDidLoad() {
     super.viewDidLoad()
     
+    books = SceneDelegate.shared!.bookshelf.books
+    
     view.addSubview(collectionView)
     view.addSubview(pageControl)
     
@@ -74,7 +76,7 @@ class BookshelfCollectionViewController: UIViewController {
     let indexPaths = collectionView.indexPathsForVisibleItems
     for indexPath in indexPaths {
       let cell = collectionView.cellForItem(at: indexPath) as! BookshelfCollectionViewCell
-      cell.isInEditingMode = (indexPath.section * itemsPerPage) + indexPath.row < bookshelf.count && editing
+      cell.isInEditingMode = (indexPath.section * itemsPerPage) + indexPath.row < books.count && editing
     }
   }
   
@@ -83,7 +85,7 @@ class BookshelfCollectionViewController: UIViewController {
       let items = selectedCells.map { ($0.section * itemsPerPage) + $0.row }.sorted().reversed()
       
       for item in items {
-        bookshelf.remove(at: item)
+        books.remove(at: item)
       }
 
       collectionView.reloadData()
@@ -93,10 +95,10 @@ class BookshelfCollectionViewController: UIViewController {
   }
   
   func addBook(_ book: SavedBook) {
-    let index = bookshelf.count
+    let index = books.count
     let section = Int(index / itemsPerPage)
     let row = Int(index % itemsPerPage)
-    bookshelf.append(book)
+    books.append(book)
     if index % itemsPerPage != 0 {
       collectionView.reloadItems(at: [IndexPath(row: row, section: section)])
     } else {
@@ -117,13 +119,13 @@ extension BookshelfCollectionViewController: UICollectionViewDelegate {
   }
   
   func collectionView(_ collectionView: UICollectionView, shouldSelectItemAt indexPath: IndexPath) -> Bool {
-    return (indexPath.section * itemsPerPage) + indexPath.row < bookshelf.count
+    return (indexPath.section * itemsPerPage) + indexPath.row < books.count
   }
   
   func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
     if !isEditing {
       let index = (indexPath.section * itemsPerPage) + indexPath.row
-      bookshelfContainerViewController.performSegue(withIdentifier: "bookDetail", sender: bookshelf[index])
+      bookshelfContainerViewController.performSegue(withIdentifier: "bookDetail", sender: books[index])
     } else if let selectedItems = collectionView.indexPathsForSelectedItems, selectedItems.count > 0 {
       deleteButton.isEnabled = true
     }
@@ -136,7 +138,7 @@ extension BookshelfCollectionViewController: UICollectionViewDelegate {
   }
   
   func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
-    (cell as! BookshelfCollectionViewCell).isInEditingMode = (indexPath.section * itemsPerPage) + indexPath.row < bookshelf.count && isEditing
+    (cell as! BookshelfCollectionViewCell).isInEditingMode = (indexPath.section * itemsPerPage) + indexPath.row < books.count && isEditing
   }
 
 }
@@ -163,8 +165,8 @@ extension BookshelfCollectionViewController: UICollectionViewDelegateFlowLayout 
 extension BookshelfCollectionViewController: UICollectionViewDataSource {
 
   func numberOfSections(in collectionView: UICollectionView) -> Int {
-    var numOfSecs = Int(bookshelf.count / itemsPerPage)
-    if bookshelf.count % itemsPerPage > 0 {
+    var numOfSecs = Int(books.count / itemsPerPage)
+    if books.count % itemsPerPage > 0 {
       numOfSecs += 1
     }
     return numOfSecs
@@ -178,8 +180,8 @@ extension BookshelfCollectionViewController: UICollectionViewDataSource {
     let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "BookshelfCell", for: indexPath) as! BookshelfCollectionViewCell
     let index = (indexPath.section * itemsPerPage) + indexPath.row
     
-    if index < bookshelf.count {
-      let book = bookshelf[index].book
+    if index < books.count {
+      let book = books[index].book
       
       if let imageLinks = book.volumeInfo.imageLinks, let thumbnail = imageLinks.thumbnail {
         cell.activityIndicator.startAnimating()

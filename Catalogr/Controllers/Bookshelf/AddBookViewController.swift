@@ -10,6 +10,7 @@ import UIKit
 
 class AddBookViewController: UIViewController {
   var book: Book!
+  var selectedIndex: Int!
   
   @IBOutlet var backgroundView: UIView!
   @IBOutlet var bookImage: UIImageView!
@@ -22,7 +23,8 @@ class AddBookViewController: UIViewController {
   }
   
   @IBAction func dismiss(_ sender: UIButton) {
-    self.performSegue(withIdentifier: "cancelAddBookUnwind", sender: nil)
+    let segueIdentifier = selectedIndex == 0 ? "cancelAddBookUnwindToBookshelf" : "cancelAddBookUnwind"
+    self.performSegue(withIdentifier: segueIdentifier, sender: nil)
   }
   
   override func viewDidLoad() {

@@ -72,7 +72,7 @@
                         <outlet property="downArrow" destination="CQM-er-Q31" id="rf4-el-qHM"/>
                         <outlet property="emptyView" destination="91m-c6-ckH" id="okL-rF-3f0"/>
                         <outlet property="nonEmptyView" destination="JYW-k5-i0E" id="VfJ-Nm-9tw"/>
-                        <segue destination="3Jv-xV-Ypd" kind="popoverPresentation" identifier="addBook" popoverAnchorView="tsR-hK-woN" id="qLd-iN-hQM">
+                        <segue destination="3Jv-xV-Ypd" kind="popoverPresentation" identifier="addBookFromBookshelf" popoverAnchorView="tsR-hK-woN" id="qLd-iN-hQM">
                             <popoverArrowDirection key="popoverArrowDirection" up="YES" down="YES" left="YES" right="YES"/>
                         </segue>
                         <segue destination="wkc-FG-dxh" kind="show" identifier="bookDetail" id="vS4-uG-OdX"/>
@@ -357,7 +357,7 @@
                     </connections>
                 </tapGestureRecognizer>
             </objects>
-            <point key="canvasLocation" x="-7" y="455"/>
+            <point key="canvasLocation" x="771" y="455"/>
         </scene>
         <!--Add Book-->
         <scene sceneID="dU1-YK-JuV">
@@ -466,14 +466,15 @@
                         <outlet property="bookSubtitle" destination="aEQ-zv-tZA" id="0ES-Fk-Tus"/>
                         <outlet property="bookTitle" destination="4Dp-ln-NGQ" id="SvQ-An-eAM"/>
                         <outlet property="imageActivityIndicator" destination="Jd2-TA-fYm" id="eiY-TJ-Ems"/>
-                        <segue destination="ryM-Jf-ICs" kind="unwind" identifier="addBookUnwind" unwindAction="unwindToViewControllerWithSegue:sender:" id="eam-B4-lOi"/>
-                        <segue destination="ryM-Jf-ICs" kind="unwind" identifier="cancelAddBookUnwind" unwindAction="unwindToViewControllerWithSegue:sender:" id="nm5-V1-X8y"/>
+                        <segue destination="ryM-Jf-ICs" kind="unwind" identifier="cancelAddBookUnwind" unwindAction="unwindToViewControllerWithSegue:sender:" id="CEs-Oh-qsr"/>
+                        <segue destination="ryM-Jf-ICs" kind="unwind" identifier="addBookUnwind" unwindAction="unwindToBookshelfWithSegue:sender:" id="PyQ-JN-26j"/>
+                        <segue destination="ryM-Jf-ICs" kind="unwind" identifier="cancelAddBookUnwindToBookshelf" unwindAction="unwindToBookshelfWithSegue:sender:" id="dPK-nf-4ho"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="SEb-62-AS2" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
                 <exit id="ryM-Jf-ICs" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="770" y="455"/>
+            <point key="canvasLocation" x="-91" y="455"/>
         </scene>
         <!--Bookshelf Collection View Controller-->
         <scene sceneID="dlu-Xg-Heh">
@@ -693,6 +694,9 @@
                         <segue destination="SgC-0R-xBi" kind="relationship" relationship="viewControllers" id="3QH-UE-WCe"/>
                         <segue destination="nx0-Z9-77a" kind="relationship" relationship="viewControllers" id="Jkg-Y6-27G"/>
                         <segue destination="NO1-Dk-D5b" kind="relationship" relationship="viewControllers" id="Wpc-p3-fY4"/>
+                        <segue destination="3Jv-xV-Ypd" kind="popoverPresentation" identifier="addBook" popoverAnchorView="4Qq-GC-8tC" id="ocI-wg-fEA">
+                            <popoverArrowDirection key="popoverArrowDirection" up="YES" down="YES" left="YES" right="YES"/>
+                        </segue>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="F06-Yy-Aow" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -700,6 +704,9 @@
             <point key="canvasLocation" x="3413" y="-1904"/>
         </scene>
     </scenes>
+    <inferredMetricsTieBreakers>
+        <segue reference="ocI-wg-fEA"/>
+    </inferredMetricsTieBreakers>
     <resources>
         <image name="arrow.down" catalog="system" width="120" height="128"/>
         <image name="book" catalog="system" width="128" height="101"/>

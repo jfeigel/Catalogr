@@ -8,12 +8,6 @@
 
 import Foundation
 
-/// Archival Path for the Bookshelf
-struct Bookshelf {
-  static private let DocumentsDirectory = FileManager().urls(for: .documentDirectory, in: .userDomainMask).first!
-  static let ArchiveURL = DocumentsDirectory.appendingPathComponent("bookshelf")
-}
-
 /// Individual book saved in the Bookshelf
 struct SavedBook: Codable {
   var book: Book

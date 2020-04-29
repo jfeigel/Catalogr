@@ -45,6 +45,7 @@
 		17D5B126244ABA6A00614FF4 /* StringTracker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17D5B125244ABA6A00614FF4 /* StringTracker.swift */; };
 		17D5B128244ABAAE00614FF4 /* PreviewView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17D5B127244ABAAE00614FF4 /* PreviewView.swift */; };
 		17E654DE24417C87007DEFF6 /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17E654DD24417C87007DEFF6 /* TabBarController.swift */; };
+		17FF175C24591CAD0042C240 /* Bookshelf.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17FF175B24591CAD0042C240 /* Bookshelf.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -109,6 +110,7 @@
 		17D5B125244ABA6A00614FF4 /* StringTracker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StringTracker.swift; sourceTree = "<group>"; };
 		17D5B127244ABAAE00614FF4 /* PreviewView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreviewView.swift; sourceTree = "<group>"; };
 		17E654DD24417C87007DEFF6 /* TabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
+		17FF175B24591CAD0042C240 /* Bookshelf.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Bookshelf.swift; sourceTree = "<group>"; };
 		64541992B9E8F582B3DB0DCE /* Pods-Catalogr.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Catalogr.release.xcconfig"; path = "Target Support Files/Pods-Catalogr/Pods-Catalogr.release.xcconfig"; sourceTree = "<group>"; };
 		D123CEE891A683AD733A888A /* Pods-Catalogr.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Catalogr.debug.xcconfig"; path = "Target Support Files/Pods-Catalogr/Pods-Catalogr.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -259,10 +261,11 @@
 			isa = PBXGroup;
 			children = (
 				17C1BCB52434472E0019589C /* Book.swift */,
-				17B2EA9C243D6DF100EBDE97 /* Settings.swift */,
-				17BB0241243EEC4E001D1013 /* GAPI.swift */,
-				17D5B125244ABA6A00614FF4 /* StringTracker.swift */,
+				17FF175B24591CAD0042C240 /* Bookshelf.swift */,
 				17404271245095B30034287C /* Constraints.swift */,
+				17BB0241243EEC4E001D1013 /* GAPI.swift */,
+				17B2EA9C243D6DF100EBDE97 /* Settings.swift */,
+				17D5B125244ABA6A00614FF4 /* StringTracker.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -512,6 +515,7 @@
 				17BB0242243EEC4E001D1013 /* GAPI.swift in Sources */,
 				17C1BCAF243443450019589C /* AddBookViewController.swift in Sources */,
 				17E654DE24417C87007DEFF6 /* TabBarController.swift in Sources */,
+				17FF175C24591CAD0042C240 /* Bookshelf.swift in Sources */,
 				17D5B126244ABA6A00614FF4 /* StringTracker.swift in Sources */,
 				17D5B11E244AB98700614FF4 /* ISBNScannerViewController.swift in Sources */,
 				17D5B128244ABAAE00614FF4 /* PreviewView.swift in Sources */,
