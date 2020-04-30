@@ -14,6 +14,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
   var settings: Settings!
   var bookshelf: Bookshelf!
   
+  private let imageLoader = ImageLoader()
+  
   private(set) static var shared: SceneDelegate?
   
   func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {

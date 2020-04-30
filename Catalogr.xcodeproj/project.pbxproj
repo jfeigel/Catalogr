@@ -46,6 +46,10 @@
 		17D5B128244ABAAE00614FF4 /* PreviewView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17D5B127244ABAAE00614FF4 /* PreviewView.swift */; };
 		17E654DE24417C87007DEFF6 /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17E654DD24417C87007DEFF6 /* TabBarController.swift */; };
 		17FF175C24591CAD0042C240 /* Bookshelf.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17FF175B24591CAD0042C240 /* Bookshelf.swift */; };
+		17FF175E245A79870042C240 /* ImageCacheType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17FF175D245A79870042C240 /* ImageCacheType.swift */; };
+		17FF1760245A7A520042C240 /* ImageCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17FF175F245A7A520042C240 /* ImageCache.swift */; };
+		17FF1762245A81120042C240 /* ImageLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17FF1761245A81120042C240 /* ImageLoader.swift */; };
+		17FF1769245A94BE0042C240 /* RoundFillButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17FF1768245A94BE0042C240 /* RoundFillButton.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -111,6 +115,10 @@
 		17D5B127244ABAAE00614FF4 /* PreviewView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreviewView.swift; sourceTree = "<group>"; };
 		17E654DD24417C87007DEFF6 /* TabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
 		17FF175B24591CAD0042C240 /* Bookshelf.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Bookshelf.swift; sourceTree = "<group>"; };
+		17FF175D245A79870042C240 /* ImageCacheType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageCacheType.swift; sourceTree = "<group>"; };
+		17FF175F245A7A520042C240 /* ImageCache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageCache.swift; sourceTree = "<group>"; };
+		17FF1761245A81120042C240 /* ImageLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageLoader.swift; sourceTree = "<group>"; };
+		17FF1768245A94BE0042C240 /* RoundFillButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundFillButton.swift; sourceTree = "<group>"; };
 		64541992B9E8F582B3DB0DCE /* Pods-Catalogr.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Catalogr.release.xcconfig"; path = "Target Support Files/Pods-Catalogr/Pods-Catalogr.release.xcconfig"; sourceTree = "<group>"; };
 		D123CEE891A683AD733A888A /* Pods-Catalogr.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Catalogr.debug.xcconfig"; path = "Target Support Files/Pods-Catalogr/Pods-Catalogr.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -145,6 +153,7 @@
 			isa = PBXGroup;
 			children = (
 				172DB3F62447B02100B6425E /* Loopable.swift */,
+				17FF175D245A79870042C240 /* ImageCacheType.swift */,
 			);
 			path = Protocols;
 			sourceTree = "<group>";
@@ -228,6 +237,7 @@
 				17B2EA9F243D74FE00EBDE97 /* SettingsToggleTableViewCell.swift */,
 				17B2EAA1243D759D00EBDE97 /* SettingsPickerTableViewCell.swift */,
 				17E654DD24417C87007DEFF6 /* TabBarController.swift */,
+				17FF1768245A94BE0042C240 /* RoundFillButton.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -235,6 +245,7 @@
 		17BB024524415C11001D1013 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				17FF1765245A8E900042C240 /* Shared */,
 				17CB2124244BDBF1001DD2EB /* Bookshelf */,
 				17CB2125244BDC02001DD2EB /* Wishlist */,
 				17CB2126244BDC0A001DD2EB /* Settings */,
@@ -266,6 +277,8 @@
 				17BB0241243EEC4E001D1013 /* GAPI.swift */,
 				17B2EA9C243D6DF100EBDE97 /* Settings.swift */,
 				17D5B125244ABA6A00614FF4 /* StringTracker.swift */,
+				17FF175F245A7A520042C240 /* ImageCache.swift */,
+				17FF1761245A81120042C240 /* ImageLoader.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -281,7 +294,6 @@
 		17CB2124244BDBF1001DD2EB /* Bookshelf */ = {
 			isa = PBXGroup;
 			children = (
-				17C1BCAE243443450019589C /* AddBookViewController.swift */,
 				17D5B119244A38D000614FF4 /* BookDetailViewController.swift */,
 				17262BF12446513F008B2DF5 /* BookshelfCollectionViewController.swift */,
 				176AC5A5242C6C5F008DBCAA /* BookshelfContainerViewController.swift */,
@@ -313,6 +325,14 @@
 				17BB023F243EEBF3001D1013 /* SearchViewController.swift */,
 			);
 			path = Search;
+			sourceTree = "<group>";
+		};
+		17FF1765245A8E900042C240 /* Shared */ = {
+			isa = PBXGroup;
+			children = (
+				17C1BCAE243443450019589C /* AddBookViewController.swift */,
+			);
+			path = Shared;
 			sourceTree = "<group>";
 		};
 		1A9D048A1CFC625787313AE2 /* Frameworks */ = {
@@ -510,9 +530,12 @@
 			files = (
 				1791774524429D4C00E7E3E2 /* CGFloatExtension.swift in Sources */,
 				176AC5AE242C6C5F008DBCAA /* Catalogr.xcdatamodeld in Sources */,
+				17FF1760245A7A520042C240 /* ImageCache.swift in Sources */,
 				176CEFFA244658490054E12C /* BookshelfCollectionViewCell.swift in Sources */,
 				172DB3F72447B02100B6425E /* Loopable.swift in Sources */,
 				17BB0242243EEC4E001D1013 /* GAPI.swift in Sources */,
+				17FF175E245A79870042C240 /* ImageCacheType.swift in Sources */,
+				17FF1762245A81120042C240 /* ImageLoader.swift in Sources */,
 				17C1BCAF243443450019589C /* AddBookViewController.swift in Sources */,
 				17E654DE24417C87007DEFF6 /* TabBarController.swift in Sources */,
 				17FF175C24591CAD0042C240 /* Bookshelf.swift in Sources */,
@@ -540,6 +563,7 @@
 				17D5B124244ABA1D00614FF4 /* StringExtension.swift in Sources */,
 				174042742450D2CA0034287C /* SearchTableViewCell.swift in Sources */,
 				17B2EAA2243D759D00EBDE97 /* SettingsPickerTableViewCell.swift in Sources */,
+				17FF1769245A94BE0042C240 /* RoundFillButton.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

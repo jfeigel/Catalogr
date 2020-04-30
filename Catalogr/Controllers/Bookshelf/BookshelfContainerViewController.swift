@@ -64,6 +64,11 @@ class BookshelfContainerViewController: UIViewController {
     setVisibleViews(initial: true)
   }
   
+  override func viewWillDisappear(_ animated: Bool) {
+    setEditing(false, animated: false)
+    super.viewWillDisappear(animated)
+  }
+  
   override func setEditing(_ editing: Bool, animated: Bool) {
     super.setEditing(editing, animated: animated)
     

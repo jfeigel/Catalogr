@@ -11,24 +11,15 @@ import os.log
 
 extension UIImageView {
   func load(url: URL, completion: ((UIImage) -> ())? = nil) {
-    URLSession.shared.dataTask(with: url) { [weak self] data, res, err in
-      guard
-        let httpURLResponse = res as? HTTPURLResponse, httpURLResponse.statusCode == 200,
-        let mimeType = res?.mimeType, mimeType.hasPrefix("image"),
-        let data = data, err == nil,
-        let image = UIImage(data: data)
-      else {
-        os_log("Error while trying to retrieve data from %s", type: .error, url as CVarArg)
-        return
-      }
-      
-      DispatchQueue.main.async() {
-        self?.image = image
-        if completion != nil {
-          completion!(image)
+    let _ = ImageLoader.shared.loadImage(from: url)
+      .sink { [unowned self] image in
+        if let image = image {
+          self.image = image
+          if completion != nil {
+            completion!(image)
+          }
         }
       }
-    }.resume()
   }
   
   enum ShadowTypes {

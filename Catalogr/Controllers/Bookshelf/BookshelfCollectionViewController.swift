@@ -66,7 +66,7 @@ class BookshelfCollectionViewController: UIViewController {
     collectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: 0).isActive = true
     collectionView.bottomAnchor.constraint(equalTo: pageControl.topAnchor, constant: 0).isActive = true
     
-    deleteButton = UIBarButtonItem(barButtonSystemItem: .trash, target: self, action: #selector(deleteAction(_:)))
+    deleteButton = UIBarButtonItem(barButtonSystemItem: .trash, target: self, action: #selector(deleteConfirmation(_:)))
   }
   
   override func setEditing(_ editing: Bool, animated: Bool) {
@@ -80,7 +80,18 @@ class BookshelfCollectionViewController: UIViewController {
     }
   }
   
-  @objc func deleteAction(_ sender: UIBarButtonItem) {
+  @objc func deleteConfirmation(_ sender: UIBarButtonItem) {
+    if let selectedCellsCount = collectionView.indexPathsForSelectedItems?.count {
+      let actionSheetTitle = "Delete \(selectedCellsCount) book\(selectedCellsCount > 1 ? "s" : "")?"
+      let actionSheet = UIAlertController(title: actionSheetTitle, message: nil, preferredStyle: .actionSheet)
+      actionSheet.addAction(UIAlertAction(title: "Confirm", style: .destructive, handler: deleteAction(_:)))
+      actionSheet.addAction(UIAlertAction(title: "Cancel", style: .cancel))
+      
+      self.present(actionSheet, animated: true, completion: nil)
+    }
+  }
+  
+  private func deleteAction(_ action: UIAlertAction) {
     if let selectedCells = collectionView.indexPathsForSelectedItems {
       let items = selectedCells.map { ($0.section * itemsPerPage) + $0.row }.sorted().reversed()
       
