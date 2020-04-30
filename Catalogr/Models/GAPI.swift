@@ -33,6 +33,9 @@ final class GAPI {
     return urlComponents
   }()
   
+  private static let defaultSession = URLSession(configuration: .default)
+  private static var dataTask: URLSessionDataTask?
+  
   /**
    Construct a URL for a request to the Google Books API
    
@@ -75,10 +78,16 @@ final class GAPI {
       - completion: Optional completion function
    */
   static func getBooks(searchText: String, type: QueryType, completion: @escaping ([Book]?, String?) -> ()) {
+    dataTask?.cancel()
+
     if let url = GAPI.getURL(type: type, query: searchText) {
       var request = URLRequest(url: url)
       request.setValue(Bundle.main.bundleIdentifier!, forHTTPHeaderField: "X-Ios-Bundle-Identifier")
-      URLSession.shared.dataTask(with: request) { data, res, err in
+      dataTask = defaultSession.dataTask(with: request) { data, res, err in
+        defer {
+          self.dataTask = nil
+        }
+
         guard err == nil else {
           os_log("%s", type: .error, err! as CVarArg)
           DispatchQueue.main.async {
@@ -127,7 +136,9 @@ final class GAPI {
           }
           return
         }
-      }.resume()
+      }
+      
+      dataTask?.resume()
     }
   }
 }
