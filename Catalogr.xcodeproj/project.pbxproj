@@ -233,11 +233,11 @@
 			isa = PBXGroup;
 			children = (
 				176CEFF9244658490054E12C /* BookshelfCollectionViewCell.swift */,
+				17FF1768245A94BE0042C240 /* RoundFillButton.swift */,
 				174042732450D2CA0034287C /* SearchTableViewCell.swift */,
 				17B2EA9F243D74FE00EBDE97 /* SettingsToggleTableViewCell.swift */,
 				17B2EAA1243D759D00EBDE97 /* SettingsPickerTableViewCell.swift */,
 				17E654DD24417C87007DEFF6 /* TabBarController.swift */,
-				17FF1768245A94BE0042C240 /* RoundFillButton.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";

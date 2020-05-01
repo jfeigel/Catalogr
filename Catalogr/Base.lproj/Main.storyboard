@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16096" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="9pA-Xk-hfw">
-    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <device id="retina6_1" orientation="portrait" appearance="dark"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
@@ -367,21 +367,34 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="uEY-QG-bAV">
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="56"/>
+                                <items>
+                                    <navigationItem title="Add Book" id="0Y5-e9-PQW">
+                                        <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="Jhu-0S-hyk">
+                                            <color key="tintColor" systemColor="systemRedColor" red="1" green="0.23137254900000001" blue="0.18823529410000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                            <connections>
+                                                <action selector="dismiss:" destination="SEb-62-AS2" id="7fo-wm-WXG"/>
+                                            </connections>
+                                        </barButtonItem>
+                                    </navigationItem>
+                                </items>
+                            </navigationBar>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" alignment="center" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="cbE-r5-T6d">
-                                <rect key="frame" x="20" y="20" width="374" height="788"/>
+                                <rect key="frame" x="20" y="76" width="374" height="732"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="vgl-5L-Uhn">
-                                        <rect key="frame" x="0.0" y="0.0" width="374" height="384"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="374" height="356"/>
                                         <subviews>
                                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="agJ-BB-jwn">
-                                                <rect key="frame" x="123" y="100.5" width="128" height="183"/>
+                                                <rect key="frame" x="123" y="86.5" width="128" height="183"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" constant="128" id="m4T-bF-U7c"/>
                                                     <constraint firstAttribute="height" constant="183" id="zdR-f9-Wiz"/>
                                                 </constraints>
                                             </imageView>
                                             <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="large" translatesAutoresizingMaskIntoConstraints="NO" id="Jd2-TA-fYm">
-                                                <rect key="frame" x="168.5" y="173.5" width="37" height="37"/>
+                                                <rect key="frame" x="168.5" y="159.5" width="37" height="37"/>
                                             </activityIndicatorView>
                                         </subviews>
                                         <color key="backgroundColor" red="0.56470588235294117" green="0.87450980392156863" blue="0.95686274509803915" alpha="1" colorSpace="calibratedRGB"/>
@@ -393,7 +406,7 @@
                                         </constraints>
                                     </view>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="l3W-62-OSx">
-                                        <rect key="frame" x="0.0" y="404" width="374" height="384"/>
+                                        <rect key="frame" x="0.0" y="376" width="374" height="356"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="center" text="Title" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4Dp-ln-NGQ">
                                                 <rect key="frame" x="169.5" y="0.0" width="35.5" height="20.5"/>
@@ -408,58 +421,56 @@
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="249" text="" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YcA-aU-2Qw">
-                                                <rect key="frame" x="187" y="78.5" width="0.0" height="252.5"/>
+                                                <rect key="frame" x="187" y="78.5" width="0.0" height="149.5"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="y6b-zK-QVE">
-                                                <rect key="frame" x="20" y="351" width="334" height="33"/>
+                                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="y6b-zK-QVE">
+                                                <rect key="frame" x="20" y="248" width="334" height="108"/>
                                                 <subviews>
-                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tPk-Ju-x6m" customClass="RoundFillButton" customModule="Catalogr" customModuleProvider="target">
-                                                        <rect key="frame" x="0.0" y="0.0" width="98" height="33"/>
-                                                        <color key="backgroundColor" systemColor="systemRedColor" red="1" green="0.23137254900000001" blue="0.18823529410000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                        <constraints>
-                                                            <constraint firstAttribute="height" constant="33" id="XUz-k9-WgF"/>
-                                                        </constraints>
-                                                        <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                        <state key="normal" image="xmark" catalog="system"/>
-                                                        <userDefinedRuntimeAttributes>
-                                                            <userDefinedRuntimeAttribute type="boolean" keyPath="rounded" value="YES"/>
-                                                        </userDefinedRuntimeAttributes>
-                                                        <connections>
-                                                            <action selector="dismiss:" destination="3Jv-xV-Ypd" eventType="touchUpInside" id="OsG-Pe-fdz"/>
-                                                        </connections>
-                                                    </button>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ghS-XQ-NZr" customClass="RoundFillButton" customModule="Catalogr" customModuleProvider="target">
-                                                        <rect key="frame" x="118" y="0.0" width="98" height="33"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="334" height="44"/>
                                                         <color key="backgroundColor" systemColor="systemBlueColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                         <constraints>
-                                                            <constraint firstAttribute="height" constant="33" id="WXm-ME-JNm"/>
+                                                            <constraint firstAttribute="height" constant="44" id="WXm-ME-JNm"/>
                                                         </constraints>
+                                                        <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                                         <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                        <state key="normal" image="book" catalog="system">
+                                                        <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="20" maxY="0.0"/>
+                                                        <state key="normal" title="Add to Bookshelf" image="book" catalog="system">
                                                             <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         </state>
                                                         <userDefinedRuntimeAttributes>
                                                             <userDefinedRuntimeAttribute type="boolean" keyPath="rounded" value="YES"/>
+                                                            <userDefinedRuntimeAttribute type="number" keyPath="radius">
+                                                                <real key="value" value="10"/>
+                                                            </userDefinedRuntimeAttribute>
+                                                            <userDefinedRuntimeAttribute type="number" keyPath="shadowRadius">
+                                                                <real key="value" value="10"/>
+                                                            </userDefinedRuntimeAttribute>
                                                         </userDefinedRuntimeAttributes>
                                                         <connections>
                                                             <action selector="addBook:" destination="3Jv-xV-Ypd" eventType="touchUpInside" id="X4T-uL-sdP"/>
                                                         </connections>
                                                     </button>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bWJ-Tk-EO7" customClass="RoundFillButton" customModule="Catalogr" customModuleProvider="target">
-                                                        <rect key="frame" x="236" y="0.0" width="98" height="33"/>
+                                                        <rect key="frame" x="0.0" y="64" width="334" height="44"/>
                                                         <color key="backgroundColor" systemColor="systemBlueColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                         <constraints>
-                                                            <constraint firstAttribute="height" constant="33" id="veI-tF-SCi"/>
+                                                            <constraint firstAttribute="height" constant="44" id="veI-tF-SCi"/>
                                                         </constraints>
+                                                        <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                                         <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                        <state key="normal" image="heart" catalog="system">
+                                                        <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="20" maxY="0.0"/>
+                                                        <state key="normal" title="Add to Wishlist" image="heart" catalog="system">
                                                             <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         </state>
                                                         <userDefinedRuntimeAttributes>
                                                             <userDefinedRuntimeAttribute type="boolean" keyPath="rounded" value="YES"/>
+                                                            <userDefinedRuntimeAttribute type="number" keyPath="radius">
+                                                                <real key="value" value="10"/>
+                                                            </userDefinedRuntimeAttribute>
                                                         </userDefinedRuntimeAttributes>
                                                         <connections>
                                                             <action selector="addBook:" destination="3Jv-xV-Ypd" eventType="touchUpInside" id="8yC-mi-s45"/>
@@ -485,10 +496,13 @@
                         </subviews>
                         <color key="backgroundColor" systemColor="secondarySystemBackgroundColor" red="0.94901960780000005" green="0.94901960780000005" blue="0.96862745100000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
+                            <constraint firstItem="uEY-QG-bAV" firstAttribute="leading" secondItem="D4C-Ob-jZw" secondAttribute="leading" id="Ggq-Ea-leG"/>
                             <constraint firstItem="cbE-r5-T6d" firstAttribute="trailing" secondItem="gFW-xq-S2D" secondAttribute="trailingMargin" id="SyH-XG-uiD"/>
-                            <constraint firstItem="cbE-r5-T6d" firstAttribute="top" secondItem="D4C-Ob-jZw" secondAttribute="top" constant="20" id="jvd-XE-GFg"/>
-                            <constraint firstItem="cbE-r5-T6d" firstAttribute="bottom" secondItem="D4C-Ob-jZw" secondAttribute="bottom" id="t2j-lp-Ggk"/>
+                            <constraint firstItem="D4C-Ob-jZw" firstAttribute="bottom" secondItem="cbE-r5-T6d" secondAttribute="bottom" id="gXO-4H-YxK"/>
+                            <constraint firstItem="cbE-r5-T6d" firstAttribute="top" secondItem="uEY-QG-bAV" secondAttribute="bottom" constant="20" id="jvd-XE-GFg"/>
+                            <constraint firstItem="uEY-QG-bAV" firstAttribute="trailing" secondItem="D4C-Ob-jZw" secondAttribute="trailing" id="vVS-jE-Yxn"/>
                             <constraint firstItem="cbE-r5-T6d" firstAttribute="leading" secondItem="gFW-xq-S2D" secondAttribute="leadingMargin" id="xoJ-wW-R6U"/>
+                            <constraint firstItem="uEY-QG-bAV" firstAttribute="top" secondItem="D4C-Ob-jZw" secondAttribute="top" id="yKi-Gg-T4A"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="D4C-Ob-jZw"/>
                     </view>
@@ -746,6 +760,5 @@
         <image name="gear" catalog="system" width="128" height="119"/>
         <image name="heart" catalog="system" width="128" height="109"/>
         <image name="magnifyingglass" catalog="system" width="128" height="115"/>
-        <image name="xmark" catalog="system" width="128" height="113"/>
     </resources>
 </document>

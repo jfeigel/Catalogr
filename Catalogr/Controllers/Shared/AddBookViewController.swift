@@ -30,6 +30,8 @@ class AddBookViewController: UIViewController {
   override func viewDidLoad() {
     super.viewDidLoad()
     
+    backgroundView.layer.cornerRadius = 20
+    
     if let book = book {
       if let imageLinks = book.volumeInfo.imageLinks, let thumbnail = imageLinks.thumbnail {
         imageActivityIndicator.startAnimating()
@@ -45,10 +47,4 @@ class AddBookViewController: UIViewController {
     }
   }
   
-  override func viewWillLayoutSubviews() {
-    super.viewWillLayoutSubviews()
-    
-    backgroundView.roundCorners(corners: [.topLeft, .topRight], radius: nil)
-    view.roundCorners(corners: [.topLeft, .topRight], radius: nil)
-  }
 }
