@@ -28,6 +28,11 @@ class Bookshelf {
     books = loadBookshelf()
   }
   
+  func addBook(_ newBook: SavedBook) {
+    books.append(newBook)
+    saveBookshelf(books)
+  }
+  
   private func loadBookshelf() -> [SavedBook]  {
     var bookshelf: [SavedBook]
     let decoder = JSONDecoder()

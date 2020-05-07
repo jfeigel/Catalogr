@@ -513,8 +513,9 @@
                         <outlet property="bookTitle" destination="4Dp-ln-NGQ" id="SvQ-An-eAM"/>
                         <outlet property="imageActivityIndicator" destination="Jd2-TA-fYm" id="eiY-TJ-Ems"/>
                         <segue destination="ryM-Jf-ICs" kind="unwind" identifier="cancelAddBookUnwind" unwindAction="unwindToViewControllerWithSegue:sender:" id="CEs-Oh-qsr"/>
-                        <segue destination="ryM-Jf-ICs" kind="unwind" identifier="addBookUnwind" unwindAction="unwindToBookshelfWithSegue:sender:" id="PyQ-JN-26j"/>
+                        <segue destination="ryM-Jf-ICs" kind="unwind" identifier="addBookUnwindToBookshelf" unwindAction="unwindToBookshelfWithSegue:sender:" id="PyQ-JN-26j"/>
                         <segue destination="ryM-Jf-ICs" kind="unwind" identifier="cancelAddBookUnwindToBookshelf" unwindAction="unwindToBookshelfWithSegue:sender:" id="dPK-nf-4ho"/>
+                        <segue destination="ryM-Jf-ICs" kind="unwind" identifier="addBookUnwind" unwindAction="unwindToViewControllerWithSegue:sender:" id="H7K-5h-ysZ"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="SEb-62-AS2" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -744,6 +745,9 @@
                         <segue destination="3Jv-xV-Ypd" kind="popoverPresentation" identifier="addBook" popoverAnchorView="4Qq-GC-8tC" id="ocI-wg-fEA">
                             <popoverArrowDirection key="popoverArrowDirection" up="YES" down="YES" left="YES" right="YES"/>
                         </segue>
+                        <segue destination="s0A-Et-QWh" kind="popoverPresentation" identifier="scanISBNGlobal" popoverAnchorView="4Qq-GC-8tC" id="wtQ-59-8vW">
+                            <popoverArrowDirection key="popoverArrowDirection" up="YES" down="YES" left="YES" right="YES"/>
+                        </segue>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="F06-Yy-Aow" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -752,7 +756,8 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="ocI-wg-fEA"/>
+        <segue reference="qLd-iN-hQM"/>
+        <segue reference="1dQ-Sa-lp2"/>
     </inferredMetricsTieBreakers>
     <resources>
         <image name="arrow.down" catalog="system" width="120" height="128"/>

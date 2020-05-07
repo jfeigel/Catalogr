@@ -69,6 +69,15 @@ class BookshelfCollectionViewController: UIViewController {
     deleteButton = UIBarButtonItem(barButtonSystemItem: .trash, target: self, action: #selector(deleteConfirmation(_:)))
   }
   
+  override func viewWillAppear(_ animated: Bool) {
+    if isViewLoaded {
+      books = SceneDelegate.shared!.bookshelf.books
+      collectionView.reloadData()
+    }
+    
+    super.viewWillAppear(animated)
+  }
+  
   override func setEditing(_ editing: Bool, animated: Bool) {
     super.setEditing(editing, animated: animated)
     

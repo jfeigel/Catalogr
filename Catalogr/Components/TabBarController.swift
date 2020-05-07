@@ -13,12 +13,32 @@ import os.log
 import BarcodeScanner
 
 class TabBarController: UITabBarController {
+
   static let barcodeScannerViewController = BarcodeScannerViewController()
   var feedbackGenerator: UINotificationFeedbackGenerator? = nil
   
   var centerTabBarItem: UIButton!
   
   @IBAction func unwindToViewController(segue: UIStoryboardSegue, sender: Any?) {
+    switch segue.identifier {
+    case "addBookUnwind":
+      if let source = segue.source as? AddBookViewController, let bookData = source.book {
+        let newBook = SavedBook(book: bookData)
+        SceneDelegate.shared!.bookshelf.addBook(newBook)
+      }
+    case "scannerViewUnwind":
+      if let source = segue.source as? ISBNScannerViewController {
+        GAPI.getBooks(searchText: source.foundNumber, type: .isbn) { (books, message)  in
+          if books != nil {
+            self.performSegue(withIdentifier: "addBook", sender: books![0])
+          }
+        }
+      }
+    case "cancelAddBookUnwind": break
+    case "cancelAddBookUnwindToBookshelf": break
+    default:
+      fatalError("Error: Unknown Segue Identifier: \"\(segue.identifier ?? "")\"")
+    }
   }
   
   override func viewDidLoad() {
@@ -66,7 +86,7 @@ class TabBarController: UITabBarController {
         destVC.book = sender as? Book
         destVC.selectedIndex = selectedIndex
       }
-    case "scanISBN": break
+    case "scanISBNGlobal": break
     default:
       os_log("Unknown Segue Identifier found", log: OSLog.default, type: .error)
     }
@@ -89,7 +109,7 @@ extension TabBarController: BarcodeScannerCodeDelegate {
     if type == AVMetadataObject.ObjectType.upca.rawValue {
       controller.reset(animated: false)
       controller.dismiss(animated: true, completion: {
-        self.performSegue(withIdentifier: "scanISBN", sender: nil)
+        self.performSegue(withIdentifier: "scanISBNGlobal", sender: nil)
       })
     } else {
       GAPI.getBooks(searchText: code, type: .isbn) { (books, message) in

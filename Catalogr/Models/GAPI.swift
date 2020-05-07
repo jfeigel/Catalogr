@@ -105,6 +105,16 @@ final class GAPI {
         }
         
         do {
+          let error = try JSONDecoder().decode(BooksErrorResponse.self, from: resData), err = error.error
+          if err.code > 300 || err.code < 200 {
+            os_log("%s", type: .error, "ERROR: \(err.code) | \(err.message)" as CVarArg)
+            DispatchQueue.main.async {
+              completion(nil, "Error: An API error occurred. Please contact the developer.")
+            }
+          }
+        } catch {}
+        
+        do {
           var books = try JSONDecoder().decode(BooksResponse.self, from: resData)
           if books.totalItems > 0 {
             for (index, book) in books.items!.enumerated() {
@@ -118,7 +128,7 @@ final class GAPI {
           } else {
             os_log("Error: No books found", type: .error)
             DispatchQueue.main.async {
-              completion(nil, "No books found")
+              completion(nil, "Error: No books found")
             }
             return
           }

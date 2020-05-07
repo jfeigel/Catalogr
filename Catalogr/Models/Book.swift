@@ -23,12 +23,30 @@ struct BooksResponse: Codable {
   var items: Array<Book>?
 }
 
+/// Error Response from the Google Books API
+struct BooksErrorResponse: Codable {
+  var error: ErrorResponse
+}
+
+struct ErrorResponse: Codable {
+  var errors: Array<BooksError>?
+  var code: Int
+  var message: String
+}
+
+struct BooksError: Codable {
+  var domain: String?
+  var reason: String?
+  var message: String?
+  var extendedHelp: String?
+}
+
 /// Book object from the Google Books API
 struct Book: Codable {
-  var kind: String
-  var id: String
-  var etag: String
-  var selfLink: String
+  var kind: String?
+  var id: String?
+  var etag: String?
+  var selfLink: String?
   var volumeInfo: VolumeInfo
   var saleInfo: SaleInfo?
   var accessInfo: AccessInfo?

@@ -27,15 +27,15 @@ class BookshelfContainerViewController: UIViewController {
  
   @IBAction func unwindToBookshelf(segue: UIStoryboardSegue, sender: Any?) {
     switch segue.identifier {
-    case "addBookUnwind":
+    case "addBookUnwindToBookshelf":
       if let source = segue.source as? AddBookViewController, let bookData = source.book {
         let newBook = SavedBook(book: bookData)
         books.append(newBook)
-        SceneDelegate.shared!.bookshelf.books = books
+        SceneDelegate.shared!.bookshelf.addBook(newBook)
         bookshelfCollectionViewController.addBook(newBook)
         setVisibleViews()
       }
-    case "scannerViewUnwind":
+    case "scannerViewUnwindToBookshelf":
       if let source = segue.source as? ISBNScannerViewController {
         GAPI.getBooks(searchText: source.foundNumber, type: .isbn) { (books, message)  in
           if books != nil {

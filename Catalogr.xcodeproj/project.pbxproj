@@ -33,6 +33,7 @@
 		17BB0242243EEC4E001D1013 /* GAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17BB0241243EEC4E001D1013 /* GAPI.swift */; };
 		17BB0244243F9919001D1013 /* UIViewExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17BB0243243F9919001D1013 /* UIViewExtension.swift */; };
 		17BB024924415C7C001D1013 /* WishlistViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17BB024824415C7C001D1013 /* WishlistViewController.swift */; };
+		17BD57E4245E7A3A00012FE5 /* CloudKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 17BD57E3245E7A3A00012FE5 /* CloudKit.framework */; };
 		17C1BCAD24343A940019589C /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 17C1BCAC24343A940019589C /* Launch Screen.storyboard */; };
 		17C1BCAF243443450019589C /* AddBookViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17C1BCAE243443450019589C /* AddBookViewController.swift */; };
 		17C1BCB2243443D20019589C /* UIImageViewExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17C1BCB1243443D20019589C /* UIImageViewExtension.swift */; };
@@ -102,6 +103,8 @@
 		17BB0241243EEC4E001D1013 /* GAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GAPI.swift; sourceTree = "<group>"; };
 		17BB0243243F9919001D1013 /* UIViewExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewExtension.swift; sourceTree = "<group>"; };
 		17BB024824415C7C001D1013 /* WishlistViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WishlistViewController.swift; sourceTree = "<group>"; };
+		17BD57E2245E79BE00012FE5 /* Catalogr.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Catalogr.entitlements; sourceTree = "<group>"; };
+		17BD57E3245E7A3A00012FE5 /* CloudKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CloudKit.framework; path = System/Library/Frameworks/CloudKit.framework; sourceTree = SDKROOT; };
 		17C1BCAC24343A940019589C /* Launch Screen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = "Launch Screen.storyboard"; sourceTree = "<group>"; };
 		17C1BCAE243443450019589C /* AddBookViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddBookViewController.swift; sourceTree = "<group>"; };
 		17C1BCB1243443D20019589C /* UIImageViewExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIImageViewExtension.swift; sourceTree = "<group>"; };
@@ -129,6 +132,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				170B54E324520E8A00CEA9BD /* Pods_Catalogr.framework in Frameworks */,
+				17BD57E4245E7A3A00012FE5 /* CloudKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -193,6 +197,7 @@
 		176AC5A0242C6C5F008DBCAA /* Catalogr */ = {
 			isa = PBXGroup;
 			children = (
+				17BD57E2245E79BE00012FE5 /* Catalogr.entitlements */,
 				1766623A244BF75B00FC758D /* Supporting Files */,
 				172DB3F52447B01300B6425E /* Protocols */,
 				17BB024524415C11001D1013 /* Controllers */,
@@ -338,6 +343,7 @@
 		1A9D048A1CFC625787313AE2 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				17BD57E3245E7A3A00012FE5 /* CloudKit.framework */,
 				080B6845D1C4B35251BC594C /* Pods_Catalogr.framework */,
 			);
 			name = Frameworks;
@@ -729,14 +735,16 @@
 			baseConfigurationReference = D123CEE891A683AD733A888A /* Pods-Catalogr.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = Catalogr/Catalogr.entitlements;
 				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 2;
 				DEVELOPMENT_TEAM = Z56Y5TUHBT;
 				INFOPLIST_FILE = Catalogr/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.jfeigel.Catalogr;
+				PRODUCT_BUNDLE_IDENTIFIER = com.jfeigel.BookCatalogr;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -748,14 +756,16 @@
 			baseConfigurationReference = 64541992B9E8F582B3DB0DCE /* Pods-Catalogr.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = Catalogr/Catalogr.entitlements;
 				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 2;
 				DEVELOPMENT_TEAM = Z56Y5TUHBT;
 				INFOPLIST_FILE = Catalogr/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.jfeigel.Catalogr;
+				PRODUCT_BUNDLE_IDENTIFIER = com.jfeigel.BookCatalogr;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";

@@ -54,9 +54,9 @@ class StringTracker {
     frameIndex += 1
   }
   
-  func getStableString() -> String? {
-    // Require the recognizer to see the same string at least 10 times.
-    if bestCount >= 10 {
+  func getStableString(_ countLimit: Int = 10) -> String? {
+    // Require the recognizer to see the same string at least passed in limit times, or 10 by default.
+    if bestCount >= countLimit {
       return bestString
     } else {
       return nil

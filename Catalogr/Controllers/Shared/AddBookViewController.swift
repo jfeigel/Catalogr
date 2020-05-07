@@ -19,7 +19,8 @@ class AddBookViewController: UIViewController {
   @IBOutlet var imageActivityIndicator: UIActivityIndicatorView!
 
   @IBAction func addBook(_ sender: UIButton) {
-    self.performSegue(withIdentifier: "addBookUnwind", sender: nil)
+    let segueIdentifier = selectedIndex == 0 ? "addBookUnwindToBookshelf" : "addBookUnwind"
+    self.performSegue(withIdentifier: segueIdentifier, sender: nil)
   }
   
   @IBAction func dismiss(_ sender: UIButton) {

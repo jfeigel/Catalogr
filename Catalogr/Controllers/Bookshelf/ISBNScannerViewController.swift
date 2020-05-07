@@ -69,7 +69,7 @@ class ISBNScannerViewController: ScannerViewController {
     show(boxGroups: [(color: UIColor.red.cgColor, boxes: redBoxes), (color: UIColor.green.cgColor, boxes: greenBoxes)])
     
     // Check if we have any temporally stable numbers.
-    if let sureNumber = numberTracker.getStableString() {
+    if let sureNumber = numberTracker.getStableString(self.request.recognitionLevel == .accurate ? 1 : 10 ) {
       showString(string: sureNumber, doDismiss: true)
       numberTracker.reset(string: sureNumber)
       foundNumber = sureNumber
@@ -82,7 +82,7 @@ class ISBNScannerViewController: ScannerViewController {
   override func captureOutput(_ output: AVCaptureOutput, didOutput sampleBuffer: CMSampleBuffer, from connection: AVCaptureConnection) {
     if let pixelBuffer = CMSampleBufferGetImageBuffer(sampleBuffer) {
       // Configure for running in real-time.
-      request.recognitionLevel = .fast
+      request.recognitionLevel = .accurate
       // Language correction won't help recognizing phone numbers. It also
       // makes recognition slower.
       request.usesLanguageCorrection = false
