@@ -59,6 +59,13 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     (UIApplication.shared.delegate as? AppDelegate)?.saveContext()
   }
   
+  func windowScene(_ windowScene: UIWindowScene, performActionFor shortcutItem: UIApplicationShortcutItem, completionHandler: @escaping (Bool) -> Void) {
+    if shortcutItem.type == "com.jfeigel.BookCatalogr.addbook" {
+      if let tabBarController = self.window?.rootViewController as? UITabBarController {
+        tabBarController.present(TabBarController.barcodeScannerViewController, animated: true, completion: nil)
+      }
+    }
+  }
   
 }
 
