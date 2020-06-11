@@ -91,27 +91,32 @@ class BookshelfCollectionViewController: UIViewController {
   
   @objc func deleteConfirmation(_ sender: UIBarButtonItem) {
     if let selectedCellsCount = collectionView.indexPathsForSelectedItems?.count {
-      let actionSheetTitle = "Delete \(selectedCellsCount) book\(selectedCellsCount > 1 ? "s" : "")?"
-      let actionSheet = UIAlertController(title: actionSheetTitle, message: nil, preferredStyle: .actionSheet)
-      actionSheet.addAction(UIAlertAction(title: "Confirm", style: .destructive, handler: deleteAction(_:)))
-      actionSheet.addAction(UIAlertAction(title: "Cancel", style: .cancel))
-      
-      self.present(actionSheet, animated: true, completion: nil)
+      deleteConfirmationAction(title: "Delete \(selectedCellsCount) book\(selectedCellsCount > 1 ? "s" : "")?", index: nil)
     }
   }
   
-  private func deleteAction(_ action: UIAlertAction) {
-    if let selectedCells = collectionView.indexPathsForSelectedItems {
+  private func deleteConfirmationAction(title: String, index: Int?) {
+    let actionSheet = UIAlertController(title: title, message: nil, preferredStyle: .actionSheet)
+    actionSheet.addAction(UIAlertAction(title: "Confirm", style: .destructive, handler: { action in self.deleteAction(action, index: index)}))
+    actionSheet.addAction(UIAlertAction(title: "Cancel", style: .cancel))
+    
+    self.present(actionSheet, animated: true, completion: nil)
+  }
+  
+  private func deleteAction(_ action: UIAlertAction, index: Int?) {
+    if let selectedCells = collectionView.indexPathsForSelectedItems, isEditing == true {
       let items = selectedCells.map { ($0.section * itemsPerPage) + $0.row }.sorted().reversed()
-      
+        
       for item in items {
         books.remove(at: item)
       }
-
-      collectionView.reloadData()
-      deleteButton.isEnabled = false
-      bookshelfContainerViewController.setEditing(false, animated: true)
+    } else if let index = index {
+      books.remove(at: index)
     }
+    
+    collectionView.reloadData()
+    deleteButton.isEnabled = false
+    bookshelfContainerViewController.setEditing(false, animated: true)
   }
   
   func addBook(_ book: SavedBook) {
@@ -160,7 +165,29 @@ extension BookshelfCollectionViewController: UICollectionViewDelegate {
   func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
     (cell as! BookshelfCollectionViewCell).isInEditingMode = (indexPath.section * itemsPerPage) + indexPath.row < books.count && isEditing
   }
-
+  
+  func collectionView(_ collectionView: UICollectionView, contextMenuConfigurationForItemAt indexPath: IndexPath, point: CGPoint) -> UIContextMenuConfiguration? {
+    let index = (indexPath.section * itemsPerPage) + indexPath.row
+    let book = books[index].book
+    let identifier = "\(book.id)" as NSString
+    
+    return UIContextMenuConfiguration(
+      identifier: identifier,
+      previewProvider: nil
+    ) { _ in
+      let deleteBookAction = UIAction(
+        title: "Delete Book",
+        image: UIImage(systemName: "delete.left"),
+        identifier: nil,
+        attributes: UIMenuElement.Attributes.destructive
+      ) { _ in
+        self.deleteConfirmationAction(title: "Delete \(book.volumeInfo.title)?", index: index)
+      }
+      
+      return UIMenu(title: "", children: [deleteBookAction])
+    }
+  }
+  
 }
 
 // MARK: - UICollectionViewDelegateFlowLayout
@@ -179,11 +206,11 @@ extension BookshelfCollectionViewController: UICollectionViewDelegateFlowLayout 
   }
   
 }
-  
+
 // MARK: - UICollectionViewDataSource
 
 extension BookshelfCollectionViewController: UICollectionViewDataSource {
-
+  
   func numberOfSections(in collectionView: UICollectionView) -> Int {
     var numOfSecs = Int(books.count / itemsPerPage)
     if books.count % itemsPerPage > 0 {
@@ -223,7 +250,7 @@ extension BookshelfCollectionViewController: UICollectionViewDataSource {
     } else {
       cell.isEmpty = true
     }
-        
+    
     return cell
   }
   

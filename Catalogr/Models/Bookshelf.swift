@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import CloudKit
 import os.log
 
 class Bookshelf {
@@ -15,16 +16,20 @@ class Bookshelf {
   static private let DocumentsDirectory = FileManager().urls(for: .documentDirectory, in: .userDomainMask).first!
   static let ArchiveURL = DocumentsDirectory.appendingPathComponent("bookshelf")
   
+  let container: CKContainer
+  let publicDB: CKDatabase
+  let privateDB: CKDatabase
+  
   var books: [SavedBook]! {
-    get {
-      return loadBookshelf()
-    }
-    set (updatedBooks) {
-      saveBookshelf(updatedBooks)
+    didSet {
+      saveBookshelf(books)
     }
   }
   
   init() {
+    container = CKContainer.default()
+    publicDB = container.publicCloudDatabase
+    privateDB = container.privateCloudDatabase
     books = loadBookshelf()
   }
   
@@ -35,15 +40,34 @@ class Bookshelf {
   
   private func loadBookshelf() -> [SavedBook]  {
     var bookshelf: [SavedBook]
+//    var ckBookshelf = [CKSavedBook]()
     let decoder = JSONDecoder()
     
     do {
       let data = try Data(contentsOf: Bookshelf.ArchiveURL)
       bookshelf = try decoder.decode([SavedBook].self, from: data)
+      for i in bookshelf.indices {
+        bookshelf[i].bookID = bookshelf[i].book.id
+      }
+      saveBookshelf(bookshelf)
     } catch {
       bookshelf = [SavedBook]()
       os_log("Failed to load Bookshelf", log: OSLog.default, type: .error)
     }
+
+//    let predicate = NSPredicate(value: true)
+//    let query = CKQuery(recordType: "SavedBook", predicate: predicate)
+//
+//    privateDB.perform(query, inZoneWith: CKRecordZone.default().zoneID) { results, error in
+//      if let error = error {
+//        os_log("%s", type: .error, error as CVarArg)
+//      }
+//
+//      guard let results = results else { return }
+//      ckBookshelf = results.compactMap {
+//        CKSavedBook(record: $0)
+//      }
+//    }
     
     return bookshelf
   }

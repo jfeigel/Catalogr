@@ -25,6 +25,7 @@
 		176CEFFA244658490054E12C /* BookshelfCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 176CEFF9244658490054E12C /* BookshelfCollectionViewCell.swift */; };
 		179177432442290100E7E3E2 /* UIColorExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 179177422442290100E7E3E2 /* UIColorExtension.swift */; };
 		1791774524429D4C00E7E3E2 /* CGFloatExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1791774424429D4C00E7E3E2 /* CGFloatExtension.swift */; };
+		179CFA432480A7D6008423AB /* CKSavedBook.swift in Sources */ = {isa = PBXBuildFile; fileRef = 179CFA422480A7D6008423AB /* CKSavedBook.swift */; };
 		17B2EA9B243D6CF400EBDE97 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17B2EA9A243D6CF400EBDE97 /* SettingsViewController.swift */; };
 		17B2EA9D243D6DF100EBDE97 /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17B2EA9C243D6DF100EBDE97 /* Settings.swift */; };
 		17B2EAA0243D74FE00EBDE97 /* SettingsToggleTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17B2EA9F243D74FE00EBDE97 /* SettingsToggleTableViewCell.swift */; };
@@ -95,6 +96,7 @@
 		176CEFF9244658490054E12C /* BookshelfCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookshelfCollectionViewCell.swift; sourceTree = "<group>"; };
 		179177422442290100E7E3E2 /* UIColorExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIColorExtension.swift; sourceTree = "<group>"; };
 		1791774424429D4C00E7E3E2 /* CGFloatExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CGFloatExtension.swift; sourceTree = "<group>"; };
+		179CFA422480A7D6008423AB /* CKSavedBook.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CKSavedBook.swift; sourceTree = "<group>"; };
 		17B2EA9A243D6CF400EBDE97 /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		17B2EA9C243D6DF100EBDE97 /* Settings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Settings.swift; sourceTree = "<group>"; };
 		17B2EA9F243D74FE00EBDE97 /* SettingsToggleTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsToggleTableViewCell.swift; sourceTree = "<group>"; };
@@ -278,6 +280,7 @@
 			children = (
 				17C1BCB52434472E0019589C /* Book.swift */,
 				17FF175B24591CAD0042C240 /* Bookshelf.swift */,
+				179CFA422480A7D6008423AB /* CKSavedBook.swift */,
 				17404271245095B30034287C /* Constraints.swift */,
 				17BB0241243EEC4E001D1013 /* GAPI.swift */,
 				17B2EA9C243D6DF100EBDE97 /* Settings.swift */,
@@ -544,6 +547,7 @@
 				17FF1762245A81120042C240 /* ImageLoader.swift in Sources */,
 				17C1BCAF243443450019589C /* AddBookViewController.swift in Sources */,
 				17E654DE24417C87007DEFF6 /* TabBarController.swift in Sources */,
+				179CFA432480A7D6008423AB /* CKSavedBook.swift in Sources */,
 				17FF175C24591CAD0042C240 /* Bookshelf.swift in Sources */,
 				17D5B126244ABA6A00614FF4 /* StringTracker.swift in Sources */,
 				17D5B11E244AB98700614FF4 /* ISBNScannerViewController.swift in Sources */,

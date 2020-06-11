@@ -11,9 +11,11 @@ import Foundation
 /// Individual book saved in the Bookshelf
 struct SavedBook: Codable {
   var book: Book
+  var bookID: String = ""
   var rating: Int = 0
   var read: Bool = false
   var borrowed: Bool = false
+  var wishlist: Bool = false
 }
 
 /// Response from the Google Books API
@@ -44,7 +46,7 @@ struct BooksError: Codable {
 /// Book object from the Google Books API
 struct Book: Codable {
   var kind: String?
-  var id: String?
+  var id: String
   var etag: String?
   var selfLink: String?
   var volumeInfo: VolumeInfo
