@@ -23,12 +23,14 @@ class SearchTableViewCell: UITableViewCell {
       {
         bookImage.isHidden = true
         activityIndicator.startAnimating()
-        bookImage.load(url: URL(string: thumbnail)!) { _ in
+        bookImage.load(url: URL(string: thumbnail)!, resize: bookImage.frame.height) { _ in
           self.activityIndicator.stopAnimating()
+          self.bookImage.dropShadow(type: .book, shadowSize: 3)
           self.bookImage.isHidden = false
         }
       } else {
         bookImage.image = UIImage(named: "no_cover_thumb")
+        bookImage.dropShadow(type: .book, shadowSize: 3)
       }
 
       title.text = book.volumeInfo.title
