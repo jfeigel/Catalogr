@@ -70,6 +70,7 @@ extension SearchViewController: UITableViewDataSource {
 // MARK: - UITableViewDelegate
 
 extension SearchViewController: UITableViewDelegate {
+  
   func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
     let selectedBook = results[indexPath.row]
     
@@ -79,6 +80,59 @@ extension SearchViewController: UITableViewDelegate {
       viewController.isModalInPresentation = true
       present(viewController, animated: true, completion: nil)
     }
+  }
+  
+  func tableView(_ tableView: UITableView, contextMenuConfigurationForRowAt indexPath: IndexPath, point: CGPoint) -> UIContextMenuConfiguration? {
+    let result = results[indexPath.row]
+    let identifier = "\(indexPath.row)" as NSString
+    
+    return UIContextMenuConfiguration(
+      identifier: identifier,
+      previewProvider: nil
+    ) { _ in
+      let addToBookshelfAction = UIAction(
+        title: "Add to Bookshelf",
+        image: UIImage(systemName: "book"),
+        identifier: nil
+      ) { _ in
+        let newBook = SavedBook(book: result)
+        Bookshelf.shared.addBook(newBook)
+      }
+      
+      let addToWishlistAction = UIAction(
+        title: "Add to Wishlist",
+        image: UIImage(systemName: "heart"),
+        identifier: nil
+      ) { _ in
+        let newBook = SavedBook(book: result)
+        Bookshelf.shared.addBook(newBook)
+      }
+      
+      return UIMenu(title: "", children: [addToBookshelfAction, addToWishlistAction])
+    }
+  }
+  
+  func tableView(_ tableView: UITableView, previewForHighlightingContextMenuWithConfiguration configuration: UIContextMenuConfiguration) -> UITargetedPreview? {
+    return makeTargetedPreview(for: configuration)
+  }
+  
+  func tableView(_ tableView: UITableView, previewForDismissingContextMenuWithConfiguration configuration: UIContextMenuConfiguration) -> UITargetedPreview? {
+    return makeTargetedPreview(for: configuration)
+  }
+  
+  private func makeTargetedPreview(for configuration: UIContextMenuConfiguration) -> UITargetedPreview? {
+    guard
+      let identifier = configuration.identifier as? String,
+      let index = Int(identifier),
+      let cell = tableView.cellForRow(at: IndexPath(row: index, section: 0)) as? SearchTableViewCell
+    else {
+      return nil
+    }
+    
+    let parameters = UIPreviewParameters()
+    parameters.backgroundColor = .clear
+    
+    return UITargetedPreview(view: cell.bookImage, parameters: parameters)
   }
 }
 
