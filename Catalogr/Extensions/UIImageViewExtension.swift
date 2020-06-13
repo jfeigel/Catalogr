@@ -26,7 +26,7 @@ extension UIImageView {
     case drop, oval, book
   }
   
-  func dropShadow(type: ShadowTypes = .drop) {
+  func dropShadow(type: ShadowTypes = .drop, shadowSize: CGFloat = 20) {
     self.layer.masksToBounds = false
     self.layer.shadowColor = UIColor.black.cgColor
     self.layer.shadowOpacity = 0.5
@@ -37,12 +37,12 @@ extension UIImageView {
     
     switch type {
     case .oval:
-      let shadowSize: CGFloat = 20
-      let ovalRect = CGRect(x: -shadowSize, y: size.height - (shadowSize * 0.4), width: size.width + shadowSize * 2, height: shadowSize)
+      let shadowSize: CGFloat = shadowSize
+      let ovalRect = CGRect(x: -shadowSize, y: size.height - (shadowSize * 0.8), width: size.width + shadowSize * 2, height: shadowSize)
       self.layer.shadowPath = UIBezierPath(ovalIn: ovalRect).cgPath
       self.layer.shadowRadius = 5
     case .book:
-      let shadowSize: CGFloat = 20
+      let shadowSize: CGFloat = shadowSize
       let ovalRect = CGRect(x: 0, y: (size.height * 2) - (shadowSize * 2.25), width: (size.width * 2) + (shadowSize * 1.5), height: shadowSize)
       self.layer.shadowPath = UIBezierPath(ovalIn: ovalRect).cgPath
       self.layer.shadowRadius = 5

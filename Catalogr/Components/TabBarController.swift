@@ -58,7 +58,7 @@ class TabBarController: UITabBarController {
     centerTabBarItem.setImage(UIImage(systemName: "barcode.viewfinder", withConfiguration: smallConfiguration), for: .normal)
     centerTabBarItem.tintColor = .white
     centerTabBarItem.layer.backgroundColor = UIColor(hex: "#90dff4")!.cgColor
-    centerTabBarItem.layer.borderColor = UIColor.systemBackground.cgColor
+    centerTabBarItem.layer.borderColor = UIColor(named: "background")?.cgColor
     centerTabBarItem.layer.borderWidth = 4.0
     centerTabBarItem.layer.cornerRadius = radius
     centerTabBarItem.addTarget(self, action: #selector(centerTabBarItemAction(_:)), for: .touchUpInside)
@@ -72,10 +72,10 @@ class TabBarController: UITabBarController {
     TabBarController.barcodeScannerViewController.headerViewController.closeButton.tintColor = UIColor.systemBlue
   }
   
-  override func viewDidLayoutSubviews() {
-    super.viewDidLayoutSubviews()
+  override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+    super.traitCollectionDidChange(previousTraitCollection)
     
-    centerTabBarItem.layer.borderColor = UIColor.systemBackground.cgColor
+    centerTabBarItem.layer.borderColor = UIColor(named: "background")?.cgColor
   }
   
   override func prepare(for segue: UIStoryboardSegue, sender: Any?) {

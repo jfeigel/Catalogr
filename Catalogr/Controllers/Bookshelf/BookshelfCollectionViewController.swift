@@ -29,20 +29,26 @@ class BookshelfCollectionViewController: UIViewController {
   let collectionView: UICollectionView = {
     let layout = UICollectionViewFlowLayout()
     layout.scrollDirection = .horizontal
+    layout.minimumInteritemSpacing = 0
+    layout.minimumLineSpacing = 0
+    
     let cv = UICollectionView(frame: .zero, collectionViewLayout: layout)
-    cv.backgroundColor = .systemBackground
+    cv.backgroundColor = UIColor(named: "secondaryBackground")
     cv.translatesAutoresizingMaskIntoConstraints = false
     cv.isScrollEnabled = true
     cv.isPagingEnabled = true
     cv.showsHorizontalScrollIndicator = false
-    cv.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 20, right: 0)
+    cv.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
     cv.register(BookshelfCollectionViewCell.self, forCellWithReuseIdentifier: "BookshelfCell")
+    
     return cv
   }()
   
   let pageControl: UIPageControl = {
     let pageControl = UIPageControl(frame: .zero)
     pageControl.translatesAutoresizingMaskIntoConstraints = false
+    pageControl.pageIndicatorTintColor = .systemGray4
+    pageControl.currentPageIndicatorTintColor = .systemGray
     return pageControl
   }()
   
@@ -168,8 +174,9 @@ extension BookshelfCollectionViewController: UICollectionViewDelegate {
   
   func collectionView(_ collectionView: UICollectionView, contextMenuConfigurationForItemAt indexPath: IndexPath, point: CGPoint) -> UIContextMenuConfiguration? {
     let index = (indexPath.section * itemsPerPage) + indexPath.row
+    if index >= books.count { return nil }
     let book = books[index].book
-    let identifier = "\(book.id)" as NSString
+    let identifier = "\(index)" as NSString
     
     return UIContextMenuConfiguration(
       identifier: identifier,
@@ -188,6 +195,19 @@ extension BookshelfCollectionViewController: UICollectionViewDelegate {
     }
   }
   
+  func collectionView(_ collectionView: UICollectionView, previewForHighlightingContextMenuWithConfiguration configuration: UIContextMenuConfiguration) -> UITargetedPreview? {
+    print(configuration.identifier)
+    guard
+      let identifier = configuration.identifier as? String,
+      let index = Int(identifier),
+      let cell = collectionView.cellForItem(at: IndexPath(row: Int(index / itemsPerPage), section: Int(index % itemsPerPage))) as? BookshelfCollectionViewCell
+      else {
+        return nil
+    }
+    
+    return UITargetedPreview(view: cell.bookImage)
+  }
+  
 }
 
 // MARK: - UICollectionViewDelegateFlowLayout
@@ -197,11 +217,9 @@ extension BookshelfCollectionViewController: UICollectionViewDelegateFlowLayout 
   func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
     let fItemsPerRow = CGFloat(itemsPerRow)
     let fItemsPerCol = CGFloat(itemsPerCol)
-    let rowBordersWidth: CGFloat = (fItemsPerRow - 1) * 10
-    let colBordersWidth: CGFloat = ((fItemsPerCol - 1) * 10) + 20
     return CGSize(
-      width: (collectionView.frame.width - rowBordersWidth) / fItemsPerRow,
-      height: (collectionView.frame.height - colBordersWidth) / fItemsPerCol
+      width: collectionView.frame.width / fItemsPerRow,
+      height: collectionView.frame.height / fItemsPerCol
     )
   }
   
@@ -226,6 +244,7 @@ extension BookshelfCollectionViewController: UICollectionViewDataSource {
   func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
     let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "BookshelfCell", for: indexPath) as! BookshelfCollectionViewCell
     let index = (indexPath.section * itemsPerPage) + indexPath.row
+    let imageSize = cell.contentView.frame.height * 0.5
     
     if index < books.count {
       let book = books[index].book
@@ -234,18 +253,28 @@ extension BookshelfCollectionViewController: UICollectionViewDataSource {
         cell.activityIndicator.startAnimating()
         cell.bookImage.load(url: URL(string: thumbnail)!) { _ in
           cell.activityIndicator.stopAnimating()
-          cell.bookImage.image = cell.bookImage.image!.resize(183)
-          cell.bookImage.dropShadow(type: .oval)
+          cell.bookImage.image = cell.bookImage.image!.resize(imageSize)
           cell.bookImage.isHidden = false
         }
       } else {
-        cell.bookImage.image = UIImage(named: "no_cover_thumb")!.resize(183)
+        cell.bookImage.image = UIImage(named: "no_cover_thumb")!.resize(imageSize)
         DispatchQueue.main.async {
-          cell.bookImage.dropShadow(type: .oval)
           cell.bookImage.isHidden = false
         }
       }
       
+      books[index].read = Bool.random()
+      books[index].borrowed = Bool.random()
+      books[index].rating = Int.random(in: 0 ... 5)
+
+      cell.readIcon.tintColor = books[index].read ? nil : .systemGray2
+      cell.borrowedIcon.isHighlighted = books[index].borrowed
+      cell.borrowedIcon.tintColor = books[index].borrowed ? nil : .systemGray2
+      cell.ratingValue.text = books[index].rating == 0 ? "-" : "\(books[index].rating)"
+      cell.ratingValue.textColor = books[index].rating == 0 ? .systemGray2 : .systemBlue
+      cell.ratingStar.isHighlighted = books[index].rating != 0
+      cell.ratingStar.tintColor = books[index].rating == 0 ? .systemGray2 : nil
+      cell.bookTitle.text = book.volumeInfo.title
       cell.isInEditingMode = isEditing
     } else {
       cell.isEmpty = true
