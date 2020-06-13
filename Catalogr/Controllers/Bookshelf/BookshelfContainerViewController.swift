@@ -12,7 +12,6 @@ import os.log
 
 class BookshelfContainerViewController: UIViewController {
   
-  var books: [SavedBook]!
   var bookshelfCollectionViewController: BookshelfCollectionViewController!
   var scanBarcodeButton: UIBarButtonItem!
   
@@ -30,9 +29,7 @@ class BookshelfContainerViewController: UIViewController {
     case "addBookUnwindToBookshelf":
       if let source = segue.source as? AddBookViewController, let bookData = source.book {
         let newBook = SavedBook(book: bookData)
-        books.append(newBook)
-        SceneDelegate.shared!.bookshelf.addBook(newBook)
-        bookshelfCollectionViewController.addBook(newBook)
+        Bookshelf.shared.books.append(newBook)
         setVisibleViews()
       }
     case "scannerViewUnwindToBookshelf":
@@ -60,8 +57,7 @@ class BookshelfContainerViewController: UIViewController {
     downArrowWidth = downArrow.frame.size.width
     downArrowHeight = downArrow.frame.size.height
     
-    books = SceneDelegate.shared!.bookshelf.books
-    setVisibleViews(initial: true)
+    setVisibleViews()
   }
   
   override func viewWillDisappear(_ animated: Bool) {
@@ -77,8 +73,6 @@ class BookshelfContainerViewController: UIViewController {
       navigationItem.rightBarButtonItem = bookshelfCollectionViewController.deleteButton
     } else {
       navigationItem.rightBarButtonItem = scanBarcodeButton
-      books = bookshelfCollectionViewController.books
-      SceneDelegate.shared!.bookshelf.books = books
       setVisibleViews()
     }
     
@@ -87,11 +81,7 @@ class BookshelfContainerViewController: UIViewController {
   
   override func shouldPerformSegue(withIdentifier identifier: String, sender: Any?) -> Bool {
     if identifier == "bookshelf" {
-      if books != nil {
-        return (books.count >= 0)
-      } else {
-        return false
-      }
+      return Bookshelf.shared.books != nil && Bookshelf.shared.books.count >= 0
     }
     
     return true
@@ -107,7 +97,6 @@ class BookshelfContainerViewController: UIViewController {
     case "bookshelf":
       if let destVC = segue.destination as? BookshelfCollectionViewController {
         bookshelfCollectionViewController = destVC
-        destVC.books = books
         destVC.bookshelfContainerViewController = self
       }
     default:
@@ -119,14 +108,10 @@ class BookshelfContainerViewController: UIViewController {
     present(TabBarController.barcodeScannerViewController, animated: true, completion: nil)
   }
   
-  private func setVisibleViews(initial: Bool = false) {
-    if initial {
-      performSegue(withIdentifier: "bookshelf", sender: nil)
-    }
-    
+  private func setVisibleViews() {
     self.downArrow.layer.removeAllAnimations()
     
-    if books.count == 0 {
+    if Bookshelf.shared.books.count == 0 {
       emptyView.alpha = 1.0
       nonEmptyView.alpha = 0.0
       navigationItem.leftBarButtonItem = nil

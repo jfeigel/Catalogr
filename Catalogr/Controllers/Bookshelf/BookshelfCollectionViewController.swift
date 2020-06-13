@@ -15,15 +15,6 @@ class BookshelfCollectionViewController: UIViewController {
   private var itemsPerCol: Int = 3
   
   weak var bookshelfContainerViewController: BookshelfContainerViewController!
-  var books: [SavedBook]! {
-    didSet {
-      var numberOfPages = Int(books.count / itemsPerPage)
-      if books.count % itemsPerPage > 0 {
-        numberOfPages += 1
-      }
-      pageControl.numberOfPages = numberOfPages
-    }
-  }
   var deleteButton: UIBarButtonItem!
   
   let collectionView: UICollectionView = {
@@ -40,6 +31,7 @@ class BookshelfCollectionViewController: UIViewController {
     cv.showsHorizontalScrollIndicator = false
     cv.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
     cv.register(BookshelfCollectionViewCell.self, forCellWithReuseIdentifier: "BookshelfCell")
+    cv.register(BookshelfCollectionViewCellEmpty.self, forCellWithReuseIdentifier: "BookshelfCellEmpty")
     
     return cv
   }()
@@ -55,7 +47,7 @@ class BookshelfCollectionViewController: UIViewController {
   override func viewDidLoad() {
     super.viewDidLoad()
     
-    books = SceneDelegate.shared!.bookshelf.books
+    setPageControl()
     
     view.addSubview(collectionView)
     view.addSubview(pageControl)
@@ -76,12 +68,10 @@ class BookshelfCollectionViewController: UIViewController {
   }
   
   override func viewWillAppear(_ animated: Bool) {
-    if isViewLoaded {
-      books = SceneDelegate.shared!.bookshelf.books
-      collectionView.reloadData()
-    }
-    
     super.viewWillAppear(animated)
+    
+    collectionView.reloadData()
+    setPageControl()
   }
   
   override func setEditing(_ editing: Bool, animated: Bool) {
@@ -90,9 +80,18 @@ class BookshelfCollectionViewController: UIViewController {
     collectionView.allowsMultipleSelection = editing
     let indexPaths = collectionView.indexPathsForVisibleItems
     for indexPath in indexPaths {
-      let cell = collectionView.cellForItem(at: indexPath) as! BookshelfCollectionViewCell
-      cell.isInEditingMode = (indexPath.section * itemsPerPage) + indexPath.row < books.count && editing
+      if (indexPath.section * itemsPerPage) + indexPath.row < Bookshelf.shared.books.count {
+        (collectionView.cellForItem(at: indexPath) as! BookshelfCollectionViewCell).isInEditingMode = editing
+      }
     }
+  }
+  
+  func setPageControl() {
+    var numberOfPages = Int(Bookshelf.shared.books.count / itemsPerPage)
+    if Bookshelf.shared.books.count % itemsPerPage > 0 {
+      numberOfPages += 1
+    }
+    pageControl.numberOfPages = numberOfPages
   }
   
   @objc func deleteConfirmation(_ sender: UIBarButtonItem) {
@@ -114,22 +113,24 @@ class BookshelfCollectionViewController: UIViewController {
       let items = selectedCells.map { ($0.section * itemsPerPage) + $0.row }.sorted().reversed()
         
       for item in items {
-        books.remove(at: item)
+        Bookshelf.shared.books.remove(at: item)
       }
     } else if let index = index {
-      books.remove(at: index)
+      Bookshelf.shared.books.remove(at: index)
     }
     
+    setPageControl()
     collectionView.reloadData()
     deleteButton.isEnabled = false
     bookshelfContainerViewController.setEditing(false, animated: true)
   }
   
   func addBook(_ book: SavedBook) {
-    let index = books.count
+    let index = Bookshelf.shared.books.count
     let section = Int(index / itemsPerPage)
     let row = Int(index % itemsPerPage)
-    books.append(book)
+    Bookshelf.shared.books.append(book)
+    setPageControl()
     if index % itemsPerPage != 0 {
       collectionView.reloadItems(at: [IndexPath(row: row, section: section)])
     } else {
@@ -150,13 +151,13 @@ extension BookshelfCollectionViewController: UICollectionViewDelegate {
   }
   
   func collectionView(_ collectionView: UICollectionView, shouldSelectItemAt indexPath: IndexPath) -> Bool {
-    return (indexPath.section * itemsPerPage) + indexPath.row < books.count
+    return (indexPath.section * itemsPerPage) + indexPath.row < Bookshelf.shared.books.count
   }
   
   func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
     if !isEditing {
       let index = (indexPath.section * itemsPerPage) + indexPath.row
-      bookshelfContainerViewController.performSegue(withIdentifier: "bookDetail", sender: books[index])
+      bookshelfContainerViewController.performSegue(withIdentifier: "bookDetail", sender: Bookshelf.shared.books[index])
     } else if let selectedItems = collectionView.indexPathsForSelectedItems, selectedItems.count > 0 {
       deleteButton.isEnabled = true
     }
@@ -169,13 +170,15 @@ extension BookshelfCollectionViewController: UICollectionViewDelegate {
   }
   
   func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
-    (cell as! BookshelfCollectionViewCell).isInEditingMode = (indexPath.section * itemsPerPage) + indexPath.row < books.count && isEditing
+    if (indexPath.section * itemsPerPage) + indexPath.row < Bookshelf.shared.books.count {
+      (cell as! BookshelfCollectionViewCell).isInEditingMode = isEditing
+    }
   }
   
   func collectionView(_ collectionView: UICollectionView, contextMenuConfigurationForItemAt indexPath: IndexPath, point: CGPoint) -> UIContextMenuConfiguration? {
     let index = (indexPath.section * itemsPerPage) + indexPath.row
-    if index >= books.count { return nil }
-    let book = books[index].book
+    if index >= Bookshelf.shared.books.count { return nil }
+    let book = Bookshelf.shared.books[index].book
     let identifier = "\(index)" as NSString
     
     return UIContextMenuConfiguration(
@@ -200,6 +203,7 @@ extension BookshelfCollectionViewController: UICollectionViewDelegate {
     guard
       let identifier = configuration.identifier as? String,
       let index = Int(identifier),
+      index < Bookshelf.shared.books.count,
       let cell = collectionView.cellForItem(at: IndexPath(row: Int(index / itemsPerPage), section: Int(index % itemsPerPage))) as? BookshelfCollectionViewCell
       else {
         return nil
@@ -230,8 +234,8 @@ extension BookshelfCollectionViewController: UICollectionViewDelegateFlowLayout 
 extension BookshelfCollectionViewController: UICollectionViewDataSource {
   
   func numberOfSections(in collectionView: UICollectionView) -> Int {
-    var numOfSecs = Int(books.count / itemsPerPage)
-    if books.count % itemsPerPage > 0 {
+    var numOfSecs = Int(Bookshelf.shared.books.count / itemsPerPage)
+    if Bookshelf.shared.books.count % itemsPerPage > 0 {
       numOfSecs += 1
     }
     return numOfSecs
@@ -242,12 +246,12 @@ extension BookshelfCollectionViewController: UICollectionViewDataSource {
   }
   
   func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-    let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "BookshelfCell", for: indexPath) as! BookshelfCollectionViewCell
     let index = (indexPath.section * itemsPerPage) + indexPath.row
-    let imageSize = cell.contentView.frame.height * 0.5
-    
-    if index < books.count {
-      let book = books[index].book
+        
+    if index < Bookshelf.shared.books.count {
+      let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "BookshelfCell", for: indexPath) as! BookshelfCollectionViewCell
+      let imageSize = cell.contentView.frame.height * 0.5
+      let book = Bookshelf.shared.books[index].book
       
       if let imageLinks = book.volumeInfo.imageLinks, let thumbnail = imageLinks.thumbnail {
         cell.activityIndicator.startAnimating()
@@ -263,24 +267,24 @@ extension BookshelfCollectionViewController: UICollectionViewDataSource {
         }
       }
       
-      books[index].read = Bool.random()
-      books[index].borrowed = Bool.random()
-      books[index].rating = Int.random(in: 0 ... 5)
+      Bookshelf.shared.books[index].read = Bool.random()
+      Bookshelf.shared.books[index].borrowed = Bool.random()
+      Bookshelf.shared.books[index].rating = Int.random(in: 0 ... 5)
 
-      cell.readIcon.tintColor = books[index].read ? nil : .systemGray2
-      cell.borrowedIcon.isHighlighted = books[index].borrowed
-      cell.borrowedIcon.tintColor = books[index].borrowed ? nil : .systemGray2
-      cell.ratingValue.text = books[index].rating == 0 ? "-" : "\(books[index].rating)"
-      cell.ratingValue.textColor = books[index].rating == 0 ? .systemGray2 : .systemBlue
-      cell.ratingStar.isHighlighted = books[index].rating != 0
-      cell.ratingStar.tintColor = books[index].rating == 0 ? .systemGray2 : nil
+      cell.readIcon.tintColor = Bookshelf.shared.books[index].read ? nil : .systemGray2
+      cell.borrowedIcon.isHighlighted = Bookshelf.shared.books[index].borrowed
+      cell.borrowedIcon.tintColor = Bookshelf.shared.books[index].borrowed ? nil : .systemGray2
+      cell.ratingValue.text = Bookshelf.shared.books[index].rating == 0 ? "-" : "\(Bookshelf.shared.books[index].rating)"
+      cell.ratingValue.textColor = Bookshelf.shared.books[index].rating == 0 ? .systemGray2 : .systemBlue
+      cell.ratingStar.isHighlighted = Bookshelf.shared.books[index].rating != 0
+      cell.ratingStar.tintColor = Bookshelf.shared.books[index].rating == 0 ? .systemGray2 : nil
       cell.bookTitle.text = book.volumeInfo.title
       cell.isInEditingMode = isEditing
+      
+      return cell
     } else {
-      cell.isEmpty = true
+      return collectionView.dequeueReusableCell(withReuseIdentifier: "BookshelfCellEmpty", for: indexPath) as! BookshelfCollectionViewCellEmpty
     }
-    
-    return cell
   }
   
 }

@@ -10,6 +10,7 @@ import UIKit
 import os.log
 
 class Settings: NSObject, NSCoding {
+  static let shared = Settings(decodedUserInterfaceStyle: -1)
   
   // MARK: - Properties
   
@@ -46,9 +47,16 @@ class Settings: NSObject, NSCoding {
   
   override init() {
     self.userInterfaceStyle = -1
+    
+    self.rows = [
+      [
+        Row(cellLabel: "User Interface Style", cellType: "SettingsPickerTableViewCell", cellIdentifier: "SettingsPickerTableViewCell"),
+        Row(cellLabel: "Haptic Feedback", cellType: "SettingsToggleTableViewCell", cellIdentifier: "SettingsToggleTableViewCell")
+      ]
+    ]
   }
 
-  convenience init?(decodedUserInterfaceStyle: Int = -1) {
+  convenience init(decodedUserInterfaceStyle: Int = -1) {
     self.init()
 
     if decodedUserInterfaceStyle >= 0 {
@@ -64,19 +72,13 @@ class Settings: NSObject, NSCoding {
     }
     
     setAndArchiveSettings()
-
-    rows = [
-      [
-        Row(cellLabel: "User Interface Style", cellType: "SettingsPickerTableViewCell", cellIdentifier: "SettingsPickerTableViewCell"),
-        Row(cellLabel: "Haptic Feedback", cellType: "SettingsToggleTableViewCell", cellIdentifier: "SettingsToggleTableViewCell")
-      ]
-    ]
   }
   
   // MARK: - Methods
   
   private func setAndArchiveSettings() {
     SceneDelegate.shared?.window!.overrideUserInterfaceStyle = UIUserInterfaceStyle(rawValue: userInterfaceStyle)!
+    
     do {
       let data = try NSKeyedArchiver.archivedData(withRootObject: userInterfaceStyle, requiringSecureCoding: false)
       try data.write(to: Settings.ArchiveURL)

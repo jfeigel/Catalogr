@@ -11,10 +11,6 @@ import UIKit
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
   
   var window: UIWindow?
-  var settings: Settings!
-  var bookshelf: Bookshelf!
-  
-  private let imageLoader = ImageLoader()
   
   private(set) static var shared: SceneDelegate?
   
@@ -22,10 +18,10 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     // Use this method to optionally configure and attach the UIWindow `window` to the provided UIWindowScene `scene`.
     // If using a storyboard, the `window` property will automatically be initialized and attached to the scene.
     // This delegate does not imply the connecting scene or session are new (see `application:configurationForConnectingSceneSession` instead).
-    Self.shared = self
-    settings = Settings()
-    bookshelf = Bookshelf()
     guard let _ = (scene as? UIWindowScene) else { return }
+    Self.shared = self
+    
+    _ = Settings(decodedUserInterfaceStyle: -1)
   }
   
   func sceneDidDisconnect(_ scene: UIScene) {

@@ -35,6 +35,7 @@
 		17BB0244243F9919001D1013 /* UIViewExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17BB0243243F9919001D1013 /* UIViewExtension.swift */; };
 		17BB024924415C7C001D1013 /* WishlistViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17BB024824415C7C001D1013 /* WishlistViewController.swift */; };
 		17BD57E4245E7A3A00012FE5 /* CloudKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 17BD57E3245E7A3A00012FE5 /* CloudKit.framework */; };
+		17BDE043249490EA00635182 /* BookshelfCollectionViewCellEmpty.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17BDE042249490EA00635182 /* BookshelfCollectionViewCellEmpty.swift */; };
 		17C1BCAD24343A940019589C /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 17C1BCAC24343A940019589C /* Launch Screen.storyboard */; };
 		17C1BCAF243443450019589C /* AddBookViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17C1BCAE243443450019589C /* AddBookViewController.swift */; };
 		17C1BCB2243443D20019589C /* UIImageViewExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17C1BCB1243443D20019589C /* UIImageViewExtension.swift */; };
@@ -107,6 +108,7 @@
 		17BB024824415C7C001D1013 /* WishlistViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WishlistViewController.swift; sourceTree = "<group>"; };
 		17BD57E2245E79BE00012FE5 /* Catalogr.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Catalogr.entitlements; sourceTree = "<group>"; };
 		17BD57E3245E7A3A00012FE5 /* CloudKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CloudKit.framework; path = System/Library/Frameworks/CloudKit.framework; sourceTree = SDKROOT; };
+		17BDE042249490EA00635182 /* BookshelfCollectionViewCellEmpty.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookshelfCollectionViewCellEmpty.swift; sourceTree = "<group>"; };
 		17C1BCAC24343A940019589C /* Launch Screen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = "Launch Screen.storyboard"; sourceTree = "<group>"; };
 		17C1BCAE243443450019589C /* AddBookViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddBookViewController.swift; sourceTree = "<group>"; };
 		17C1BCB1243443D20019589C /* UIImageViewExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIImageViewExtension.swift; sourceTree = "<group>"; };
@@ -240,6 +242,7 @@
 			isa = PBXGroup;
 			children = (
 				176CEFF9244658490054E12C /* BookshelfCollectionViewCell.swift */,
+				17BDE042249490EA00635182 /* BookshelfCollectionViewCellEmpty.swift */,
 				17FF1768245A94BE0042C240 /* RoundFillButton.swift */,
 				174042732450D2CA0034287C /* SearchTableViewCell.swift */,
 				17B2EA9F243D74FE00EBDE97 /* SettingsToggleTableViewCell.swift */,
@@ -557,6 +560,7 @@
 				17B2EAA0243D74FE00EBDE97 /* SettingsToggleTableViewCell.swift in Sources */,
 				176AC5A6242C6C5F008DBCAA /* BookshelfContainerViewController.swift in Sources */,
 				17BB024924415C7C001D1013 /* WishlistViewController.swift in Sources */,
+				17BDE043249490EA00635182 /* BookshelfCollectionViewCellEmpty.swift in Sources */,
 				17D5B11A244A38D000614FF4 /* BookDetailViewController.swift in Sources */,
 				17BB0240243EEBF3001D1013 /* SearchViewController.swift in Sources */,
 				17D5B122244AB9FA00614FF4 /* CharacterExtension.swift in Sources */,

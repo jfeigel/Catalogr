@@ -10,15 +10,6 @@ import UIKit
 
 class BookshelfCollectionViewCell: UICollectionViewCell {
   
-  var isEmpty: Bool = false {
-    didSet {
-      if isEmpty {
-        self.isInEditingMode = false
-        self.contentView.isHidden = true
-      }
-    }
-  }
-  
   let propContainer: UIStackView = {
     let stackView = UIStackView()
     stackView.translatesAutoresizingMaskIntoConstraints = false

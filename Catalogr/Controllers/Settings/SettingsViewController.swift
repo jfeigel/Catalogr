@@ -11,17 +11,15 @@ import UIKit
 class SettingsViewController: UITableViewController {
 
   override func numberOfSections(in tableView: UITableView) -> Int {
-    return SceneDelegate.shared!.settings.rows.count
+    return Settings.shared.rows.count
   }
   
   override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-    return SceneDelegate.shared!.settings.rows[section].count
+    return Settings.shared.rows[section].count
   }
   
   override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-    guard let row = SceneDelegate.shared?.settings.rows[indexPath.section][indexPath.row] else {
-      fatalError("Settings row not found")
-    }
+    let row = Settings.shared.rows[indexPath.section][indexPath.row]
 
     switch row.cellType {
     case "SettingsPickerTableViewCell":
@@ -35,7 +33,7 @@ class SettingsViewController: UITableViewController {
         cell.segmentedControl.setTitle(style, forSegmentAt: i)
       }
       
-      cell.segmentedControl.selectedSegmentIndex = SceneDelegate.shared!.settings.userInterfaceStyle
+      cell.segmentedControl.selectedSegmentIndex = Settings.shared.userInterfaceStyle
       cell.segmentedControl.addTarget(self, action: #selector(segmentedControlChanged(_:)), for: .valueChanged)
       
       return cell
@@ -54,11 +52,11 @@ class SettingsViewController: UITableViewController {
   }
   
   @objc func segmentedControlChanged(_ sender: UISegmentedControl) {
-    SceneDelegate.shared!.settings.userInterfaceStyle = sender.selectedSegmentIndex
+    Settings.shared.userInterfaceStyle = sender.selectedSegmentIndex
   }
   
   @objc func switchValueChanged(_ sender: UISwitch) {
-    SceneDelegate.shared!.settings.performHapticFeedback = sender.isOn
+    Settings.shared.performHapticFeedback = sender.isOn
   }
   
 }

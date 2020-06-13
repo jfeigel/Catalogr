@@ -24,7 +24,7 @@ class TabBarController: UITabBarController {
     case "addBookUnwind":
       if let source = segue.source as? AddBookViewController, let bookData = source.book {
         let newBook = SavedBook(book: bookData)
-        SceneDelegate.shared!.bookshelf.addBook(newBook)
+        Bookshelf.shared.addBook(newBook)
       }
     case "scannerViewUnwind":
       if let source = segue.source as? ISBNScannerViewController {

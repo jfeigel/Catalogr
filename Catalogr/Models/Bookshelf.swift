@@ -11,6 +11,7 @@ import CloudKit
 import os.log
 
 class Bookshelf {
+  static let shared = Bookshelf()
 
   /// Archival Path for the Bookshelf
   static private let DocumentsDirectory = FileManager().urls(for: .documentDirectory, in: .userDomainMask).first!
