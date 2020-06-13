@@ -229,4 +229,16 @@ class BookshelfCollectionViewCell: UICollectionViewCell {
     layer.borderColor = UIColor(named: "background")?.cgColor
   }
   
+  func loadImage(image: String?, imageSize: CGFloat) {
+    if let image = image {
+      activityIndicator.startAnimating()
+      bookImage.load(url: URL(string: image)!) { _ in
+        self.activityIndicator.stopAnimating()
+        self.bookImage.image = self.bookImage.image!.resize(imageSize)
+      }
+    } else {
+      bookImage.image = UIImage(named: "no_cover_thumb")!.resize(imageSize)
+    }
+  }
+  
 }

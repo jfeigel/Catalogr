@@ -199,17 +199,27 @@ extension BookshelfCollectionViewController: UICollectionViewDelegate {
   }
   
   func collectionView(_ collectionView: UICollectionView, previewForHighlightingContextMenuWithConfiguration configuration: UIContextMenuConfiguration) -> UITargetedPreview? {
-    print(configuration.identifier)
+    return makeTargetedPreview(for: configuration)
+  }
+  
+  func collectionView(_ collectionView: UICollectionView, previewForDismissingContextMenuWithConfiguration configuration: UIContextMenuConfiguration) -> UITargetedPreview? {
+    return makeTargetedPreview(for: configuration)
+  }
+  
+  private func makeTargetedPreview(for configuration: UIContextMenuConfiguration) -> UITargetedPreview? {
     guard
       let identifier = configuration.identifier as? String,
       let index = Int(identifier),
       index < Bookshelf.shared.books.count,
-      let cell = collectionView.cellForItem(at: IndexPath(row: Int(index / itemsPerPage), section: Int(index % itemsPerPage))) as? BookshelfCollectionViewCell
+      let cell = collectionView.cellForItem(at: IndexPath(row: Int(index % itemsPerPage), section: Int(index / itemsPerPage))) as? BookshelfCollectionViewCell
       else {
         return nil
     }
     
-    return UITargetedPreview(view: cell.bookImage)
+    let parameters = UIPreviewParameters()
+    parameters.backgroundColor = .clear
+    
+    return UITargetedPreview(view: cell.bookImage, parameters: parameters)
   }
   
 }
@@ -253,19 +263,13 @@ extension BookshelfCollectionViewController: UICollectionViewDataSource {
       let imageSize = cell.contentView.frame.height * 0.5
       let book = Bookshelf.shared.books[index].book
       
-      if let imageLinks = book.volumeInfo.imageLinks, let thumbnail = imageLinks.thumbnail {
-        cell.activityIndicator.startAnimating()
-        cell.bookImage.load(url: URL(string: thumbnail)!) { _ in
-          cell.activityIndicator.stopAnimating()
-          cell.bookImage.image = cell.bookImage.image!.resize(imageSize)
-          cell.bookImage.isHidden = false
-        }
-      } else {
-        cell.bookImage.image = UIImage(named: "no_cover_thumb")!.resize(imageSize)
-        DispatchQueue.main.async {
-          cell.bookImage.isHidden = false
-        }
+      var thumbnail: String?
+      
+      if let imageLinks = book.volumeInfo.imageLinks {
+        thumbnail = imageLinks.thumbnail
       }
+      
+      cell.loadImage(image: thumbnail, imageSize: imageSize)
       
       Bookshelf.shared.books[index].read = Bool.random()
       Bookshelf.shared.books[index].borrowed = Bool.random()

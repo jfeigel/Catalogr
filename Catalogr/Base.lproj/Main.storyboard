@@ -37,7 +37,7 @@
                                         <color key="tintColor" systemColor="labelColor" cocoaTouchSystemColor="darkTextColor"/>
                                     </imageView>
                                 </subviews>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                <color key="backgroundColor" name="background"/>
                                 <constraints>
                                     <constraint firstItem="qHe-z4-Z9a" firstAttribute="centerX" secondItem="91m-c6-ckH" secondAttribute="centerX" id="3Ea-7q-eCu"/>
                                     <constraint firstAttribute="bottom" secondItem="CQM-er-Q31" secondAttribute="bottom" constant="25" id="3mh-XF-y8f"/>
@@ -47,8 +47,9 @@
                                     <constraint firstItem="jTF-9q-pCr" firstAttribute="centerX" secondItem="91m-c6-ckH" secondAttribute="centerX" id="kaD-6e-50e"/>
                                 </constraints>
                             </view>
-                            <containerView opaque="NO" contentMode="scaleAspectFit" translatesAutoresizingMaskIntoConstraints="NO" id="JYW-k5-i0E">
+                            <containerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="JYW-k5-i0E">
                                 <rect key="frame" x="0.0" y="140" width="414" height="653"/>
+                                <color key="backgroundColor" name="background"/>
                                 <connections>
                                     <segue destination="UvP-fs-rXB" kind="embed" identifier="bookshelf" id="Hve-jX-edc"/>
                                 </connections>
