@@ -231,10 +231,12 @@ class BookshelfCollectionViewCell: UICollectionViewCell {
   
   func loadImage(image: String?, imageSize: CGFloat) {
     if let image = image {
+      bookImage.isHidden = true
       activityIndicator.startAnimating()
       bookImage.load(url: URL(string: image)!) { _ in
         self.activityIndicator.stopAnimating()
         self.bookImage.image = self.bookImage.image!.resize(imageSize)
+        self.bookImage.isHidden = false
       }
     } else {
       bookImage.image = UIImage(named: "no_cover_thumb")!.resize(imageSize)

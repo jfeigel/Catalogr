@@ -40,6 +40,7 @@
 		17C1BCAF243443450019589C /* AddBookViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17C1BCAE243443450019589C /* AddBookViewController.swift */; };
 		17C1BCB2243443D20019589C /* UIImageViewExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17C1BCB1243443D20019589C /* UIImageViewExtension.swift */; };
 		17C1BCB62434472E0019589C /* Book.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17C1BCB52434472E0019589C /* Book.swift */; };
+		17C8008F24955D2700122909 /* RoundView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17C8008E24955D2700122909 /* RoundView.swift */; };
 		17D5B11A244A38D000614FF4 /* BookDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17D5B119244A38D000614FF4 /* BookDetailViewController.swift */; };
 		17D5B11C244AB93E00614FF4 /* ScannerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17D5B11B244AB93E00614FF4 /* ScannerViewController.swift */; };
 		17D5B11E244AB98700614FF4 /* ISBNScannerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17D5B11D244AB98700614FF4 /* ISBNScannerViewController.swift */; };
@@ -113,6 +114,7 @@
 		17C1BCAE243443450019589C /* AddBookViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddBookViewController.swift; sourceTree = "<group>"; };
 		17C1BCB1243443D20019589C /* UIImageViewExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIImageViewExtension.swift; sourceTree = "<group>"; };
 		17C1BCB52434472E0019589C /* Book.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Book.swift; sourceTree = "<group>"; };
+		17C8008E24955D2700122909 /* RoundView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundView.swift; sourceTree = "<group>"; };
 		17D5B119244A38D000614FF4 /* BookDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookDetailViewController.swift; sourceTree = "<group>"; };
 		17D5B11B244AB93E00614FF4 /* ScannerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScannerViewController.swift; sourceTree = "<group>"; };
 		17D5B11D244AB98700614FF4 /* ISBNScannerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ISBNScannerViewController.swift; sourceTree = "<group>"; };
@@ -244,6 +246,7 @@
 				176CEFF9244658490054E12C /* BookshelfCollectionViewCell.swift */,
 				17BDE042249490EA00635182 /* BookshelfCollectionViewCellEmpty.swift */,
 				17FF1768245A94BE0042C240 /* RoundFillButton.swift */,
+				17C8008E24955D2700122909 /* RoundView.swift */,
 				174042732450D2CA0034287C /* SearchTableViewCell.swift */,
 				17B2EA9F243D74FE00EBDE97 /* SettingsToggleTableViewCell.swift */,
 				17B2EAA1243D759D00EBDE97 /* SettingsPickerTableViewCell.swift */,
@@ -554,6 +557,7 @@
 				17FF175C24591CAD0042C240 /* Bookshelf.swift in Sources */,
 				17D5B126244ABA6A00614FF4 /* StringTracker.swift in Sources */,
 				17D5B11E244AB98700614FF4 /* ISBNScannerViewController.swift in Sources */,
+				17C8008F24955D2700122909 /* RoundView.swift in Sources */,
 				17D5B128244ABAAE00614FF4 /* PreviewView.swift in Sources */,
 				17C1BCB62434472E0019589C /* Book.swift in Sources */,
 				17B2EA9B243D6CF400EBDE97 /* SettingsViewController.swift in Sources */,

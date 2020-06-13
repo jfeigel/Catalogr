@@ -61,9 +61,7 @@ extension SearchViewController: UITableViewDataSource {
   func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
     let cell = tableView.dequeueReusableCell(withIdentifier: "SearchTableViewCell", for: indexPath) as! SearchTableViewCell
     
-    if results.count > 0 {
-      cell.book = results[indexPath.row]
-    }
+    cell.book = results[indexPath.row]
     
     return cell
   }

@@ -10,10 +10,23 @@ import UIKit
 
 class SearchTableViewCell: UITableViewCell {
   
+  @IBOutlet var container: UIView!
+  @IBOutlet var title: UILabel!
+  @IBOutlet var bookImage: UIImageView!
+  @IBOutlet var activityIndicator: UIActivityIndicatorView!
+  
   var book: Book! {
     didSet {
-      if let imageLinks = book.volumeInfo.imageLinks, let thumbnail = imageLinks.thumbnail {
-        bookImage.load(url: URL(string: thumbnail)!, completion: nil)
+      if
+        let imageLinks = book.volumeInfo.imageLinks,
+        let thumbnail = imageLinks.thumbnail
+      {
+        bookImage.isHidden = true
+        activityIndicator.startAnimating()
+        bookImage.load(url: URL(string: thumbnail)!) { _ in
+          self.activityIndicator.stopAnimating()
+          self.bookImage.isHidden = false
+        }
       } else {
         bookImage.image = UIImage(named: "no_cover_thumb")
       }
@@ -22,7 +35,9 @@ class SearchTableViewCell: UITableViewCell {
     }
   }
   
-  @IBOutlet var title: UILabel!
-  @IBOutlet var bookImage: UIImageView!
+  override func prepareForReuse() {
+    title.text = nil
+    bookImage.image = nil
+  }
   
 }
