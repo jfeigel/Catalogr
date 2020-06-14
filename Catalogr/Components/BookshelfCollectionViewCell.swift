@@ -96,8 +96,6 @@ class BookshelfCollectionViewCell: UICollectionViewCell {
     let view = UIView()
     view.translatesAutoresizingMaskIntoConstraints = false
     view.contentMode = .scaleToFill
-    view.backgroundColor = .white
-    view.alpha = 0.2
     return view
   }()
   
@@ -112,7 +110,7 @@ class BookshelfCollectionViewCell: UICollectionViewCell {
       image: UIImage(systemName: "circle")
     )
     imageView.translatesAutoresizingMaskIntoConstraints = false
-    imageView.tintColor = .systemGray3
+    imageView.tintColor = .white
     imageView.layer.cornerRadius = imageView.frame.size.width / 2
     return imageView
   }()
@@ -140,7 +138,7 @@ class BookshelfCollectionViewCell: UICollectionViewCell {
     didSet {
       isSelected = false
       
-      bookOverlay.isHidden = !isInEditingMode || !isSelected
+      bookOverlay.isHidden = !isInEditingMode
       bookCheckmarkBorder.isHidden = !isInEditingMode
       bookCheckmark.isHidden = !isInEditingMode || !isSelected
       bookCheckmarkBackground.isHidden = !isInEditingMode || !isSelected
@@ -150,8 +148,8 @@ class BookshelfCollectionViewCell: UICollectionViewCell {
   override var isSelected: Bool {
     didSet {
       if isInEditingMode {
-        bookOverlay.isHidden = !isSelected
-        bookCheckmarkBorder.tintColor = isSelected ? nil : .systemGray3
+        bookOverlay.backgroundColor = !isSelected ? .black : .white
+        bookOverlay.alpha = !isSelected ? 0.2 : 0.1
         bookCheckmark.isHidden = !isSelected
         bookCheckmarkBackground.isHidden = !isSelected
       }

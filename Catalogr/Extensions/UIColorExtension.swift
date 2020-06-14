@@ -39,4 +39,22 @@ extension UIColor {
     
     return nil
   }
+  
+  func lighten(amount: CGFloat) -> UIColor {
+    var h: CGFloat = 0.0, s: CGFloat = 0.0, b: CGFloat = 0.0, a: CGFloat = 0.0
+    guard getHue(&h, saturation: &s, brightness: &b, alpha: &a) else {
+      return self
+    }
+    
+    return UIColor(hue: h, saturation: s, brightness: min(b * (amount + 1.0), 1.0), alpha: a)
+  }
+  
+  func darken(amount: CGFloat) -> UIColor {
+    var h: CGFloat = 0.0, s: CGFloat = 0.0, b: CGFloat = 0.0, a: CGFloat = 0
+    guard getHue(&h, saturation: &s, brightness: &b, alpha: &a) else {
+      return self
+    }
+    
+    return UIColor(hue: h, saturation: s, brightness: b * amount, alpha: a)
+  }
 }

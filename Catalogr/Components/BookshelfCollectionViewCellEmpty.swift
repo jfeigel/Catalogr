@@ -10,11 +10,34 @@ import UIKit
 
 class BookshelfCollectionViewCellEmpty: UICollectionViewCell {
   
+  let overlay: UIView = {
+    let view = UIView()
+    view.translatesAutoresizingMaskIntoConstraints = false
+    view.contentMode = .scaleToFill
+    view.backgroundColor = .black
+    view.alpha = 0.2
+    view.isHidden = true
+    return view
+  }()
+  
+  var isInEditingMode: Bool = false {
+    didSet {
+      overlay.isHidden = !isInEditingMode
+    }
+  }
+  
   override init(frame: CGRect) {
     super.init(frame: .zero)
     
     layer.borderWidth = 1
     layer.borderColor = UIColor(named: "background")?.cgColor
+    
+    contentView.addSubview(overlay)
+    
+    overlay.topAnchor.constraint(equalTo: overlay.superview!.topAnchor).isActive = true
+    overlay.leadingAnchor.constraint(equalTo: overlay.superview!.leadingAnchor).isActive = true
+    overlay.trailingAnchor.constraint(equalTo: overlay.superview!.trailingAnchor).isActive = true
+    overlay.bottomAnchor.constraint(equalTo: overlay.superview!.bottomAnchor).isActive = true
   }
   
   required init?(coder: NSCoder) {

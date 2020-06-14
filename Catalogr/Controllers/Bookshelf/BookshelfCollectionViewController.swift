@@ -82,6 +82,8 @@ class BookshelfCollectionViewController: UIViewController {
     for indexPath in indexPaths {
       if (indexPath.section * itemsPerPage) + indexPath.row < Bookshelf.shared.books.count {
         (collectionView.cellForItem(at: indexPath) as! BookshelfCollectionViewCell).isInEditingMode = editing
+      } else {
+        (collectionView.cellForItem(at: indexPath) as! BookshelfCollectionViewCellEmpty).isInEditingMode = editing
       }
     }
   }
@@ -176,6 +178,7 @@ extension BookshelfCollectionViewController: UICollectionViewDelegate {
   }
   
   func collectionView(_ collectionView: UICollectionView, contextMenuConfigurationForItemAt indexPath: IndexPath, point: CGPoint) -> UIContextMenuConfiguration? {
+    guard !isEditing else { return nil }
     let index = (indexPath.section * itemsPerPage) + indexPath.row
     if index >= Bookshelf.shared.books.count { return nil }
     let book = Bookshelf.shared.books[index].book
