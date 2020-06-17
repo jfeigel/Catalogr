@@ -54,6 +54,9 @@
                                     <segue destination="UvP-fs-rXB" kind="embed" identifier="bookshelf" id="Hve-jX-edc"/>
                                 </connections>
                             </containerView>
+                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" animating="YES" style="large" translatesAutoresizingMaskIntoConstraints="NO" id="7WE-vb-5sv">
+                                <rect key="frame" x="188.5" y="458" width="37" height="37"/>
+                            </activityIndicatorView>
                         </subviews>
                         <color key="backgroundColor" name="background"/>
                         <gestureRecognizers/>
@@ -62,7 +65,9 @@
                             <constraint firstItem="91m-c6-ckH" firstAttribute="trailing" secondItem="PQr-Ze-W5v" secondAttribute="trailing" id="AfE-OK-t6O"/>
                             <constraint firstItem="JYW-k5-i0E" firstAttribute="top" secondItem="PQr-Ze-W5v" secondAttribute="top" id="FEE-a1-975"/>
                             <constraint firstItem="JYW-k5-i0E" firstAttribute="leading" secondItem="PQr-Ze-W5v" secondAttribute="leading" id="ISF-mf-U0u"/>
+                            <constraint firstItem="7WE-vb-5sv" firstAttribute="centerX" secondItem="PQr-Ze-W5v" secondAttribute="centerX" id="KS8-SB-NOt"/>
                             <constraint firstItem="91m-c6-ckH" firstAttribute="top" secondItem="PQr-Ze-W5v" secondAttribute="top" id="OAO-Cq-3Tu"/>
+                            <constraint firstItem="7WE-vb-5sv" firstAttribute="centerY" secondItem="PQr-Ze-W5v" secondAttribute="centerY" id="baL-p3-QCk"/>
                             <constraint firstItem="JYW-k5-i0E" firstAttribute="trailing" secondItem="PQr-Ze-W5v" secondAttribute="trailing" id="jhe-XM-OPZ"/>
                             <constraint firstItem="PQr-Ze-W5v" firstAttribute="bottom" secondItem="JYW-k5-i0E" secondAttribute="bottom" constant="20" id="naT-QB-Ni6"/>
                             <constraint firstItem="91m-c6-ckH" firstAttribute="bottom" secondItem="PQr-Ze-W5v" secondAttribute="bottom" id="uBT-tm-ioW"/>
@@ -71,8 +76,9 @@
                     </view>
                     <navigationItem key="navigationItem" title="Bookshelf" id="tI6-Z4-ubY"/>
                     <connections>
+                        <outlet property="activityIndicator" destination="7WE-vb-5sv" id="IGs-ac-l47"/>
                         <outlet property="downArrow" destination="CQM-er-Q31" id="rf4-el-qHM"/>
-                        <outlet property="emptyView" destination="91m-c6-ckH" id="okL-rF-3f0"/>
+                        <outlet property="emptyView" destination="7WE-vb-5sv" id="Pib-nC-il7"/>
                         <outlet property="nonEmptyView" destination="JYW-k5-i0E" id="VfJ-Nm-9tw"/>
                         <segue destination="3Jv-xV-Ypd" kind="popoverPresentation" identifier="addBookFromBookshelf" popoverAnchorView="tsR-hK-woN" id="qLd-iN-hQM">
                             <popoverArrowDirection key="popoverArrowDirection" up="YES" down="YES" left="YES" right="YES"/>
@@ -789,8 +795,8 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="ocI-wg-fEA"/>
-        <segue reference="wtQ-59-8vW"/>
+        <segue reference="qLd-iN-hQM"/>
+        <segue reference="1dQ-Sa-lp2"/>
     </inferredMetricsTieBreakers>
     <resources>
         <image name="arrow.down" catalog="system" width="120" height="128"/>

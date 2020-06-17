@@ -31,20 +31,6 @@ class Bookshelf {
     container = CKContainer.default()
     publicDB = container.publicCloudDatabase
     privateDB = container.privateCloudDatabase
-
-    let group = DispatchGroup()
-    group.enter()
-
-    loadBookshelf() { (bookshelf, err) in
-      guard err == nil else {
-        group.leave()
-        return
-      }
-      
-      self.books = bookshelf
-      group.leave()
-    }
-    group.wait()
   }
   
   func addBook(_ newBook: SavedBook) {
@@ -52,7 +38,7 @@ class Bookshelf {
     saveBookshelf(books)
   }
   
-  private func loadBookshelf(completion: @escaping ([SavedBook]?, String?) -> ()) {
+  func loadBookshelf(completion: @escaping (String?) -> ()) {
     var bookshelf: [SavedBook]
     let decoder = JSONDecoder()
     
@@ -77,7 +63,8 @@ class Bookshelf {
       }
 
       guard let results = results else {
-        return completion(bookshelf, nil)
+        self.books = bookshelf
+        return completion(nil)
       }
       
       let ckBookshelf = results.compactMap {
@@ -88,7 +75,7 @@ class Bookshelf {
     }
   }
   
-  private func mergeBookshelfs(local: [SavedBook], cloud: [CKSavedBook], completion: @escaping ([SavedBook]?, String?) -> ()) {
+  private func mergeBookshelfs(local: [SavedBook], cloud: [CKSavedBook], completion: @escaping (String?) -> ()) {
     var updatedLocal = local
     let cloudIDs: [String] = cloud.map { $0.bookID }
     let localIDs: [String] = local.map { $0.bookID }
@@ -96,7 +83,8 @@ class Bookshelf {
     let diff: [String] = cloudIDs.filter { localIDs.firstIndex(of: $0) == nil }
     
     if diff.count == 0 {
-      completion(local, nil)
+      books = local
+      completion(nil)
     } else {
       let group = DispatchGroup()
       
@@ -124,7 +112,8 @@ class Bookshelf {
       }
       
       group.wait()
-      completion(updatedLocal, error)
+      books = updatedLocal
+      completion(error)
     }
   }
   

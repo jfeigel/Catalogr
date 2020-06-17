@@ -12,6 +12,8 @@ import os.log
 
 class BookshelfContainerViewController: UIViewController {
   
+  var isBookshelfLoaded: Bool = false
+  
   var bookshelfCollectionViewController: BookshelfCollectionViewController!
   var scanBarcodeButton: UIBarButtonItem!
   
@@ -20,6 +22,7 @@ class BookshelfContainerViewController: UIViewController {
   var downArrowWidth: CGFloat!
   var downArrowHeight: CGFloat!
   
+  @IBOutlet var activityIndicator: UIActivityIndicatorView!
   @IBOutlet var emptyView: UIView!
   @IBOutlet var nonEmptyView: UIView!
   @IBOutlet var downArrow: UIImageView!
@@ -57,7 +60,20 @@ class BookshelfContainerViewController: UIViewController {
     downArrowWidth = downArrow.frame.size.width
     downArrowHeight = downArrow.frame.size.height
     
-    setVisibleViews()
+    Bookshelf.shared.loadBookshelf() { err in
+      self.isBookshelfLoaded = true
+      
+      guard err == nil else {
+        print("ERROR! \(err!)")
+        return
+      }
+      
+      DispatchQueue.main.async {
+        self.activityIndicator.stopAnimating()
+        self.performSegue(withIdentifier: "bookshelf", sender: nil)
+        self.setVisibleViews()
+      }
+    }
   }
   
   override func viewWillDisappear(_ animated: Bool) {
@@ -73,10 +89,12 @@ class BookshelfContainerViewController: UIViewController {
       navigationItem.rightBarButtonItem = bookshelfCollectionViewController.deleteButton
     } else {
       navigationItem.rightBarButtonItem = scanBarcodeButton
-      setVisibleViews()
+      if isBookshelfLoaded == true {
+        setVisibleViews()
+      }
     }
     
-    bookshelfCollectionViewController.setEditing(editing, animated: animated)
+    bookshelfCollectionViewController?.setEditing(editing, animated: animated)
   }
   
   override func shouldPerformSegue(withIdentifier identifier: String, sender: Any?) -> Bool {
@@ -112,14 +130,20 @@ class BookshelfContainerViewController: UIViewController {
     self.downArrow.layer.removeAllAnimations()
     
     if Bookshelf.shared.books.count == 0 {
-      emptyView.alpha = 1.0
+      emptyView.alpha = 0.0
       nonEmptyView.alpha = 0.0
       navigationItem.leftBarButtonItem = nil
-      animateDownArrow()
+      self.animateDownArrow()
+      UIView.animate(withDuration: 0.3) {
+        self.emptyView.alpha = 1.0
+      }
     } else {
       emptyView.alpha = 0.0
-      nonEmptyView.alpha = 1.0
+      nonEmptyView.alpha = 0.0
       navigationItem.leftBarButtonItem = editButtonItem
+      UIView.animate(withDuration: 0.3) {
+        self.nonEmptyView.alpha = 1.0
+      }
     }
   }
   
