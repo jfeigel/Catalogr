@@ -63,9 +63,15 @@ final class GAPI {
    */
   private static func constructURL(type: String, query: String, startIndex: Int = 0, showPreorders: Bool = false) -> URL? {
     urlComponents.queryItems = baseQueryItems
-    urlComponents.queryItems!.append(URLQueryItem(name: "q", value: "\(type):\(query)"))
-    urlComponents.queryItems!.append(URLQueryItem(name: "startIndex", value: String(startIndex)))
-    urlComponents.queryItems!.append(URLQueryItem(name: "showPreorders", value: String(showPreorders)))
+    
+    if type == "id" {
+      urlComponents.path = "\(urlComponents.path)/\(query)"
+    } else {
+      urlComponents.queryItems!.append(URLQueryItem(name: "q", value: "\(type):\(query)"))
+      urlComponents.queryItems!.append(URLQueryItem(name: "startIndex", value: String(startIndex)))
+      urlComponents.queryItems!.append(URLQueryItem(name: "showPreorders", value: String(showPreorders)))
+    }
+    
     return urlComponents.url
   }
   
@@ -115,22 +121,31 @@ final class GAPI {
         } catch {}
         
         do {
-          var books = try JSONDecoder().decode(BooksResponse.self, from: resData)
-          if books.totalItems > 0 {
-            for (index, book) in books.items!.enumerated() {
-              if let thumbnail = book.volumeInfo.imageLinks?.thumbnail {
-                books.items![index].volumeInfo.imageLinks!.thumbnail = thumbnail.replacingOccurrences(of: #"^http\:"#, with: "https:", options: .regularExpression)
-              }
+          if type == .id {
+            var book = try JSONDecoder().decode(Book.self, from: resData)
+            if let thumbnail = book.volumeInfo.imageLinks?.thumbnail {
+              book.volumeInfo.imageLinks!.thumbnail = thumbnail.replacingOccurrences(of: #"^http\:"#, with: "https:", options: .regularExpression)
             }
-            DispatchQueue.main.async {
-              completion(books.items!, nil)
-            }
+            
+            completion([book], nil)
           } else {
-            os_log("Error: No books found", type: .error)
-            DispatchQueue.main.async {
-              completion(nil, "Error: No books found")
+            var books = try JSONDecoder().decode(BooksResponse.self, from: resData)
+            if books.totalItems > 0 {
+              for (index, book) in books.items!.enumerated() {
+                if let thumbnail = book.volumeInfo.imageLinks?.thumbnail {
+                  books.items![index].volumeInfo.imageLinks!.thumbnail = thumbnail.replacingOccurrences(of: #"^http\:"#, with: "https:", options: .regularExpression)
+                }
+              }
+              DispatchQueue.main.async {
+                completion(books.items!, nil)
+              }
+            } else {
+              os_log("Error: No books found", type: .error)
+              DispatchQueue.main.async {
+                completion(nil, "Error: No books found")
+              }
+              return
             }
-            return
           }
         } catch DecodingError.keyNotFound(let codingKey, _) {
           os_log("Error: Cannot convert data to JSON", type: .error)
@@ -155,7 +170,8 @@ final class GAPI {
 
 /// Valid types by which to query the Google Books API
 enum QueryType: String {
-  case isbn = "isbn"
+  case id
+  case isbn
   case title = "intitle"
   case author = "inauthor"
 }

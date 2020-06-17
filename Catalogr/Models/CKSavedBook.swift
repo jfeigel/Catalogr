@@ -14,7 +14,7 @@ class CKSavedBook: CustomStringConvertible {
   private let recordID: CKRecord.ID
   
   let bookID: String
-  let rating: Double
+  let rating: Int
   let read: Bool
   let borrowed: Bool
   let wishlist: Bool
@@ -33,7 +33,7 @@ class CKSavedBook: CustomStringConvertible {
     recordID = record.recordID
     
     bookID = record["bookID"] as! String
-    rating = record["rating"] as! Double
+    rating = record["rating"] as! Int
     read = record["read"] as? Bool ?? false
     borrowed = record["borrowed"] as? Bool ?? false
     wishlist = record["wishlist"] as? Bool ?? false
