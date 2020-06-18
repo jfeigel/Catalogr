@@ -17,11 +17,6 @@ class BookshelfContainerViewController: UIViewController {
   var bookshelfCollectionViewController: BookshelfCollectionViewController!
   var scanBarcodeButton: UIBarButtonItem!
   
-  var downArrowX: CGFloat!
-  var downArrowY: CGFloat!
-  var downArrowWidth: CGFloat!
-  var downArrowHeight: CGFloat!
-  
   @IBOutlet var activityIndicator: UIActivityIndicatorView!
   @IBOutlet var emptyView: UIView!
   @IBOutlet var nonEmptyView: UIView!
@@ -54,11 +49,6 @@ class BookshelfContainerViewController: UIViewController {
     
     scanBarcodeButton = UIBarButtonItem(image: UIImage(systemName: "barcode.viewfinder"), style: .plain, target: self, action: #selector(handleScannerPresent(_:)))
     navigationItem.rightBarButtonItem = scanBarcodeButton
-    
-    downArrowX = downArrow.frame.origin.x
-    downArrowY = downArrow.frame.origin.y
-    downArrowWidth = downArrow.frame.size.width
-    downArrowHeight = downArrow.frame.size.height
     
     loadBookshelf(initial: true)
   }
@@ -161,8 +151,13 @@ class BookshelfContainerViewController: UIViewController {
   }
   
   private func animateDownArrow() {
+    let downArrowX: CGFloat = downArrow.frame.origin.x
+    let downArrowY: CGFloat = downArrow.frame.origin.y
+    let downArrowWidth: CGFloat = downArrow.frame.size.width
+    let downArrowHeight: CGFloat = downArrow.frame.size.height
+    
     downArrow.frame = CGRect(x: downArrowX, y: downArrowY, width: downArrowWidth, height: downArrowHeight)
-    UIView.animate(withDuration: 0.5, delay: 0.5, options: [.repeat, .autoreverse], animations: { self.downArrow.frame = CGRect(x: self.downArrowX, y: self.downArrowY + 10.0, width: self.downArrowWidth, height: self.downArrowHeight) }, completion: nil)
+    UIView.animate(withDuration: 0.5, delay: 0.5, options: [.repeat, .autoreverse], animations: { self.downArrow.frame = CGRect(x: downArrowX, y: downArrowY + 10.0, width: downArrowWidth, height: downArrowHeight) }, completion: nil)
   }
 
 }

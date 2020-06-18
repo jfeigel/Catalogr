@@ -69,7 +69,7 @@ class Bookshelf {
           fatalError(error.localizedDescription)
         }
 
-        guard let results = results else {
+        guard let results = results, results.count > 0 else {
           self.books = bookshelf
           return completion(nil)
         }
