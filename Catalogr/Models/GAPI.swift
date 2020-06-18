@@ -10,9 +10,11 @@ import Foundation
 import os.log
 
 /// Google Books API SDK
-final class GAPI {
+class GAPI {
+  static let shared = GAPI()
+  
   /// Collection of URLQueryItems for all requests
-  private static var baseQueryItems: [URLQueryItem] = {
+  private var baseQueryItems: [URLQueryItem] = {
     let path = Bundle.main.path(forResource: "Keys", ofType: "plist")!
     let keys = NSDictionary(contentsOfFile: path)!
     let googleAPIKey = keys["googleAPIKey"] as! String
@@ -25,7 +27,7 @@ final class GAPI {
   }()
   
   /// Base URL for all requests
-  private static var urlComponents: URLComponents = {
+  private var urlComponents: URLComponents = {
     var urlComponents = URLComponents()
     urlComponents.scheme = "https"
     urlComponents.host = "www.googleapis.com"
@@ -33,9 +35,9 @@ final class GAPI {
     return urlComponents
   }()
   
-  private static let defaultSession = URLSession(configuration: .default)
-  private static var dataTask: URLSessionDataTask?
-  
+  private let defaultSession = URLSession(configuration: .default)
+  private var dataTasks: [URL: URLSessionDataTask] = [:]
+
   /**
    Construct a URL for a request to the Google Books API
    
@@ -46,7 +48,7 @@ final class GAPI {
    
    - Returns: An optional constructed URL
    */
-  static func getURL(type: QueryType, query: String, startIndex: Int = 0) -> URL? {
+  func getURL(type: QueryType, query: String, startIndex: Int = 0) -> URL? {
     return constructURL(type: type.rawValue, query: query, startIndex: startIndex, showPreorders: type != .isbn)
   }
   
@@ -61,7 +63,7 @@ final class GAPI {
    
    - Returns: An optional constructed URL
    */
-  private static func constructURL(type: String, query: String, startIndex: Int = 0, showPreorders: Bool = false) -> URL? {
+  private func constructURL(type: String, query: String, startIndex: Int = 0, showPreorders: Bool = false) -> URL? {
     var tempUrlComponents = urlComponents
     tempUrlComponents.queryItems = baseQueryItems
     
@@ -84,15 +86,13 @@ final class GAPI {
       - type: The property by which to search
       - completion: Optional completion function
    */
-  static func getBooks(searchText: String, type: QueryType, completion: @escaping ([Book]?, String?) -> ()) {
-    dataTask?.cancel()
-
-    if let url = GAPI.getURL(type: type, query: searchText) {
+  func getBooks(searchText: String, type: QueryType, completion: @escaping ([Book]?, String?) -> ()) {
+    if let url = getURL(type: type, query: searchText) {
       var request = URLRequest(url: url)
       request.setValue(Bundle.main.bundleIdentifier!, forHTTPHeaderField: "X-Ios-Bundle-Identifier")
-      dataTask = defaultSession.dataTask(with: request) { data, res, err in
+      dataTasks[url] = defaultSession.dataTask(with: request) { [weak self] data, res, err in
         defer {
-          self.dataTask = nil
+          self?.dataTasks[url] = nil
         }
 
         guard err == nil else {
@@ -164,7 +164,7 @@ final class GAPI {
         }
       }
       
-      dataTask?.resume()
+      dataTasks[url]?.resume()
     }
   }
 }

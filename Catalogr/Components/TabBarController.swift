@@ -28,7 +28,7 @@ class TabBarController: UITabBarController {
       }
     case "scannerViewUnwind":
       if let source = segue.source as? ISBNScannerViewController {
-        GAPI.getBooks(searchText: source.foundNumber, type: .isbn) { (books, message)  in
+        GAPI.shared.getBooks(searchText: source.foundNumber, type: .isbn) { (books, message)  in
           if books != nil {
             self.performSegue(withIdentifier: "addBook", sender: books![0])
           }
@@ -112,7 +112,7 @@ extension TabBarController: BarcodeScannerCodeDelegate {
         self.performSegue(withIdentifier: "scanISBNGlobal", sender: nil)
       })
     } else {
-      GAPI.getBooks(searchText: code, type: .isbn) { (books, message) in
+      GAPI.shared.getBooks(searchText: code, type: .isbn) { (books, message) in
         if books == nil {
           controller.resetWithError(message: message)
         } else {

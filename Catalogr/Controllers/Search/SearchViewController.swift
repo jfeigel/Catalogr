@@ -174,7 +174,7 @@ extension SearchViewController: UISearchBarDelegate {
       activityIndicator.startAnimating()
       tableView.isUserInteractionEnabled = false
       tableView.alpha = 0.3
-      GAPI.getBooks(searchText: searchText, type: queryType) { (books, message) in
+      GAPI.shared.getBooks(searchText: searchText, type: queryType) { (books, message) in
         self.results = books ?? []
         self.messageLabel.text = message
         self.messageLabel.isHidden = message != nil

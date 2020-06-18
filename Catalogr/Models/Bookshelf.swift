@@ -137,7 +137,7 @@ class Bookshelf {
       for bookID in diff {
         guard error == nil else { break }
         group.enter()
-        GAPI.getBooks(searchText: bookID, type: .id) { (books, err) in
+        GAPI.shared.getBooks(searchText: bookID, type: .id) { (books, err) in
           guard err == nil else {
             error = err
             group.leave()

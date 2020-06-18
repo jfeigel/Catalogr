@@ -37,7 +37,7 @@ class BookshelfContainerViewController: UIViewController {
       }
     case "scannerViewUnwindToBookshelf":
       if let source = segue.source as? ISBNScannerViewController {
-        GAPI.getBooks(searchText: source.foundNumber, type: .isbn) { (books, message)  in
+        GAPI.shared.getBooks(searchText: source.foundNumber, type: .isbn) { (books, message)  in
           if books != nil {
             self.performSegue(withIdentifier: "addBook", sender: books![0])
           }
