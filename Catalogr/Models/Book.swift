@@ -17,6 +17,7 @@ struct SavedBook: Codable, Equatable {
   var borrowed: Bool = false
   var wishlist: Bool = false
   var modificationDate: Date?
+  var creationDate: Date?
   
   static func == (lhs: SavedBook, rhs: SavedBook) -> Bool {
     return
@@ -25,7 +26,8 @@ struct SavedBook: Codable, Equatable {
       lhs.read == rhs.read &&
       lhs.borrowed == rhs.borrowed &&
       lhs.wishlist == rhs.wishlist &&
-      lhs.modificationDate == rhs.modificationDate
+      lhs.modificationDate == rhs.modificationDate &&
+      lhs.creationDate == rhs.creationDate
   }
 }
 

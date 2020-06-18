@@ -29,6 +29,7 @@ class Bookshelf {
   
   var books: [SavedBook]! {
     didSet {
+      books.sort { ($0.creationDate ?? Date.distantPast) < ($1.creationDate ?? Date.distantPast) }
       saveBookshelf(books)
     }
   }
@@ -61,6 +62,7 @@ class Bookshelf {
     if FileManager.default.ubiquityIdentityToken != nil {
       let predicate = NSPredicate(value: true)
       let query = CKQuery(recordType: "SavedBook", predicate: predicate)
+      query.sortDescriptors = [NSSortDescriptor(key: "creationDate", ascending: true)]
 
       privateDB.perform(query, inZoneWith: CKRecordZone.default().zoneID) { results, error in
         if let error = error {
@@ -98,9 +100,14 @@ class Bookshelf {
         cloudBookRecord = cloudBook
         let localModDate = localBook.modificationDate ?? Date.distantPast
         let cloudModDate = cloudBook.modificationDate ?? Date.distantPast
+        
+        if localBook.creationDate == nil {
+          updatedLocal[i].creationDate = cloudBook.creationDate
+        }
 
         // If Cloud version of book record was modified later
         if localModDate < cloudModDate || cloudModDate == Date.distantPast {
+          updatedLocal[i].creationDate = cloudBook.creationDate
           updatedLocal[i].modificationDate = cloudBook.modificationDate
           updatedLocal[i].rating = cloudBook.rating
           updatedLocal[i].read = cloudBook.read
