@@ -11,8 +11,9 @@ import CloudKit
 
 class CKSavedBook: CustomStringConvertible {
   static let recordType = "SavedBook"
-  private let recordID: CKRecord.ID
+  let recordID: CKRecord.ID
   
+  let modificationDate: Date?
   let bookID: String
   let rating: Int
   let read: Bool
@@ -21,6 +22,7 @@ class CKSavedBook: CustomStringConvertible {
   
   var description: String {
     return "\n{\n"
+      + "\tmodificationDate: \(self.modificationDate ?? Date.distantPast),\n"
       + "\tbookID: \(self.bookID),\n"
       + "\trating: \(self.rating),\n"
       + "\tread: \(self.read),\n"
@@ -32,6 +34,7 @@ class CKSavedBook: CustomStringConvertible {
   init?(record: CKRecord) {
     recordID = record.recordID
     
+    modificationDate = record.modificationDate
     bookID = record["bookID"] as! String
     rating = record["rating"] as! Int
     read = record["read"] as? Bool ?? false

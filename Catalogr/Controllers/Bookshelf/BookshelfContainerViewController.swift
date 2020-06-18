@@ -60,20 +60,7 @@ class BookshelfContainerViewController: UIViewController {
     downArrowWidth = downArrow.frame.size.width
     downArrowHeight = downArrow.frame.size.height
     
-    Bookshelf.shared.loadBookshelf() { err in
-      self.isBookshelfLoaded = true
-      
-      guard err == nil else {
-        print("ERROR! \(err!)")
-        return
-      }
-      
-      DispatchQueue.main.async {
-        self.activityIndicator.stopAnimating()
-        self.performSegue(withIdentifier: "bookshelf", sender: nil)
-        self.setVisibleViews()
-      }
-    }
+    loadBookshelf(initial: true)
   }
   
   override func viewWillDisappear(_ animated: Bool) {
@@ -126,20 +113,46 @@ class BookshelfContainerViewController: UIViewController {
     present(TabBarController.barcodeScannerViewController, animated: true, completion: nil)
   }
   
-  private func setVisibleViews() {
+  func loadBookshelf(initial: Bool = false) {
+    Bookshelf.shared.loadBookshelf() { err in
+      guard err == nil else {
+        print("ERROR! \(err!)")
+        return
+      }
+      
+      DispatchQueue.main.async {
+        self.activityIndicator.stopAnimating()
+        if self.isBookshelfLoaded == false {
+          self.performSegue(withIdentifier: "bookshelf", sender: nil)
+        } else {
+          self.bookshelfCollectionViewController.collectionView.reloadData()
+          self.bookshelfCollectionViewController.setPageControl()
+        }
+        self.isBookshelfLoaded = true
+        self.setVisibleViews(initial: initial)
+      }
+    }
+  }
+  
+  private func setVisibleViews(initial: Bool = false) {
     self.downArrow.layer.removeAllAnimations()
-    
-    if Bookshelf.shared.books.count == 0 {
+
+    if initial == true {
       emptyView.alpha = 0.0
       nonEmptyView.alpha = 0.0
+    }
+
+    if Bookshelf.shared.books.count == 0 {
+      emptyView.isHidden = false
+      nonEmptyView.isHidden = true
       navigationItem.leftBarButtonItem = nil
       self.animateDownArrow()
       UIView.animate(withDuration: 0.3) {
         self.emptyView.alpha = 1.0
       }
     } else {
-      emptyView.alpha = 0.0
-      nonEmptyView.alpha = 0.0
+      emptyView.isHidden = true
+      nonEmptyView.isHidden = false
       navigationItem.leftBarButtonItem = editButtonItem
       UIView.animate(withDuration: 0.3) {
         self.nonEmptyView.alpha = 1.0

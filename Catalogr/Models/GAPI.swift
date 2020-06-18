@@ -62,17 +62,18 @@ final class GAPI {
    - Returns: An optional constructed URL
    */
   private static func constructURL(type: String, query: String, startIndex: Int = 0, showPreorders: Bool = false) -> URL? {
-    urlComponents.queryItems = baseQueryItems
+    var tempUrlComponents = urlComponents
+    tempUrlComponents.queryItems = baseQueryItems
     
     if type == "id" {
-      urlComponents.path = "\(urlComponents.path)/\(query)"
+      tempUrlComponents.path = "\(tempUrlComponents.path)/\(query)"
     } else {
-      urlComponents.queryItems!.append(URLQueryItem(name: "q", value: "\(type):\(query)"))
-      urlComponents.queryItems!.append(URLQueryItem(name: "startIndex", value: String(startIndex)))
-      urlComponents.queryItems!.append(URLQueryItem(name: "showPreorders", value: String(showPreorders)))
+      tempUrlComponents.queryItems!.append(URLQueryItem(name: "q", value: "\(type):\(query)"))
+      tempUrlComponents.queryItems!.append(URLQueryItem(name: "startIndex", value: String(startIndex)))
+      tempUrlComponents.queryItems!.append(URLQueryItem(name: "showPreorders", value: String(showPreorders)))
     }
     
-    return urlComponents.url
+    return tempUrlComponents.url
   }
   
   /**

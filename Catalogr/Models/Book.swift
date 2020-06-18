@@ -9,13 +9,24 @@
 import Foundation
 
 /// Individual book saved in the Bookshelf
-struct SavedBook: Codable {
+struct SavedBook: Codable, Equatable {
   var book: Book
   var bookID: String = ""
   var rating: Int = 0
   var read: Bool = false
   var borrowed: Bool = false
   var wishlist: Bool = false
+  var modificationDate: Date?
+  
+  static func == (lhs: SavedBook, rhs: SavedBook) -> Bool {
+    return
+      lhs.bookID == rhs.bookID &&
+      lhs.rating == rhs.rating &&
+      lhs.read == rhs.read &&
+      lhs.borrowed == rhs.borrowed &&
+      lhs.wishlist == rhs.wishlist &&
+      lhs.modificationDate == rhs.modificationDate
+  }
 }
 
 /// Response from the Google Books API

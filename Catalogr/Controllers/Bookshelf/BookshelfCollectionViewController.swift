@@ -37,11 +37,11 @@ class BookshelfCollectionViewController: UIViewController {
   }()
   
   let pageControl: UIPageControl = {
-    let pageControl = UIPageControl(frame: .zero)
-    pageControl.translatesAutoresizingMaskIntoConstraints = false
-    pageControl.pageIndicatorTintColor = .systemGray4
-    pageControl.currentPageIndicatorTintColor = .systemGray
-    return pageControl
+    let pc = UIPageControl(frame: .zero)
+    pc.translatesAutoresizingMaskIntoConstraints = false
+    pc.pageIndicatorTintColor = .systemGray4
+    pc.currentPageIndicatorTintColor = .systemGray
+    return pc
   }()
   
   override func viewDidLoad() {
@@ -49,8 +49,12 @@ class BookshelfCollectionViewController: UIViewController {
     
     setPageControl()
     
+    let refreshButton = UIButton.systemButton(with: UIImage(systemName: "arrow.clockwise")!, target: self, action: #selector(refreshBookshelf(_:)))
+    refreshButton.translatesAutoresizingMaskIntoConstraints = false
+    
     view.addSubview(collectionView)
     view.addSubview(pageControl)
+    view.addSubview(refreshButton)
     
     collectionView.delegate = self
     collectionView.dataSource = self
@@ -59,6 +63,9 @@ class BookshelfCollectionViewController: UIViewController {
     pageControl.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: 0).isActive = true
     pageControl.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -10).isActive = true
     
+    refreshButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -10).isActive = true
+    refreshButton.centerYAnchor.constraint(equalTo: pageControl.centerYAnchor, constant: 0).isActive = true
+
     collectionView.topAnchor.constraint(equalTo: view.topAnchor, constant: 0).isActive = true
     collectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 0).isActive = true
     collectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: 0).isActive = true
@@ -94,6 +101,11 @@ class BookshelfCollectionViewController: UIViewController {
       numberOfPages += 1
     }
     pageControl.numberOfPages = numberOfPages
+  }
+  
+  @objc func refreshBookshelf(_ sender: UIButton) {
+    bookshelfContainerViewController.activityIndicator.startAnimating()
+    bookshelfContainerViewController.loadBookshelf()
   }
   
   @objc func deleteConfirmation(_ sender: UIBarButtonItem) {
@@ -274,9 +286,9 @@ extension BookshelfCollectionViewController: UICollectionViewDataSource {
       
       cell.loadImage(image: thumbnail, imageSize: imageSize)
       
-      Bookshelf.shared.books[index].read = Bool.random()
-      Bookshelf.shared.books[index].borrowed = Bool.random()
-      Bookshelf.shared.books[index].rating = Int.random(in: 0 ... 5)
+//      Bookshelf.shared.books[index].read = Bool.random()
+//      Bookshelf.shared.books[index].borrowed = Bool.random()
+//      Bookshelf.shared.books[index].rating = Int.random(in: 0 ... 5)
 
       cell.readIcon.tintColor = Bookshelf.shared.books[index].read ? nil : .systemGray2
       cell.borrowedIcon.isHighlighted = Bookshelf.shared.books[index].borrowed

@@ -20,6 +20,12 @@ class Bookshelf {
   let container: CKContainer
   let publicDB: CKDatabase
   let privateDB: CKDatabase
+  lazy var operationQueue: OperationQueue = {
+    let queue = OperationQueue()
+    queue.name = "Cloud Update Queue"
+    queue.maxConcurrentOperationCount = 1
+    return queue
+  }()
   
   var books: [SavedBook]! {
     didSet {
@@ -35,7 +41,6 @@ class Bookshelf {
   
   func addBook(_ newBook: SavedBook) {
     books.append(newBook)
-    saveBookshelf(books)
   }
   
   func loadBookshelf(completion: @escaping (String?) -> ()) {
@@ -48,42 +53,81 @@ class Bookshelf {
       for i in bookshelf.indices {
         bookshelf[i].bookID = bookshelf[i].book.id
       }
-      saveBookshelf(bookshelf)
     } catch {
       bookshelf = [SavedBook]()
       os_log("Failed to load Bookshelf", log: OSLog.default, type: .error)
     }
 
-    let predicate = NSPredicate(value: true)
-    let query = CKQuery(recordType: "SavedBook", predicate: predicate)
+    if FileManager.default.ubiquityIdentityToken != nil {
+      let predicate = NSPredicate(value: true)
+      let query = CKQuery(recordType: "SavedBook", predicate: predicate)
 
-    privateDB.perform(query, inZoneWith: CKRecordZone.default().zoneID) { results, error in
-      if let error = error {
-        fatalError(error.localizedDescription)
-      }
+      privateDB.perform(query, inZoneWith: CKRecordZone.default().zoneID) { results, error in
+        if let error = error {
+          fatalError(error.localizedDescription)
+        }
 
-      guard let results = results else {
-        self.books = bookshelf
-        return completion(nil)
+        guard let results = results else {
+          self.books = bookshelf
+          return completion(nil)
+        }
+        
+        let ckBookshelf = results.compactMap {
+          return CKSavedBook(record: $0)
+        }
+        
+        self.mergeBookshelfs(local: bookshelf, cloud: ckBookshelf, completion: completion)
       }
-      
-      let ckBookshelf = results.compactMap {
-        return CKSavedBook(record: $0)
-      }
-      
-      self.mergeBookshelfs(local: bookshelf, cloud: ckBookshelf, completion: completion)
+    } else {
+      books = bookshelf
+      completion(nil)
     }
   }
   
   private func mergeBookshelfs(local: [SavedBook], cloud: [CKSavedBook], completion: @escaping (String?) -> ()) {
     var updatedLocal = local
+    var updatedCloud = [CKRecord]()
     let cloudIDs: [String] = cloud.map { $0.bookID }
-    let localIDs: [String] = local.map { $0.bookID }
+    let localIDs: [String] = updatedLocal.map { $0.bookID }
+    
+    for i in updatedLocal.indices {
+      var needsCloudUpdate = false
+      var cloudBookRecord: CKSavedBook?
+      let localBook = updatedLocal[i]
+      if let cloudBook: CKSavedBook = cloud.first(where: { $0.bookID == localBook.bookID }) {
+        cloudBookRecord = cloudBook
+        let localModDate = localBook.modificationDate ?? Date.distantPast
+        let cloudModDate = cloudBook.modificationDate ?? Date.distantPast
+
+        // If Cloud version of book record was modified later
+        if localModDate < cloudModDate || cloudModDate == Date.distantPast {
+          updatedLocal[i].modificationDate = cloudBook.modificationDate
+          updatedLocal[i].rating = cloudBook.rating
+          updatedLocal[i].read = cloudBook.read
+          updatedLocal[i].borrowed = cloudBook.borrowed
+          updatedLocal[i].wishlist = cloudBook.wishlist
+        } else if localModDate > cloudModDate {
+          needsCloudUpdate = true
+        }
+      } else {
+        needsCloudUpdate = true
+      }
+      
+      if needsCloudUpdate == true {
+        let updatedCloudBook = CKRecord(recordType: CKSavedBook.recordType, recordID: cloudBookRecord?.recordID ?? CKRecord.ID())
+        updatedCloudBook["bookID"] = localBook.bookID
+        updatedCloudBook["rating"] = localBook.rating
+        updatedCloudBook["read"] = localBook.read
+        updatedCloudBook["borrowed"] = localBook.borrowed
+        updatedCloudBook["wishlist"] = localBook.wishlist
+        updatedCloud.append(updatedCloudBook)
+      }
+    }
     
     let diff: [String] = cloudIDs.filter { localIDs.firstIndex(of: $0) == nil }
     
     if diff.count == 0 {
-      books = local
+      books = updatedLocal
       completion(nil)
     } else {
       let group = DispatchGroup()
@@ -114,6 +158,21 @@ class Bookshelf {
       group.wait()
       books = updatedLocal
       completion(error)
+    }
+    
+    if updatedCloud.count > 0 {
+      let saveOperation = CKModifyRecordsOperation(recordsToSave: updatedCloud)
+      saveOperation.database = privateDB
+      
+      operationQueue.addOperation(saveOperation)
+      
+      saveOperation.modifyRecordsCompletionBlock = { savedRecords, _, err in
+        if err != nil {
+          fatalError(err!.localizedDescription)
+        }
+        
+        print("Successfully saved \(savedRecords?.count ?? 0) record\((savedRecords?.count ?? 0) != 1 ? "s" : "")")
+      }
     }
   }
   
