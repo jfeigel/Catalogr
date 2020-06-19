@@ -27,7 +27,7 @@ class BookshelfContainerViewController: UIViewController {
     case "addBookUnwindToBookshelf":
       if let source = segue.source as? AddBookViewController, let bookData = source.book {
         let newBook = SavedBook(book: bookData)
-        Bookshelf.shared.books.append(newBook)
+        Bookshelf.shared.addBook(newBook)
         setVisibleViews()
       }
     case "scannerViewUnwindToBookshelf":

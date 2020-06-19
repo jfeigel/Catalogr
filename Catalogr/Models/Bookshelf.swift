@@ -27,12 +27,14 @@ class Bookshelf {
     return queue
   }()
   
-  var books: [SavedBook]! {
+  private (set) var books: [SavedBook]! {
     didSet {
       books.sort { ($0.creationDate ?? Date.distantPast) < ($1.creationDate ?? Date.distantPast) }
       saveBookshelf(books)
     }
   }
+  
+  private var ckBooks: [CKSavedBook] = [CKSavedBook]()
   
   private init() {
     container = CKContainer.default()
@@ -42,6 +44,31 @@ class Bookshelf {
   
   func addBook(_ newBook: SavedBook) {
     books.append(newBook)
+  }
+  
+  func removeBook(at: Int) {
+    let removedBook = books.remove(at: at)
+    
+    guard let removedRecordIndex = ckBooks.firstIndex(where: { $0.bookID == removedBook.bookID }) else {
+      os_log("%s", log: OSLog.default, type: .error, "Failed to find book with id \(removedBook.bookID) in ckBooks" as CVarArg)
+      return
+    }
+    
+    let removedRecord = ckBooks[removedRecordIndex]
+    
+    let deleteOperation = CKModifyRecordsOperation(recordIDsToDelete: [removedRecord.recordID])
+    deleteOperation.database = privateDB
+    
+    operationQueue.addOperation(deleteOperation)
+    
+    deleteOperation.modifyRecordsCompletionBlock = { _, deletedRecords, err in
+      if err != nil {
+        fatalError(err!.localizedDescription)
+      }
+      
+      self.ckBooks.remove(at: removedRecordIndex)
+      print("Successfully deleted \(deletedRecords?.count ?? 0) record\((deletedRecords?.count ?? 0) != 1 ? "s" : "")")
+    }
   }
   
   func loadBookshelf(completion: @escaping (String?) -> ()) {
@@ -74,11 +101,11 @@ class Bookshelf {
           return completion(nil)
         }
         
-        let ckBookshelf = results.compactMap {
+        self.ckBooks = results.compactMap {
           return CKSavedBook(record: $0)
         }
         
-        self.mergeBookshelfs(local: bookshelf, cloud: ckBookshelf, completion: completion)
+        self.mergeBookshelfs(local: bookshelf, cloud: self.ckBooks, completion: completion)
       }
     } else {
       books = bookshelf
@@ -96,23 +123,23 @@ class Bookshelf {
       var needsCloudUpdate = false
       var cloudBookRecord: CKSavedBook?
       let localBook = updatedLocal[i]
-      if let cloudBook: CKSavedBook = cloud.first(where: { $0.bookID == localBook.bookID }) {
-        cloudBookRecord = cloudBook
+      if let cloudBookIndex = cloud.firstIndex(where: { $0.bookID == localBook.bookID }) {
+        cloudBookRecord = cloud[cloudBookIndex]
         let localModDate = localBook.modificationDate ?? Date.distantPast
-        let cloudModDate = cloudBook.modificationDate ?? Date.distantPast
+        let cloudModDate = cloudBookRecord!.modificationDate ?? Date.distantPast
         
         if localBook.creationDate == nil {
-          updatedLocal[i].creationDate = cloudBook.creationDate
+          updatedLocal[i].creationDate = cloudBookRecord!.creationDate
         }
 
         // If Cloud version of book record was modified later
         if localModDate < cloudModDate || cloudModDate == Date.distantPast {
-          updatedLocal[i].creationDate = cloudBook.creationDate
-          updatedLocal[i].modificationDate = cloudBook.modificationDate
-          updatedLocal[i].rating = cloudBook.rating
-          updatedLocal[i].read = cloudBook.read
-          updatedLocal[i].borrowed = cloudBook.borrowed
-          updatedLocal[i].wishlist = cloudBook.wishlist
+          updatedLocal[i].creationDate = cloudBookRecord!.creationDate
+          updatedLocal[i].modificationDate = cloudBookRecord!.modificationDate
+          updatedLocal[i].rating = cloudBookRecord!.rating
+          updatedLocal[i].read = cloudBookRecord!.read
+          updatedLocal[i].borrowed = cloudBookRecord!.borrowed
+          updatedLocal[i].wishlist = cloudBookRecord!.wishlist
         } else if localModDate > cloudModDate {
           needsCloudUpdate = true
         }
@@ -128,6 +155,11 @@ class Bookshelf {
         updatedCloudBook["borrowed"] = localBook.borrowed
         updatedCloudBook["wishlist"] = localBook.wishlist
         updatedCloud.append(updatedCloudBook)
+        
+        if cloudBookRecord == nil {
+          let newCKSavedBook = CKSavedBook(record: updatedCloudBook)!
+          ckBooks.append(newCKSavedBook)
+        }
       }
     }
     

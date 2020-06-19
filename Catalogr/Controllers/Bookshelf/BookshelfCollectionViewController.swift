@@ -127,10 +127,10 @@ class BookshelfCollectionViewController: UIViewController {
       let items = selectedCells.map { ($0.section * itemsPerPage) + $0.row }.sorted().reversed()
         
       for item in items {
-        Bookshelf.shared.books.remove(at: item)
+        Bookshelf.shared.removeBook(at: item)
       }
     } else if let index = index {
-      Bookshelf.shared.books.remove(at: index)
+      Bookshelf.shared.removeBook(at: index)
     }
     
     setPageControl()
@@ -143,7 +143,7 @@ class BookshelfCollectionViewController: UIViewController {
     let index = Bookshelf.shared.books.count
     let section = Int(index / itemsPerPage)
     let row = Int(index % itemsPerPage)
-    Bookshelf.shared.books.append(book)
+    Bookshelf.shared.addBook(book)
     setPageControl()
     if index % itemsPerPage != 0 {
       collectionView.reloadItems(at: [IndexPath(row: row, section: section)])
