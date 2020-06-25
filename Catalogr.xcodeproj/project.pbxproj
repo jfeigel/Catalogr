@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		170B54E324520E8A00CEA9BD /* Pods_Catalogr.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 080B6845D1C4B35251BC594C /* Pods_Catalogr.framework */; };
+		06FE7D194BE27EEACB27ED43 /* libPods-Catalogr.a in Frameworks */ = {isa = PBXBuildFile; fileRef = EB8E38F823B0BF8754BB9B44 /* libPods-Catalogr.a */; };
 		17262BF22446513F008B2DF5 /* BookshelfCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17262BF12446513F008B2DF5 /* BookshelfCollectionViewController.swift */; };
 		172DB3F72447B02100B6425E /* Loopable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 172DB3F62447B02100B6425E /* Loopable.swift */; };
 		17404272245095B30034287C /* Constraints.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17404271245095B30034287C /* Constraints.swift */; };
@@ -48,6 +48,7 @@
 		17D5B124244ABA1D00614FF4 /* StringExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17D5B123244ABA1D00614FF4 /* StringExtension.swift */; };
 		17D5B126244ABA6A00614FF4 /* StringTracker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17D5B125244ABA6A00614FF4 /* StringTracker.swift */; };
 		17D5B128244ABAAE00614FF4 /* PreviewView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17D5B127244ABAAE00614FF4 /* PreviewView.swift */; };
+		17DE8138249D655E009DEB7A /* Toast.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17DE8137249D655E009DEB7A /* Toast.swift */; };
 		17E654DE24417C87007DEFF6 /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17E654DD24417C87007DEFF6 /* TabBarController.swift */; };
 		17FF175C24591CAD0042C240 /* Bookshelf.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17FF175B24591CAD0042C240 /* Bookshelf.swift */; };
 		17FF175E245A79870042C240 /* ImageCacheType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17FF175D245A79870042C240 /* ImageCacheType.swift */; };
@@ -74,7 +75,6 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		080B6845D1C4B35251BC594C /* Pods_Catalogr.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Catalogr.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		17262BF12446513F008B2DF5 /* BookshelfCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookshelfCollectionViewController.swift; sourceTree = "<group>"; };
 		172DB3F62447B02100B6425E /* Loopable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Loopable.swift; sourceTree = "<group>"; };
 		17404271245095B30034287C /* Constraints.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constraints.swift; sourceTree = "<group>"; };
@@ -122,6 +122,7 @@
 		17D5B123244ABA1D00614FF4 /* StringExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StringExtension.swift; sourceTree = "<group>"; };
 		17D5B125244ABA6A00614FF4 /* StringTracker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StringTracker.swift; sourceTree = "<group>"; };
 		17D5B127244ABAAE00614FF4 /* PreviewView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreviewView.swift; sourceTree = "<group>"; };
+		17DE8137249D655E009DEB7A /* Toast.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Toast.swift; path = Catalogr/Components/Toast.swift; sourceTree = SOURCE_ROOT; };
 		17E654DD24417C87007DEFF6 /* TabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
 		17FF175B24591CAD0042C240 /* Bookshelf.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Bookshelf.swift; sourceTree = "<group>"; };
 		17FF175D245A79870042C240 /* ImageCacheType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageCacheType.swift; sourceTree = "<group>"; };
@@ -130,6 +131,7 @@
 		17FF1768245A94BE0042C240 /* RoundFillButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundFillButton.swift; sourceTree = "<group>"; };
 		64541992B9E8F582B3DB0DCE /* Pods-Catalogr.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Catalogr.release.xcconfig"; path = "Target Support Files/Pods-Catalogr/Pods-Catalogr.release.xcconfig"; sourceTree = "<group>"; };
 		D123CEE891A683AD733A888A /* Pods-Catalogr.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Catalogr.debug.xcconfig"; path = "Target Support Files/Pods-Catalogr/Pods-Catalogr.debug.xcconfig"; sourceTree = "<group>"; };
+		EB8E38F823B0BF8754BB9B44 /* libPods-Catalogr.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Catalogr.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -137,8 +139,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				170B54E324520E8A00CEA9BD /* Pods_Catalogr.framework in Frameworks */,
 				17BD57E4245E7A3A00012FE5 /* CloudKit.framework in Frameworks */,
+				06FE7D194BE27EEACB27ED43 /* libPods-Catalogr.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -286,6 +288,7 @@
 			children = (
 				17C1BCB52434472E0019589C /* Book.swift */,
 				17FF175B24591CAD0042C240 /* Bookshelf.swift */,
+				17DE8137249D655E009DEB7A /* Toast.swift */,
 				179CFA422480A7D6008423AB /* CKSavedBook.swift */,
 				17404271245095B30034287C /* Constraints.swift */,
 				17BB0241243EEC4E001D1013 /* GAPI.swift */,
@@ -353,7 +356,7 @@
 			isa = PBXGroup;
 			children = (
 				17BD57E3245E7A3A00012FE5 /* CloudKit.framework */,
-				080B6845D1C4B35251BC594C /* Pods_Catalogr.framework */,
+				EB8E38F823B0BF8754BB9B44 /* libPods-Catalogr.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -378,7 +381,7 @@
 				176AC59A242C6C5F008DBCAA /* Sources */,
 				176AC59B242C6C5F008DBCAA /* Frameworks */,
 				176AC59C242C6C5F008DBCAA /* Resources */,
-				9EA9A36CB10EF6A9C05959F5 /* [CP] Embed Pods Frameworks */,
+				E66EF4B95AD4B18AA6B3A8AA /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -519,21 +522,21 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		9EA9A36CB10EF6A9C05959F5 /* [CP] Embed Pods Frameworks */ = {
+		E66EF4B95AD4B18AA6B3A8AA /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-Catalogr/Pods-Catalogr-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+				"${PODS_ROOT}/Target Support Files/Pods-Catalogr/Pods-Catalogr-resources-${CONFIGURATION}-input-files.xcfilelist",
 			);
-			name = "[CP] Embed Pods Frameworks";
+			name = "[CP] Copy Pods Resources";
 			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-Catalogr/Pods-Catalogr-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+				"${PODS_ROOT}/Target Support Files/Pods-Catalogr/Pods-Catalogr-resources-${CONFIGURATION}-output-files.xcfilelist",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Catalogr/Pods-Catalogr-frameworks.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Catalogr/Pods-Catalogr-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -560,6 +563,7 @@
 				17C8008F24955D2700122909 /* RoundView.swift in Sources */,
 				17D5B128244ABAAE00614FF4 /* PreviewView.swift in Sources */,
 				17C1BCB62434472E0019589C /* Book.swift in Sources */,
+				17DE8138249D655E009DEB7A /* Toast.swift in Sources */,
 				17B2EA9B243D6CF400EBDE97 /* SettingsViewController.swift in Sources */,
 				17B2EAA0243D74FE00EBDE97 /* SettingsToggleTableViewCell.swift in Sources */,
 				176AC5A6242C6C5F008DBCAA /* BookshelfContainerViewController.swift in Sources */,

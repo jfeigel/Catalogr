@@ -1,4 +1,4 @@
-framework module BarcodeScanner {
+module BarcodeScanner {
   umbrella header "BarcodeScanner-umbrella.h"
 
   export *

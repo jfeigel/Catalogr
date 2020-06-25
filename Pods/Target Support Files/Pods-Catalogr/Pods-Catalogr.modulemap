@@ -1,4 +1,4 @@
-framework module Pods_Catalogr {
+module Pods_Catalogr {
   umbrella header "Pods-Catalogr-umbrella.h"
 
   export *
