@@ -41,7 +41,6 @@ class ToolTip: UIView {
     self.inView = inView
     self.tipPosition = tipPos
     self.tipOffset = forItem.frame.size.width / 2
-    print(forItem.frame.size.width / 2)
     
     createLabel(text)
   }
