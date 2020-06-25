@@ -104,7 +104,7 @@ class BookshelfCollectionViewController: UIViewController {
   }
   
   @objc func refreshBookshelf(_ sender: UIButton) {
-    bookshelfContainerViewController.activityIndicator.startAnimating()
+    bookshelfContainerViewController.isLoading = true
     bookshelfContainerViewController.loadBookshelf()
   }
   

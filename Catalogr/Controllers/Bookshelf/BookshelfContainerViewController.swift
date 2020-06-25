@@ -13,11 +13,21 @@ import os.log
 class BookshelfContainerViewController: UIViewController {
   
   var isBookshelfLoaded: Bool = false
+  var isLoading: Bool = false {
+    didSet {
+      if isLoading == true {
+        activityIndicatorContainer.isHidden = false
+        UIView.animate(withDuration: 0.3, animations: { self.activityIndicatorContainer.alpha = 0.9 }, completion: nil)
+      } else {
+        UIView.animate(withDuration: 0.3, animations: { self.activityIndicatorContainer.alpha = 0.0 }, completion: { _ in self.activityIndicatorContainer.isHidden = true })
+      }
+    }
+  }
   
   var bookshelfCollectionViewController: BookshelfCollectionViewController!
   var scanBarcodeButton: UIBarButtonItem!
   
-  @IBOutlet var activityIndicator: UIActivityIndicatorView!
+  @IBOutlet var activityIndicatorContainer: UIView!
   @IBOutlet var emptyView: UIView!
   @IBOutlet var nonEmptyView: UIView!
   @IBOutlet var downArrow: UIImageView!
@@ -107,11 +117,12 @@ class BookshelfContainerViewController: UIViewController {
     Bookshelf.shared.loadBookshelf() { err in
       guard err == nil else {
         print("ERROR! \(err!)")
+        Toast.shared.show(err!, inView: self.nonEmptyView, backgroundColor: .red)
         return
       }
       
       DispatchQueue.main.async {
-        self.activityIndicator.stopAnimating()
+        self.isLoading = false
         if self.isBookshelfLoaded == false {
           self.performSegue(withIdentifier: "bookshelf", sender: nil)
         } else {
@@ -120,6 +131,7 @@ class BookshelfContainerViewController: UIViewController {
         }
         self.isBookshelfLoaded = true
         self.setVisibleViews(initial: initial)
+        Toast.shared.show("Refreshed bookshelf from iCloud", inView: self.nonEmptyView)
       }
     }
   }
