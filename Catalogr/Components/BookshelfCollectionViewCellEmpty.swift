@@ -16,15 +16,10 @@ class BookshelfCollectionViewCellEmpty: UICollectionViewCell {
     view.contentMode = .scaleToFill
     view.backgroundColor = .black
     view.alpha = 0.2
-    view.isHidden = true
     return view
   }()
   
-  var isInEditingMode: Bool = false {
-    didSet {
-      overlay.isHidden = !isInEditingMode
-    }
-  }
+  var isInEditingMode: Bool = false
   
   override init(frame: CGRect) {
     super.init(frame: .zero)

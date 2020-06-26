@@ -46,7 +46,7 @@ extension UIImageView {
         self.layer.shadowOffset = .zero
         self.layer.shadowPath = UIBezierPath(rect: self.bounds).cgPath
       case .oval:
-        let ovalRect = CGRect(x: -shadowSize, y: imageSize.height - (shadowSize * 0.4), width: imageSize.width + shadowSize * 2, height: shadowSize)
+        let ovalRect = CGRect(x: -shadowSize, y: imageSize.height - (shadowSize * 0.7), width: imageSize.width + shadowSize * 2, height: shadowSize)
         self.layer.shadowPath = UIBezierPath(ovalIn: ovalRect).cgPath
         self.layer.shadowRadius = 5
       case .ovalAlt:

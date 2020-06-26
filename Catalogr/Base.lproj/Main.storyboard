@@ -602,14 +602,14 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" alignment="center" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="ZiJ-BC-oVI">
-                                <rect key="frame" x="20" y="140" width="374" height="653"/>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="ZiJ-BC-oVI">
+                                <rect key="frame" x="20" y="140" width="374" height="643"/>
                                 <subviews>
-                                    <view contentMode="scaleAspectFill" translatesAutoresizingMaskIntoConstraints="NO" id="nVc-9w-hNT">
-                                        <rect key="frame" x="0.0" y="0.0" width="374" height="316.5"/>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="nVc-9w-hNT">
+                                        <rect key="frame" x="0.0" y="0.0" width="374" height="263"/>
                                         <subviews>
                                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="apx-72-fPN">
-                                                <rect key="frame" x="123" y="67" width="128" height="183"/>
+                                                <rect key="frame" x="123" y="40" width="128" height="183"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" constant="128" id="9gg-7K-qfQ"/>
                                                     <constraint firstAttribute="height" constant="183" id="cRB-WJ-cL3"/>
@@ -618,12 +618,13 @@
                                         </subviews>
                                         <color key="backgroundColor" red="0.56470588239999997" green="0.87450980389999999" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
                                         <constraints>
+                                            <constraint firstAttribute="height" constant="263" id="ZpL-ap-bkL"/>
                                             <constraint firstItem="apx-72-fPN" firstAttribute="centerX" secondItem="nVc-9w-hNT" secondAttribute="centerX" id="asU-ON-QgK"/>
                                             <constraint firstItem="apx-72-fPN" firstAttribute="centerY" secondItem="nVc-9w-hNT" secondAttribute="centerY" id="z5V-Mz-elZ"/>
                                         </constraints>
                                     </view>
                                     <stackView hidden="YES" opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="i7O-uY-4UY">
-                                        <rect key="frame" x="0.0" y="326.5" width="374" height="40"/>
+                                        <rect key="frame" x="0.0" y="273" width="374" height="40"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="center" text="Title" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wGI-5J-bc7">
                                                 <rect key="frame" x="169.5" y="0.0" width="35.5" height="0.0"/>
@@ -645,8 +646,8 @@
                                             </label>
                                         </subviews>
                                     </stackView>
-                                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsVerticalScrollIndicator="NO" editable="NO" textAlignment="natural" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Vbg-xi-ywe">
-                                        <rect key="frame" x="0.0" y="336.5" width="374" height="316.5"/>
+                                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" editable="NO" textAlignment="natural" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Vbg-xi-ywe">
+                                        <rect key="frame" x="0.0" y="283" width="374" height="360"/>
                                         <color key="backgroundColor" name="secondaryBackground"/>
                                         <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
                                         <color key="textColor" systemColor="labelColor" cocoaTouchSystemColor="darkTextColor"/>
@@ -654,21 +655,12 @@
                                         <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                     </textView>
                                 </subviews>
-                                <constraints>
-                                    <constraint firstAttribute="trailing" secondItem="Vbg-xi-ywe" secondAttribute="trailing" id="REX-SW-joh"/>
-                                    <constraint firstAttribute="trailing" secondItem="nVc-9w-hNT" secondAttribute="trailing" id="c7M-Rk-VEJ"/>
-                                    <constraint firstItem="nVc-9w-hNT" firstAttribute="leading" secondItem="ZiJ-BC-oVI" secondAttribute="leading" id="eFN-Pq-he2"/>
-                                    <constraint firstItem="nVc-9w-hNT" firstAttribute="top" secondItem="ZiJ-BC-oVI" secondAttribute="top" id="oK8-gb-FLu"/>
-                                    <constraint firstItem="i7O-uY-4UY" firstAttribute="leading" secondItem="ZiJ-BC-oVI" secondAttribute="leading" id="pse-BH-f6z"/>
-                                    <constraint firstAttribute="trailing" secondItem="i7O-uY-4UY" secondAttribute="trailing" id="quP-G4-fIs"/>
-                                    <constraint firstItem="Vbg-xi-ywe" firstAttribute="leading" secondItem="ZiJ-BC-oVI" secondAttribute="leading" id="xnL-rX-wYy"/>
-                                </constraints>
                             </stackView>
                         </subviews>
                         <color key="backgroundColor" name="background"/>
                         <constraints>
                             <constraint firstItem="ZiJ-BC-oVI" firstAttribute="top" secondItem="dv0-bI-WhS" secondAttribute="top" id="0de-jb-Sna"/>
-                            <constraint firstItem="ZiJ-BC-oVI" firstAttribute="bottom" secondItem="dv0-bI-WhS" secondAttribute="bottom" constant="-20" id="NlV-Uu-VBt"/>
+                            <constraint firstItem="ZiJ-BC-oVI" firstAttribute="bottom" secondItem="dv0-bI-WhS" secondAttribute="bottom" constant="-30" id="NlV-Uu-VBt"/>
                             <constraint firstItem="dv0-bI-WhS" firstAttribute="trailing" secondItem="ZiJ-BC-oVI" secondAttribute="trailing" constant="20" id="RiK-IB-wcc"/>
                             <constraint firstItem="ZiJ-BC-oVI" firstAttribute="leading" secondItem="dv0-bI-WhS" secondAttribute="leading" constant="20" id="YZy-4h-O3F"/>
                         </constraints>
@@ -812,8 +804,8 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="ocI-wg-fEA"/>
-        <segue reference="wtQ-59-8vW"/>
+        <segue reference="qLd-iN-hQM"/>
+        <segue reference="1dQ-Sa-lp2"/>
     </inferredMetricsTieBreakers>
     <resources>
         <image name="arrow.down" catalog="system" width="120" height="128"/>
