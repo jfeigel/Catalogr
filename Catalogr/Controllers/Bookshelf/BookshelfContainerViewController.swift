@@ -114,9 +114,10 @@ class BookshelfContainerViewController: UIViewController {
   }
   
   func loadBookshelf(initial: Bool = false) {
+    isLoading = true
+    
     Bookshelf.shared.loadBookshelf() { err in
       guard err == nil else {
-        print("ERROR! \(err!)")
         Toast.shared.show(err!, inView: self.nonEmptyView, backgroundColor: .red)
         return
       }
@@ -131,7 +132,7 @@ class BookshelfContainerViewController: UIViewController {
         }
         self.isBookshelfLoaded = true
         self.setVisibleViews(initial: initial)
-        Toast.shared.show("Refreshed bookshelf from iCloud", inView: self.nonEmptyView)
+        if initial == false { Toast.shared.show("Refreshed bookshelf from iCloud", inView: self.nonEmptyView) }
       }
     }
   }

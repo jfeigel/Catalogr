@@ -48,6 +48,7 @@ class Toast {
   init() {}
   
   func show(_ message: String, inView view: UIView?, canDismiss: Bool = true, backgroundColor: UIColor = UIColor(named: "tertiaryBackground")!, textColor: UIColor = .label) {
+    timer?.invalidate()
     
     guard let view = (view ?? SceneDelegate.shared?.window) else { return }
     
@@ -82,16 +83,18 @@ class Toast {
       self.toastView.frame.origin.y = self.viewOrigin
     }, completion: nil)
     
-    timer = Timer.scheduledTimer(withTimeInterval: 5.0, repeats: false, block: { timer in
+    timer = Timer.scheduledTimer(withTimeInterval: 5.0, repeats: false) { timer in
       UIView.animate(withDuration: 0.5, delay: 0.0, options: .curveEaseInOut, animations: {
         self.toastView.frame.origin.y = self.toastOrigin
       }, completion: { _ in
         self.toastView.removeFromSuperview()
       })
-    })
+    }
+    
+    RunLoop.current.add(timer!, forMode: .common)
   }
   
   @objc private func dismissToast(_ sender: UIButton) {
-    timer?.fire()
+    timer!.fire()
   }
 }

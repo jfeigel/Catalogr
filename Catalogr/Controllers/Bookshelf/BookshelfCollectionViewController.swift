@@ -16,6 +16,7 @@ class BookshelfCollectionViewController: UIViewController {
   
   weak var bookshelfContainerViewController: BookshelfContainerViewController!
   var deleteButton: UIBarButtonItem!
+  var refreshButton: UIButton!
   
   let collectionView: UICollectionView = {
     let layout = UICollectionViewFlowLayout()
@@ -49,7 +50,7 @@ class BookshelfCollectionViewController: UIViewController {
     
     setPageControl()
     
-    let refreshButton = UIButton.systemButton(with: UIImage(systemName: "arrow.clockwise")!, target: self, action: #selector(refreshBookshelf(_:)))
+    refreshButton = UIButton.systemButton(with: UIImage(systemName: "arrow.clockwise")!, target: self, action: #selector(refreshBookshelf(_:)))
     refreshButton.translatesAutoresizingMaskIntoConstraints = false
     
     view.addSubview(collectionView)
@@ -104,7 +105,6 @@ class BookshelfCollectionViewController: UIViewController {
   }
   
   @objc func refreshBookshelf(_ sender: UIButton) {
-    bookshelfContainerViewController.isLoading = true
     bookshelfContainerViewController.loadBookshelf()
   }
   
@@ -285,10 +285,6 @@ extension BookshelfCollectionViewController: UICollectionViewDataSource {
       }
       
       cell.loadImage(image: thumbnail, imageSize: imageSize)
-      
-//      Bookshelf.shared.books[index].read = Bool.random()
-//      Bookshelf.shared.books[index].borrowed = Bool.random()
-//      Bookshelf.shared.books[index].rating = Int.random(in: 0 ... 5)
 
       cell.readIcon.tintColor = Bookshelf.shared.books[index].read ? nil : .systemGray2
       cell.borrowedIcon.isHighlighted = Bookshelf.shared.books[index].borrowed
